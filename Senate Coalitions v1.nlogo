@@ -119,10 +119,9 @@ end
 
 ; TODO: use DW-NOM distances instead of patch distances
 to-report bill-utility [a-bill] ; senator reporter
-  ; TODO: distance to associated status quo
-  ; distance (ask a-bill [one-of [link-neighbors]])
-  ; using 1 as a placeholder in the meantime
-  let status-quo-dist 1
+  ; a senator's utility from a bill is the reduction in the senator's
+  ; distance to the bill (versus its associated status quo)
+  let status-quo-dist distance [squo-policy] of a-bill
   let bill-dist distance a-bill
   report status-quo-dist - bill-dist
 end
