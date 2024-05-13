@@ -68,10 +68,9 @@ to read-data-from-csv [filename]
   ask senators [
     ; random dwnom2 coordinate, respecting that total dwnom distance <= 1
     ; TODO: use dwnom2 from LES data
-    set dwnom2 (random-float (2 * dwnom2-range)) - dwnom2-range
+    set dwnom2 random-dwnom2
 
-    set xcor  dwnom1 * 20
-    set ycor  dwnom2 * 10
+    set-dwnom-location
 
     set color (
       ifelse-value
@@ -87,17 +86,27 @@ end
 to place-bill
   create-bills 1 [
     set dwnom1 (random-float 2) - 1
-    set dwnom2 (random-float (2 * dwnom2-range)) - dwnom2-range
-    set xcor  dwnom1 * 20
-    set ycor  dwnom2 * 10
+    set dwnom2 random-dwnom2
+    set-dwnom-location
     set color green + 1
   ]
 end
 
-; max absolute value of a senator's (or bill's) dwnom2 coordinate
+; set xcor/ycor using DW-NOMINATE coordinates
+to set-dwnom-location ; turtle procedure
+  set xcor dwnom1 * 20
+  set ycor dwnom2 * 10
+end
+
+; random dwnom2 coordinate within a turtle's possible dwnom2 range
+to-report random-dwnom2 ; turtle reporter
+  report (random-float (2 * dwnom2-range)) - dwnom2-range
+end
+
+; max absolute value of a turtle's dwnom2 coordinate
 ; so that total distance of their DW-NOMINATE coordinates is
 ; at most 1 unit from the origin
-to-report dwnom2-range ; turtle procedure (both senators and bills)
+to-report dwnom2-range ; turtle reporter
   report sqrt (1 - dwnom1 ^ 2)
 end
 
@@ -125,8 +134,8 @@ GRAPHICS-WINDOW
 20
 -10
 10
-0
-0
+1
+1
 1
 ticks
 30.0
@@ -138,6 +147,23 @@ BUTTON
 48
 NIL
 setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+15
+60
+102
+93
+NIL
+place-bill
 NIL
 1
 T
