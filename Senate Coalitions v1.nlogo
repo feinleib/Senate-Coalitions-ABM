@@ -6,10 +6,30 @@
 extensions [ csv ]
 
 breed [senators senator]
+breed [bills bill]
+
+senators-own [
+  lastname
+  firstname
+  dwnom1
+  dwnom2
+  party
+  pbca
+  pbco
+]
+
+bills-own [
+  dwnom1
+  dwnom2
+]
 
 to setup
   clear-all
-  file-close-all ; Close any files open from last run
+  file-close-all ; close any (CSV) files open from last run
+  set-default-shape senators "person"
+  set-default-shape bills "circle 2"
+  ; initialize senators
+  read-data-from-csv "data/senators_data_114.csv"
   reset-ticks
 end
 
@@ -17,18 +37,81 @@ to go
   tick
 end
 
+; read senators data from CSV
+; based on READ-TURTLES-FROM-CSV procedure in CSV Example model
+to read-data-from-csv [filename]
+  file-close-all ; close all open files
 
-; Credit: Some CSV code is from the "CSV Example" model in the NetLogo
-; Models Library, which has been dedicated to the public domain.
+  if not file-exists? filename [
+    user-message (word "No file '" filename "' exists!")
+    stop
+  ]
+
+  file-open filename ; open the file with senator data
+
+  ; read data from CSV
+  while [ not file-at-end? ] [
+    ; the CSV extension grabs a single line and puts the read data in a list
+    let data csv:from-row file-read-line
+    ; use that list to create a senator
+    create-senators 1 [
+      set lastname  item 0 data ; last
+      set firstname item 1 data ; first
+      set dwnom1    item 4 data ; dwnom1
+      set party     item 9 data ; party
+      set pbca      item 22 data ; mean_pct_cospon_opp_spon_SN
+      set pbco      item 24 data ; perc_co_bipart
+    ]
+  ]
+
+  ; set senator location (by DW-NOMINATE) and color (by party)
+  ask senators [
+    ; random dwnom2 coordinate, respecting that total dwnom distance <= 1
+    ; TODO: use dwnom2 from LES data
+    set dwnom2 (random-float (2 * dwnom2-range)) - dwnom2-range
+
+    set xcor  dwnom1 * 20
+    set ycor  dwnom2 * 10
+
+    set color (
+      ifelse-value
+      party = 100 [blue]   ; Dem
+      party = 328 [yellow] ; Ind
+      party = 200 [red]    ; GOP
+    )
+  ]
+
+  file-close ; make sure to close the CSV file
+end
+
+to place-bill
+  create-bills 1 [
+    set dwnom1 (random-float 2) - 1
+    set dwnom2 (random-float (2 * dwnom2-range)) - dwnom2-range
+    set xcor  dwnom1 * 20
+    set ycor  dwnom2 * 10
+    set color green + 1
+  ]
+end
+
+; max absolute value of a senator's (or bill's) dwnom2 coordinate
+; so that total distance of their DW-NOMINATE coordinates is
+; at most 1 unit from the origin
+to-report dwnom2-range ; turtle procedure (both senators and bills)
+  report sqrt (1 - dwnom1 ^ 2)
+end
+
+; Credit: Some CSV code comes from the "CSV Example" model in the NetLogo
+; Models Library. That model has been dedicated to the public domain.
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
 10
-647
-448
+628
+229
 -1
 -1
-13.0
+10.0
 1
 10
 1
@@ -38,10 +121,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--16
-16
--16
-16
+-20
+20
+-10
+10
 0
 0
 1
