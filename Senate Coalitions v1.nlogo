@@ -23,6 +23,7 @@ bills-own [
   dwnom1
   dwnom2
   sponsor
+  squo-policy
 ]
 
 status-quos-own [
@@ -106,7 +107,8 @@ to place-bill
     set color green + 1
     get-sponsor
     ; TODO: how to pair bills and status quos one-to-one?
-    create-link-with one-of status-quos
+    set squo-policy one-of status-quos
+    create-link-with squo-policy
   ]
 end
 
