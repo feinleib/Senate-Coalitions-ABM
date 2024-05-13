@@ -7,6 +7,7 @@ extensions [ csv ]
 
 breed [senators senator]
 breed [bills bill]
+breed [status-quos status-quo]
 
 senators-own [
   lastname
@@ -21,13 +22,21 @@ senators-own [
 bills-own [
   dwnom1
   dwnom2
+  sponsor
+]
+
+status-quos-own [
+  dwnom1
+  dwnom2
 ]
 
 to setup
   clear-all
   file-close-all ; close any (CSV) files open from last run
+  ; turtle shapes
   set-default-shape senators "person"
   set-default-shape bills "circle 2"
+  set-default-shape status-quos "square 2"
   ; initialize senators
   read-data-from-csv "data/senators_data_114.csv"
   reset-ticks
@@ -84,12 +93,36 @@ to read-data-from-csv [filename]
 end
 
 to place-bill
-  create-bills 1 [
+  create-status-quos 1 [
     set dwnom1 (random-float 2) - 1
     set dwnom2 random-dwnom2
     set-dwnom-location
     set color green + 1
   ]
+  create-bills 1 [
+    set dwnom1 (random-float 2) - 1
+    set dwnom2 random-dwnom2
+    set-dwnom-location
+    set color green + 1
+    get-sponsor
+    ; TODO: how to pair bills and status quos one-to-one?
+    create-link-with one-of status-quos
+  ]
+end
+
+to get-sponsor ; bill procedure
+  set sponsor min-one-of senators [distance myself]
+  create-link-with sponsor
+end
+
+; TODO: use DW-NOM distances instead of patch distances
+to-report bill-utility [a-bill] ; senator reporter
+  ; TODO: distance to associated status quo
+  ; distance (ask a-bill [one-of [link-neighbors]])
+  ; using 1 as a placeholder in the meantime
+  let status-quo-dist 1
+  let bill-dist distance a-bill
+  report status-quo-dist - bill-dist
 end
 
 ; set xcor/ycor using DW-NOMINATE coordinates
@@ -110,25 +143,26 @@ to-report dwnom2-range ; turtle reporter
   report sqrt (1 - dwnom1 ^ 2)
 end
 
+
 ; Credit: Some CSV code comes from the "CSV Example" model in the NetLogo
 ; Models Library. That model has been dedicated to the public domain.
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
 10
-628
-229
+669
+250
 -1
 -1
-10.0
+11.0
 1
 10
 1
 1
 1
 0
-1
-1
+0
+0
 1
 -20
 20
