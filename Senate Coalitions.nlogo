@@ -17,6 +17,7 @@ senators-own [
   party
   pbca
   pbco
+  avg-cosponsors
 ]
 
 bills-own [
@@ -39,7 +40,7 @@ to setup
   set-default-shape bills "circle 2"
   set-default-shape status-quos "square 2"
   ; initialize senators
-  read-data-from-csv "data/senators_data_114.csv"
+  setup-senators "data/senators_data_114.csv"
   reset-ticks
 end
 
@@ -47,10 +48,26 @@ to go
   tick
 end
 
+to setup-senators [filename]
+  read-senator-data filename
+
+  ; set senator location (by DW-NOMINATE) and color (by party)
+  ask senators [
+    set-dwnom-location
+
+    set color (
+      ifelse-value
+      party = 100 [blue]   ; Dem
+      party = 328 [yellow] ; Ind
+      party = 200 [red]    ; GOP
+    )
+  ]
+end
+
 ; read senators data from CSV
 ; based on READ-TURTLES-FROM-CSV procedure in CSV Example model
-to read-data-from-csv [filename]
-  file-close-all ; close all open files
+to read-senator-data [filename]
+  file-close-all ; close any open files
 
   if not file-exists? filename [
     user-message (word "No file '" filename "' exists!")
@@ -61,36 +78,22 @@ to read-data-from-csv [filename]
 
   ; read data from CSV
   while [ not file-at-end? ] [
-    ; the CSV extension grabs a single line and puts the read data in a list
+    ; read a CSV line into a list
     let data csv:from-row file-read-line
     ; use that list to create a senator
     create-senators 1 [
-      set lastname  item 0 data ; last
-      set firstname item 1 data ; first
-      set dwnom1    item 4 data ; dwnom1
-      set party     item 9 data ; party
-      set pbca      item 22 data ; mean_pct_cospon_opp_spon_SN
-      set pbco      item 24 data ; perc_co_bipart
+      set lastname       item 0 data ; last
+      set firstname      item 1 data ; first
+      set dwnom1         item 4 data ; dwnom1
+      set dwnom2         item 5 data ; dwnom2
+      set party          item 10 data ; party
+      set avg-cosponsors item 22 data ; mean_cospon_spon_SN_nc
+      set pbca           item 24 data ; mean_pct_cospon_opp_spon_SN_nc
+      set pbco           item 26 data ; perc_co_bipart_nc
     ]
   ]
 
-  ; set senator location (by DW-NOMINATE) and color (by party)
-  ask senators [
-    ; random dwnom2 coordinate, respecting that total dwnom distance <= 1
-    ; TODO: use dwnom2 from LES data
-    set dwnom2 random-dwnom2
-
-    set-dwnom-location
-
-    set color (
-      ifelse-value
-      party = 100 [blue]   ; Dem
-      party = 328 [yellow] ; Ind
-      party = 200 [red]    ; GOP
-    )
-  ]
-
-  file-close ; make sure to close the CSV file
+  file-close ; close the CSV file
 end
 
 to place-bill
