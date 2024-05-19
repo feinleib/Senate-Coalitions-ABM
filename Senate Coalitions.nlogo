@@ -120,13 +120,20 @@ to get-sponsor ; bill procedure
   create-link-with sponsor
 end
 
-; TODO: use DW-NOM distances instead of patch distances
+; a senator's utility from a bill is the reduction in the senator's
+; distance to the bill (versus its associated status quo)
 to-report bill-utility [a-bill] ; senator reporter
-  ; a senator's utility from a bill is the reduction in the senator's
-  ; distance to the bill (versus its associated status quo)
-  let status-quo-dist distance [squo-policy] of a-bill
-  let bill-dist distance a-bill
+  let status-quo-dist dwnom-distance [squo-policy] of a-bill
+  let bill-dist dwnom-distance a-bill
   report status-quo-dist - bill-dist
+end
+
+; distance from agent to another agent in DW-NOMINATE units
+to-report dwnom-distance [other-agent] ; agent reporter
+  ; sign of components doesn't matter because they're getting squared
+  let dwnom1-distance ([dwnom1] of self) - ([dwnom1] of other-agent)
+  let dwnom2-distance ([dwnom2] of self) - ([dwnom2] of other-agent)
+  report sqrt (dwnom1-distance ^ 2 + dwnom2-distance ^ 2)
 end
 
 ; set xcor/ycor using DW-NOMINATE coordinates
