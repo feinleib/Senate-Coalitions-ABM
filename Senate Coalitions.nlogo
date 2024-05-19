@@ -1,7 +1,7 @@
 ; Senate Coalitions
 ; Max Feinleib
 ; CS 372, Northwestern University
-; Final Project v1 (May 12)
+; Final Project v2 (May 19)
 
 extensions [ csv ]
 
