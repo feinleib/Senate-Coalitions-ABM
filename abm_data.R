@@ -14,20 +14,29 @@ library(readr)
 library(filibustr)
 
 ###############
-# data import #
+# import data #
 ###############
 
 # Senate data from HVW et al.
-s_abm_data <- get_hvw_data(chamber = "s")
+s_bipart_data <- get_hvw_data(chamber = "s")
+# Senate LES data
+s_les <- get_les("s")
 
-s_data_114 <- s_abm_data |>
+###############
+# filter data #
+###############
+s_dwnom_data <- s_les |>
+  select(icpsr, congress, dwnom1_career = dwnom1, dwnom2)
+
+s_data_114 <- s_bipart_data |>
   # 114th is most recent Congress in HVW data
   filter(congress == 114) |>
+  inner_join(s_dwnom_data, by = c("icpsr", "congress")) |>
   # relevant columns
   select(
     ## member info
     last, first, state, icpsr,
-    dwnom1, meddist, majparty_dist, votepct, up_for_reelection,
+    dwnom1, dwnom2, meddist, majparty_dist, votepct, up_for_reelection,
     party, dem, majority,
     seniority, maj_leader, min_leader, chair, subchr, power,
     ## bipartisanship/effectiveness measures
@@ -50,3 +59,8 @@ s_data_114 <- s_abm_data |>
 # writing data to CSVs #
 ########################
 write_csv(s_data_114, "data/senators_data_114.csv", col_names = FALSE)
+
+# zero-indexed column numbers for NetLogo code
+matrix(colnames(s_data_114),
+       ncol = 1,
+       dimnames = list(1:length(s_data_114) - 1, "column"))
