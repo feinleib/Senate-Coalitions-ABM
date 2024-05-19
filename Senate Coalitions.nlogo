@@ -129,10 +129,14 @@ to-report bill-utility [a-bill] ; senator reporter
 end
 
 ; distance from agent to another agent in DW-NOMINATE units
+; weighted by DWNOM1-EMPHASIS
 to-report dwnom-distance [other-agent] ; agent reporter
   ; sign of components doesn't matter because they're getting squared
-  let dwnom1-distance ([dwnom1] of self) - ([dwnom1] of other-agent)
-  let dwnom2-distance ([dwnom2] of self) - ([dwnom2] of other-agent)
+  let dwnom1-distance
+  ([dwnom1] of self) - ([dwnom1] of other-agent) * (dwnom1-emphasis / 50)
+  let dwnom2-distance
+  ([dwnom2] of self) - ([dwnom2] of other-agent) * ((100 - dwnom1-emphasis) / 50)
+
   report sqrt (dwnom1-distance ^ 2 + dwnom2-distance ^ 2)
 end
 
@@ -218,6 +222,21 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+15
+110
+197
+143
+dwnom1-emphasis
+dwnom1-emphasis
+0
+100
+80.0
+5
+1
+%
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
