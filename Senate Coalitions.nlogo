@@ -119,6 +119,13 @@ to place-bill
   ]
 end
 
+; clear bills, status quos, and (co)sponsorship links
+to clear-bills
+  ask bills [die]
+  ask status-quos [die]
+  clear-links
+end
+
 to get-sponsor ; bill procedure
   ; TODO: could also be the senator with maximum utility
   set sponsor min-one-of senators [distance myself]
@@ -274,19 +281,36 @@ NIL
 1
 
 SLIDER
-15
-110
-197
-143
+210
+255
+392
+288
 dwnom1-emphasis
 dwnom1-emphasis
 0
 100
-80.0
+45.0
 5
 1
 %
 HORIZONTAL
+
+BUTTON
+110
+60
+202
+93
+NIL
+clear-bills
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
