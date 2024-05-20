@@ -25,6 +25,7 @@ bills-own [
   dwnom1
   dwnom2
   sponsor
+  cosponsors
   squo-policy
 ]
 
@@ -114,12 +115,54 @@ to place-bill
     set squo-policy one-of status-quos
     create-link-with squo-policy
     get-sponsor
+    attract-cosponsors
   ]
 end
 
 to get-sponsor ; bill procedure
+  ; TODO: could also be the senator with maximum utility
   set sponsor min-one-of senators [distance myself]
   create-link-with sponsor
+end
+
+to attract-cosponsors ; bill procedure
+  ; number of cosponsors from Poisson distribution using sponsor's avg-cosponsors
+  let n-cosponsors random-poisson [avg-cosponsors] of sponsor
+  ; ask other senators to cosponsor bill
+  ; order asks by senators' bill utility, PBCA/PBCO, home state
+  let potential-cosponsor-list (
+    reverse sort-on [cosponsor-likelihood myself]
+    senators with [cosponsor-likelihood myself > 0] who-are-not sponsor
+  )
+  set cosponsors turtle-set first-n-from-list n-cosponsors potential-cosponsor-list
+  ; create links from sponsor to cosponsors
+  ask sponsor [
+    create-links-with [cosponsors] of myself
+  ]
+end
+
+; likelihood of a senator to cosponsor a bill
+; NOTE: not a calibrated probability, just used for ordering potential cosponsors
+to-report cosponsor-likelihood [a-bill] ; senator procedure
+  let sponsor-pbca [[pbca] of sponsor] of a-bill
+  let sponsor-state [[home-state] of sponsor] of a-bill
+  let sponsor-party [[party] of sponsor] of a-bill
+
+  ; base utility
+  let utility bill-utility a-bill
+  ; more likely to attract cosponsors from same party (according to PBCA)
+  let party-factor (ifelse-value
+    ; same party: (100 - PBCO) * (100 - sponsor PBCA)
+    (party = sponsor-party) [(100 - pbco) * (100 - sponsor-pbca)]
+    ; independents: 50 * 50 = 25
+    (party = 328) [25]
+    ; opposite party: PBCO * sponsor PBCA
+    [pbco * sponsor-pbca]
+  )
+  ; bump cosponsor likelihood of senator from the same state as sponsor
+  let state-bonus ifelse-value (home-state = sponsor-state) [10] [0]
+
+  report utility * party-factor + state-bonus
 end
 
 ; a senator's utility from a bill is the reduction in the senator's
@@ -158,6 +201,11 @@ end
 ; at most 1 unit from the origin
 to-report dwnom2-range ; turtle reporter
   report sqrt (1 - dwnom1 ^ 2)
+end
+
+; first (up to) n elements in a list
+to-report first-n-from-list [n lst]
+  report sublist lst 0 min (list n length lst)
 end
 
 
