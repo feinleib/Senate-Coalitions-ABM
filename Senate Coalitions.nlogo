@@ -12,6 +12,7 @@ breed [status-quos status-quo]
 senators-own [
   lastname
   firstname
+  home-state
   dwnom1
   dwnom2
   party
@@ -82,10 +83,11 @@ to read-senator-data [filename]
     let data csv:from-row file-read-line
     ; use that list to create a senator
     create-senators 1 [
-      set lastname       item 0 data ; last
-      set firstname      item 1 data ; first
-      set dwnom1         item 4 data ; dwnom1
-      set dwnom2         item 5 data ; dwnom2
+      set lastname       item 0 data  ; last
+      set firstname      item 1 data  ; first
+      set home-state     item 2 data  ; state
+      set dwnom1         item 4 data  ; dwnom1
+      set dwnom2         item 5 data  ; dwnom2
       set party          item 10 data ; party
       set avg-cosponsors item 22 data ; mean_cospon_spon_SN_nc
       set pbca           item 24 data ; mean_pct_cospon_opp_spon_SN_nc
