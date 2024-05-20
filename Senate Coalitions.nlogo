@@ -108,10 +108,10 @@ to place-bill
     set dwnom2 random-dwnom2
     set-dwnom-location
     set color green + 1
-    get-sponsor
     ; TODO: how to pair bills and status quos one-to-one?
     set squo-policy one-of status-quos
     create-link-with squo-policy
+    get-sponsor
   ]
 end
 
