@@ -281,15 +281,15 @@ NIL
 1
 
 SLIDER
-210
-255
-392
-288
+15
+155
+197
+188
 dwnom1-emphasis
 dwnom1-emphasis
 0
 100
-45.0
+85.0
 5
 1
 %
