@@ -9,6 +9,9 @@ breed [senators senator]
 breed [bills bill]
 breed [status-quos status-quo]
 
+directed-link-breed [policy-movements policy-movement]
+undirected-link-breed [supports support]
+
 senators-own [
   lastname
   firstname
@@ -41,6 +44,7 @@ to setup
   set-default-shape senators "person"
   set-default-shape bills "circle 2"
   set-default-shape status-quos "square 2"
+  set-default-shape policy-movements "movement"
   ; initialize senators
   setup-senators "data/senators_data_114.csv"
   reset-ticks
@@ -100,11 +104,13 @@ to read-senator-data [filename]
 end
 
 to place-bill
+  let new-status-quo 0
   create-status-quos 1 [
     set dwnom1 (random-float 2) - 1
     set dwnom2 random-dwnom2
     set-dwnom-location
     set color green + 1
+    set new-status-quo self
   ]
   create-bills 1 [
     set dwnom1 (random-float 2) - 1
@@ -112,8 +118,13 @@ to place-bill
     set-dwnom-location
     set color green + 1
     ; TODO: how to pair bills and status quos one-to-one?
-    set squo-policy one-of status-quos
-    create-link-with squo-policy
+    ; set squo-policy one-of status-quos
+    ; create-link-with squo-policy
+    set squo-policy new-status-quo
+    create-policy-movement-from squo-policy [
+      set color green - 2
+      set thickness 0.2
+    ]
     get-sponsor
     attract-cosponsors
   ]
@@ -129,7 +140,10 @@ end
 to get-sponsor ; bill procedure
   ; TODO: could also be the senator with maximum utility
   set sponsor min-one-of senators [distance myself]
-  create-link-with sponsor
+  create-support-with sponsor [
+    set color green + 1
+    set thickness 0.2
+  ]
 end
 
 to attract-cosponsors ; bill procedure
@@ -144,7 +158,7 @@ to attract-cosponsors ; bill procedure
   set cosponsors turtle-set first-n-from-list n-cosponsors potential-cosponsor-list
   ; create links from sponsor to cosponsors
   ask sponsor [
-    create-links-with [cosponsors] of myself
+    create-supports-with [cosponsors] of myself
   ]
 end
 
@@ -222,11 +236,11 @@ end
 GRAPHICS-WINDOW
 210
 10
-669
-250
+874
+355
 -1
 -1
-11.0
+16.0
 1
 10
 1
@@ -670,6 +684,19 @@ true
 0
 Line -7500403 true 150 150 90 180
 Line -7500403 true 150 150 210 180
+
+movement
+0.0
+-0.2 0 0.0 1.0
+0.0 1 1.0 0.0
+0.2 0 0.0 1.0
+link direction
+true
+0
+Line -7500403 true 150 90 90 180
+Line -7500403 true 150 90 210 180
+Line -7500403 true 90 180 210 180
+Polygon -7500403 true true 150 90 90 180 210 180 150 90
 @#$#@#$#@
 1
 @#$#@#$#@
