@@ -51,6 +51,11 @@ to setup
 end
 
 to go
+  place-bill
+  ask bills [
+    get-sponsor
+    attract-cosponsors
+  ]
   tick
 end
 
@@ -117,17 +122,14 @@ to place-bill
     set dwnom2 random-dwnom2
     set-dwnom-location
     set color green + 1
-    ; TODO: how to pair bills and status quos one-to-one?
-    ; set squo-policy one-of status-quos
-    ; create-link-with squo-policy
+    ; pair bills and status quos one-to-one
     set squo-policy new-status-quo
     create-policy-movement-from squo-policy [
       set color green - 2
       set thickness 0.2
     ]
-    get-sponsor
-    attract-cosponsors
   ]
+  tick
 end
 
 ; clear bills, status quos, and (co)sponsorship links
