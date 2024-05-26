@@ -22,6 +22,7 @@ senators-own [
   pbca           ; percent bipartisan cosponsors attracted (as bill sponsor)
   pbco           ; percent bipartisan cosponsorships offered (as non-sponsor)
   avg-cosponsors ; average number of cosponsors attracted (as bill sponsor)
+  coalition      ; "proponent", "opponent", or "obstructionist"
 ]
 
 bills-own [
@@ -60,18 +61,19 @@ to go
 end
 
 to setup-senators [filename]
+  ; set most senator properties from CSV data
   read-senator-data filename
 
-  ; set senator location (by DW-NOMINATE) and color (by party)
+  ; set senator location (by DW-NOMINATE), color (by party), and a blank coalition
   ask senators [
     set-dwnom-location
-
     set color (
       ifelse-value
       party = 100 [blue]   ; Dem
       party = 328 [yellow] ; Ind
       party = 200 [red]    ; GOP
     )
+    set coalition "" ; no initial coalition
   ]
 end
 
@@ -188,6 +190,31 @@ to-report cosponsor-likelihood [a-bill] ; senator procedure
   report utility * party-factor + state-bonus
 end
 
+;;; COALITION UTILITY CALCULATIONS ;;;
+to-report benefits-of-proponent [a-bill] ; senator reporter
+  report bill-utility a-bill
+end
+
+to-report benefits-of-opponent [a-bill] ; senator reporter
+  report (-1) * bill-utility a-bill
+end
+
+to-report benefits-of-obstructionist [a-bill] ; senator reporter
+  ; obstructionists also get position-taking benefits (could be random)
+  report ((-1) * bill-utility a-bill) + position-taking-benefits
+end
+
+to-report costs-of-proponent [a-bill] ; senator reporter
+end
+
+to-report costs-of-opponent [a-bill] ; senator reporter
+end
+
+to-report costs-of-obstructionist [a-bill] ; senator reporter
+end
+
+;;; SMALL HELPERS AND REPORTERS ;;;
+
 ; a senator's utility from a bill is the reduction in the senator's
 ; distance to the bill (versus its associated status quo)
 to-report bill-utility [a-bill] ; senator reporter
@@ -299,7 +326,7 @@ NIL
 SLIDER
 15
 155
-197
+195
 188
 dwnom1-emphasis
 dwnom1-emphasis
