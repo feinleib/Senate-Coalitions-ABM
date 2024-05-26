@@ -292,7 +292,7 @@ ticks
 BUTTON
 15
 15
-77
+80
 48
 NIL
 setup
@@ -308,9 +308,9 @@ NIL
 
 BUTTON
 15
-60
+95
 102
-93
+128
 NIL
 place-bill
 NIL
@@ -339,10 +339,10 @@ dwnom1-emphasis
 HORIZONTAL
 
 BUTTON
-110
-60
-202
-93
+105
+55
+197
+88
 NIL
 clear-bills
 NIL
@@ -414,6 +414,23 @@ cloture-threshold
 1
 votes
 HORIZONTAL
+
+BUTTON
+15
+55
+80
+88
+NIL
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
