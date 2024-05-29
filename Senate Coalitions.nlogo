@@ -1,9 +1,11 @@
 ; Senate Coalitions
 ; Max Feinleib
 ; CS 372, Northwestern University
-; Final Project v2 (May 19)
+; Final Project v3 (May 26)
 
 extensions [ csv ]
+
+globals [ active-bill ]
 
 breed [senators senator]
 breed [bills bill]
@@ -22,7 +24,7 @@ senators-own [
   pbca           ; percent bipartisan cosponsors attracted (as bill sponsor)
   pbco           ; percent bipartisan cosponsorships offered (as non-sponsor)
   avg-cosponsors ; average number of cosponsors attracted (as bill sponsor)
-  coalition      ; "proponent", "opponent", or "obstructionist"
+  coalition      ; "proponent", "opponent", "obstructionist", or "" (blank)
 ]
 
 bills-own [
@@ -52,10 +54,16 @@ to setup
 end
 
 to go
+  ; create a bill
   place-bill
-  ask bills [
+  ; get sponsors/cosponsors
+  ask active-bill [
     get-sponsor
     attract-cosponsors
+  ]
+  ; build coalitions
+  ask senators with [coalition = ""] [
+    find-initial-coalition active-bill
   ]
   tick
 end
@@ -124,12 +132,16 @@ to place-bill
     set dwnom2 random-dwnom2
     set-dwnom-location
     set color green + 1
+    set sponsor nobody
+    set cosponsors no-turtles
     ; pair bills and status quos one-to-one
     set squo-policy new-status-quo
     create-policy-movement-from squo-policy [
       set color green - 2
       set thickness 0.2
     ]
+    ; set this bill to be the active-bill
+    set active-bill self
   ]
   tick
 end
@@ -138,16 +150,19 @@ end
 to clear-bills
   ask bills [die]
   ask status-quos [die]
+  ask senators [ set coalition "" ]
   clear-links
 end
 
 to get-sponsor ; bill procedure
-  ; TODO: could also be the senator with maximum utility
-  set sponsor min-one-of senators [distance myself]
+  ; sponsor is the senator with maximum utility
+  set sponsor max-one-of senators [bill-utility myself]
   create-support-with sponsor [
     set color green + 1
     set thickness 0.2
   ]
+  ; add sponsor to proponent coalition
+  ask sponsor [ set coalition "proponent" ]
 end
 
 to attract-cosponsors ; bill procedure
@@ -160,10 +175,19 @@ to attract-cosponsors ; bill procedure
     senators with [cosponsor-likelihood myself > 0] who-are-not sponsor
   )
   set cosponsors turtle-set first-n-from-list n-cosponsors potential-cosponsor-list
-  ; create links from sponsor to cosponsors
-  ask sponsor [
-    create-supports-with [cosponsors] of myself
+  ; create links between cosponsors and sponsor
+  ; and add cosponsors to proponent coalition
+  ask cosponsors [
+    create-support-with [sponsor] of myself
+    set coalition "proponent"
   ]
+end
+
+; set initial proponent/opponent coalitions
+; because the general utility formulas need existing coalition sizes
+to find-initial-coalition [a-bill] ; senator procedure
+  ; NOTE: if bill-utility is zero, initial coalition will be "opponent"
+  set coalition ifelse-value (bill-utility a-bill > 0) ["proponent"] ["opponent"]
 end
 
 ; likelihood of a senator to cosponsor a bill
@@ -214,6 +238,19 @@ to-report costs-of-obstructionist [a-bill] ; senator reporter
 end
 
 ;;; SMALL HELPERS AND REPORTERS ;;;
+
+;; coalition sizes
+to-report n-proponents
+  report count senators with [coalition = "proponent"]
+end
+
+to-report n-opponents
+  report count senators with [coalition = "opponent"]
+end
+
+to-report n-obstructionists
+  report count senators with [coalition = "obstructionist"]
+end
 
 ; a senator's utility from a bill is the reduction in the senator's
 ; distance to the bill (versus its associated status quo)
