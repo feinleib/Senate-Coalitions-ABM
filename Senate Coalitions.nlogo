@@ -421,7 +421,7 @@ SLIDER
 268
 alpha
 alpha
-0
+0.01
 1
 0.25
 0.01
@@ -436,7 +436,7 @@ SLIDER
 308
 alpha-star
 alpha-star
-0
+0.01
 1
 0.1
 0.01
