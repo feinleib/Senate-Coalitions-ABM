@@ -220,12 +220,14 @@ to-report benefits-of-proponent [a-bill] ; senator reporter
 end
 
 to-report benefits-of-opponent [a-bill] ; senator reporter
-  report (-1) * bill-utility a-bill
+  ; blocking benefits are the inverse of the benefits of passage
+  report (- bill-utility a-bill)
 end
 
 to-report benefits-of-obstructionist [a-bill] ; senator reporter
   ; obstructionists also get position-taking benefits (could be random)
-  report ((-1) * bill-utility a-bill) + position-taking-benefits
+  ; position-taking benefits take the same sign as blocking benefits
+  report (- ((bill-utility a-bill) + position-taking-benefits * (sign bill-utility a-bill)))
 end
 
 to-report costs-of-proponent [a-bill] ; senator reporter
@@ -293,6 +295,11 @@ end
 ; first (up to) n elements in a list
 to-report first-n-from-list [n lst]
   report sublist lst 0 min (list n length lst)
+end
+
+; mathematical sign function
+to-report sign [number]
+  report ifelse-value (number = 0) [ 0 ] [ number / abs number ]
 end
 
 
