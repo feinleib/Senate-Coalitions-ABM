@@ -56,11 +56,8 @@ end
 to go
   ; create a bill
   place-bill
-  ; get sponsors/cosponsors
-  ask active-bill [
-    get-sponsor
-    attract-cosponsors
-  ]
+  get-sponsor-and-cosponsors
+
   ; build coalitions
   ask senators with [coalition = ""] [
     find-initial-coalition active-bill
@@ -166,6 +163,16 @@ to clear-bills
   ask status-quos [die]
   ask senators [ set coalition "" ]
   clear-links
+end
+
+; call GET-SPONSOR and ATTRACT-COSPONSORS, and
+; tick
+to get-sponsor-and-cosponsors
+  ask active-bill [
+    get-sponsor
+    attract-cosponsors
+  ]
+  tick
 end
 
 to get-sponsor ; bill procedure
