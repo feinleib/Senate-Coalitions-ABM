@@ -21,6 +21,9 @@ library(filibustr)
 s_bipart_data <- get_hvw_data(chamber = "s")
 # Senate LES data
 s_les <- get_les("s")
+# Voteview data
+s_members_114 <- get_voteview_members(chamber = "s", congress = 114) |>
+  filter(chamber == "Senate")
 
 ###############
 # filter data #
@@ -53,6 +56,13 @@ s_data_114 <- s_bipart_data |>
     congress, year, majsize, majmargin, demmd, repmd
   ) |>
   arrange(dwnom1)
+
+# compare Voteview and LES/HVW dwnom scores
+s_joined <- s_data_114 |>
+  left_join(s_members_114, by = "icpsr")
+
+plot(s_joined$dwnom1, s_joined$nominate_dim1)
+plot(s_joined$dwnom2, s_joined$nominate_dim2)
 
 
 ########################
