@@ -1,7 +1,7 @@
 ; Senate Coalitions
 ; Max Feinleib
 ; CS 372, Northwestern University
-; Final Project v3 (May 26)
+; Final Project v3 (May 28)
 
 extensions [ csv ]
 
@@ -68,6 +68,8 @@ to go
   tick
 end
 
+;;; SETUP ;;;
+
 to setup-senators [filename]
   ; set most senator properties from CSV data
   read-senator-data filename
@@ -118,6 +120,10 @@ to read-senator-data [filename]
   file-close ; close the CSV file
 end
 
+;;; CREATING A BILL ;;;
+
+; create a new bill and associated status quo, and
+; tick
 to place-bill
   let new-status-quo 0
   create-status-quos 1 [
@@ -183,13 +189,6 @@ to attract-cosponsors ; bill procedure
   ]
 end
 
-; set initial proponent/opponent coalitions
-; because the general utility formulas need existing coalition sizes
-to find-initial-coalition [a-bill] ; senator procedure
-  ; NOTE: if bill-utility is zero, initial coalition will be "opponent"
-  set coalition ifelse-value (bill-utility a-bill > 0) ["proponent"] ["opponent"]
-end
-
 ; likelihood of a senator to cosponsor a bill
 ; NOTE: not a calibrated probability, just used for ordering potential cosponsors
 to-report cosponsor-likelihood [a-bill] ; senator procedure
@@ -214,7 +213,22 @@ to-report cosponsor-likelihood [a-bill] ; senator procedure
   report utility * party-factor + state-bonus
 end
 
+;;; GENERATING COALITIONS ;;;
+
+; set initial proponent/opponent coalitions
+; because the general utility formulas need existing coalition sizes
+to find-initial-coalition [a-bill] ; senator procedure
+  ; NOTE: if bill-utility is zero, initial coalition will be "opponent"
+  set coalition ifelse-value (bill-utility a-bill > 0) ["proponent"] ["opponent"]
+end
+
+; find a senator's coalition for the next tick
+to find-coalition [a-bill] ; senator procedure
+  ; TODO
+end
+
 ;;; COALITION UTILITY CALCULATIONS ;;;
+
 ; NOTE: all benefits are shared among coalition members, so they are
 ; highest when the coalition is small, linearly declining to 0 if
 ; all senators are in a coalition
