@@ -66,6 +66,14 @@ to go
     find-initial-coalition active-bill
   ]
   tick
+  ; TODO: loop until coalitions stabilize
+  ; while [not coalitions-stabilized?] [
+  ask senators [
+    find-coalition active-bill
+  ]
+  tick
+  ; ]
+  tick
 end
 
 ;;; SETUP ;;;
