@@ -552,6 +552,8 @@ NIL
 
 (interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
 
+* Ticks occur in several sub-procedures of the GO procedure (e.g. PLACE-BILL, GET-SPONSOR-AND-COSPONSORS). This design allows the model to describe how long it takes to consider each bill.
+
 ## RELATED MODELS
 
 (models in the NetLogo Models Library and elsewhere which are of related interest)
