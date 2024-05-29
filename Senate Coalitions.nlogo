@@ -239,6 +239,13 @@ end
 to-report costs-of-obstructionist [a-bill] ; senator reporter
 end
 
+; probability of bill passage based on size of proponent coalition
+; "pi" parameter in Wawro & Schickler (2006), Feinleib (2024)
+to-report passage-probability
+  let alpha-value ifelse-value (n-proponents >= cloture-threshold) [alpha-star] [alpha]
+  report ((n-proponents - 50) / 50) ^ alpha-value
+end
+
 ;;; SMALL HELPERS AND REPORTERS ;;;
 
 ;; coalition sizes
