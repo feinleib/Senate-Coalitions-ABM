@@ -1,0 +1,424 @@
+[
+	{
+		"id": "harbridge-yongBipartisanPathEffective2023",
+		"type": "article-journal",
+		"abstract": "We confront the puzzle of why bipartisanship is alive and well in Congress, despite notable increases in party polarization and rising primary election threats. The answer is remarkably simple—bipartisanship unambiguously helps individual legislators who seek to advance their policy goals. We show that members of the House and Senate from the 93rd to 114th Congresses (1973–2016) who attract a larger portion of their bill cosponsors from the opposing party are much more successful at lawmaking. We show these patterns to be remarkably robust to both majority-party and minority-party lawmakers, under changing legislative and electoral conditions and over time. Moreover, a clear path to attracting bipartisan cosponsors involves reciprocity, making cosponsoring others’ bills across party lines attractive.",
+		"container-title": "The Journal of Politics",
+		"DOI": "10.1086/723805",
+		"ISSN": "0022-3816",
+		"issue": "3",
+		"note": "publisher: The University of Chicago Press",
+		"page": "1048-1063",
+		"source": "journals.uchicago.edu (Atypon)",
+		"title": "The bipartisan path to effective lawmaking",
+		"title-short": "The bipartisan path",
+		"URL": "https://www.journals.uchicago.edu/doi/10.1086/723805",
+		"volume": "85",
+		"author": [
+			{
+				"family": "Harbridge-Yong",
+				"given": "Laurel"
+			},
+			{
+				"family": "Volden",
+				"given": "Craig"
+			},
+			{
+				"family": "Wiseman",
+				"given": "Alan E."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2023",
+					10,
+					24
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2023",
+					7
+				]
+			]
+		}
+	},
+	{
+		"id": "feinleibFilibustrDataUtilities2024",
+		"type": "software",
+		"abstract": "The `filibustr` package provides data utilities for research on the U.S. Congress. This package provides a uniform interface for accessing data on members and votes.",
+		"genre": "R",
+		"license": "MIT License",
+		"note": "original-date: 2023-10-24T21:24:17Z",
+		"source": "GitHub",
+		"title": "filibustr: Data utilities for congressional research",
+		"title-short": "filibustr",
+		"URL": "https://CRAN.R-project.org/package=filibustr",
+		"version": "0.2.1",
+		"author": [
+			{
+				"family": "Feinleib",
+				"given": "Max"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2023",
+					12,
+					4
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2024",
+					5,
+					2
+				]
+			]
+		}
+	},
+	{
+		"id": "grosecloseBuyingSupermajorities1996",
+		"type": "article-journal",
+		"abstract": "Minimal winning coalitions have appeared as a key prediction or as an essential assumption of virtually all formal models of coalition formation, vote buying, and logrolling. Notwithstanding this research, we provide a model showing that supermajority coalitions may be cheaper than minimal winning coalitions. Specifically, if vote buyers move sequentially, and if the losing vote buyer is always granted a last chance to attack the winner's coalition, then minimal winning coalitions will generally not be cheapest, and equilibrium coalitions will generally not be minimal winning. We provide results relating equilibrium coalition size with preferences of the legislators and vote buyers, and we show that minimal winning coalitions should occur in only rare cases. We discuss these results in light of empirical work on coalition size and suggest other possible avenues for testing our model.",
+		"container-title": "American Political Science Review",
+		"DOI": "10.2307/2082886",
+		"ISSN": "0003-0554, 1537-5943",
+		"issue": "2",
+		"journalAbbreviation": "Am Polit Sci Rev",
+		"language": "en",
+		"page": "303-315",
+		"source": "DOI.org (Crossref)",
+		"title": "Buying supermajorities",
+		"URL": "https://www.cambridge.org/core/product/identifier/S0003055400206217/type/journal_article",
+		"volume": "90",
+		"author": [
+			{
+				"family": "Groseclose",
+				"given": "Tim"
+			},
+			{
+				"family": "Snyder",
+				"given": "James M."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					1,
+					26
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"1996",
+					6
+				]
+			]
+		}
+	},
+	{
+		"id": "uslanerPartisanshipCoalitionFormation1975",
+		"type": "article-journal",
+		"container-title": "Political Methodology",
+		"issue": "4",
+		"language": "en",
+		"page": "381-414",
+		"title": "Partisanship and coalition formation in Congress",
+		"title-short": "Partisanship and coalition formation",
+		"URL": "https://www.jstor.org/stable/25791431",
+		"volume": "2",
+		"author": [
+			{
+				"family": "Uslaner",
+				"given": "Eric M."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					2,
+					2
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"1975"
+				]
+			]
+		}
+	},
+	{
+		"id": "voldenLegislativeEffectivenessScores2023",
+		"type": "dataset",
+		"language": "en-US",
+		"publisher": "Center for Effective Lawmaking",
+		"title": "Legislative effectiveness scores",
+		"URL": "https://thelawmakers.org/",
+		"author": [
+			{
+				"family": "Volden",
+				"given": "Craig"
+			},
+			{
+				"family": "Wiseman",
+				"given": "Alan E."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					2,
+					29
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2023"
+				]
+			]
+		}
+	},
+	{
+		"id": "lewisVoteviewCongressionalRollcall2024",
+		"type": "webpage",
+		"title": "Voteview: Congressional roll-call votes database",
+		"title-short": "Voteview",
+		"URL": "https://voteview.com/",
+		"author": [
+			{
+				"family": "Lewis",
+				"given": "Jeffrey B."
+			},
+			{
+				"family": "Poole",
+				"given": "Keith"
+			},
+			{
+				"family": "Rosenthal",
+				"given": "Howard"
+			},
+			{
+				"family": "Boche",
+				"given": "Adam"
+			},
+			{
+				"family": "Rudkin",
+				"given": "Aaron"
+			},
+			{
+				"family": "Sonnet",
+				"given": "Luke"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					3,
+					4
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2024"
+				]
+			]
+		}
+	},
+	{
+		"id": "wilenskyNetLogo1999",
+		"type": "software",
+		"event-place": "Evanston",
+		"publisher": "Center for Connected Learning and Computer-Based Modeling, Northwestern University",
+		"publisher-place": "Evanston",
+		"title": "NetLogo",
+		"URL": "http://ccl.northwestern.edu/netlogo",
+		"version": "6.4.0",
+		"author": [
+			{
+				"family": "Wilensky",
+				"given": "Uriel"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"1999"
+				]
+			]
+		}
+	},
+	{
+		"id": "wilenskyIntroductionAgentbasedModeling2015",
+		"type": "book",
+		"call-number": "T57.62 .W54 2015",
+		"event-place": "Cambridge, Massachusetts",
+		"ISBN": "978-0-262-73189-8",
+		"language": "en",
+		"number-of-pages": "482",
+		"publisher": "The MIT Press",
+		"publisher-place": "Cambridge, Massachusetts",
+		"source": "Library of Congress ISBN",
+		"title": "An introduction to agent-based modeling: Modeling natural, social, and engineered complex systems with NetLogo",
+		"title-short": "An introduction to agent-based modeling",
+		"author": [
+			{
+				"family": "Wilensky",
+				"given": "Uri"
+			},
+			{
+				"family": "Rand",
+				"given": "William"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2015",
+					4,
+					3
+				]
+			]
+		}
+	},
+	{
+		"id": "feinleibRedesigningFilibusterMore2024",
+		"type": "thesis",
+		"event-place": "Evanston",
+		"language": "en",
+		"number-of-pages": "45",
+		"publisher": "Northwestern University",
+		"publisher-place": "Evanston",
+		"title": "Redesigning the filibuster for more effective lawmaking in a polarized Senate",
+		"title-short": "Redesigning the filibuster",
+		"URL": "https://feinleib.quarto.pub/redesigning-the-filibuster-2024/",
+		"author": [
+			{
+				"family": "Feinleib",
+				"given": "Max H."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					5,
+					27
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2024",
+					4,
+					30
+				]
+			]
+		}
+	},
+	{
+		"id": "wilenskyCSVExample",
+		"type": "software",
+		"event-place": "Evanston",
+		"genre": "NetLogo",
+		"license": "Public Domain",
+		"publisher": "Center for Connected Learning and Computer-Based Modeling, Northwestern University",
+		"publisher-place": "Evanston",
+		"title": "CSV example",
+		"author": [
+			{
+				"family": "Wilensky",
+				"given": "Uri"
+			}
+		]
+	},
+	{
+		"id": "CSVExtension2024",
+		"type": "software",
+		"abstract": "A NetLogo extension for reading CSV",
+		"event-place": "Evanston",
+		"genre": "Scala",
+		"note": "original-date: 2015-01-08",
+		"publisher": "Center for Connected Learning, Northwestern University",
+		"publisher-place": "Evanston",
+		"source": "GitHub",
+		"title": "CSV extension",
+		"URL": "https://github.com/NetLogo/CSV-Extension",
+		"version": "1.1.1",
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					5,
+					28
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2024",
+					2,
+					4
+				]
+			]
+		}
+	},
+	{
+		"id": "weingastRationalChoicePerspective1979",
+		"type": "article-journal",
+		"abstract": "This paper begins with a contrast between the conclusions of theoretical and empirical work on distributive policymaking. The former predicts that a minimum winning coalition will make public policy; the latter reveals universal or unanimous coalitions. This paper presents a model whose predictions conform to empirical findings. It first defines a \"Distributive Legislative Game\" and then shows that the set of minimum winning coalitions is the core of the game. To explain the observation of unanimous coalitions, it is shown that another game, the \"Universalism Legislative Game,\" which allows only the coalition of the whole, dominates the previous game in the sense that the ex ante expected benefits are higher for all legislators. The observed \"norm\" of universal coalitions in Congress is thus interpreted as legislators choosing the rules of the game to maximize their expected benefits.",
+		"container-title": "American Journal of Political Science",
+		"DOI": "10.2307/2111001",
+		"ISSN": "0092-5853",
+		"issue": "2",
+		"note": "publisher: [Midwest Political Science Association, Wiley]",
+		"page": "245-262",
+		"source": "JSTOR",
+		"title": "A rational choice perspective on congressional norms",
+		"title-short": "A rational choice perspective",
+		"URL": "https://www.jstor.org/stable/2111001",
+		"volume": "23",
+		"author": [
+			{
+				"family": "Weingast",
+				"given": "Barry R."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					5,
+					29
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"1979"
+				]
+			]
+		}
+	}
+]

@@ -19,7 +19,7 @@ keywords:
   - filibuster
   - cloture
   - agent-based modeling
-# bibliography: full_bib.json
+bibliography: abm_bib.json
 csl: apa.csl
 toc: true
 number-sections: true
