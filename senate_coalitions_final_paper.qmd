@@ -76,3 +76,7 @@ execute:
 \pagebreak
 
 ## References {.appendix}
+
+<!-- * Cite relevant papers -->
+<!-- * Remember to cite software and models (citation for NetLogo is below; find the citation for any Models Library models you used as reference in the INFO tab) -->
+
