@@ -1,26 +1,78 @@
 ---
-title: "Senate Coalitions"
-author: "Max Feinleib"
+title: Senate Coalitions
+subtitle: An Agent-Based Model
+author: 
+  - name: Max H. Feinleib
+    orcid: 0009-0002-9604-3533
+    email: maxfeinleib2024@u.northwestern.edu
+    affiliation:
+      - name: Northwestern University
+        city: Evanston
+        state: IL
+        url: https://www.northwestern.edu
+date: 2024-06-03
+date-format: long
 format: html
+keywords: 
+  - U.S. Senate
+  - legislative coalitions
+  - filibuster
+  - cloture
+  - agent-based modeling
+# bibliography: full_bib.json
+csl: apa.csl
+toc: true
+number-sections: true
+lof: true
+lot: true
+lightbox: true
+execute:
+  echo: false
 ---
 
-## Quarto
+\pagebreak
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+```{r packages}
+#| message: false
 
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
+## packages used
 ```
 
-You can add options to executable code like this 
 
-```{r}
-#| echo: false
-2 * 2
-```
+## Introduction
 
-The `echo: false` option disables the printing of code (only output is displayed).
+* Describe phenomenon
+* Motivate
+* Fit with ABM
+
+## Background
+
+* Existing work on the phenomenon
+
+## Model Design
+
+* Rules of the model
+* Justifications for rules
+* Model parameters
+* Simplifications and assumption
+
+## Results
+
+* Experiments you ran (parameters, # of repetitions)
+* Results from those experiments (include graphs)
+* Empirical validation (if applicable)
+
+## Analysis and Discussion
+
+* Interpretation of results (include graphs)
+* What emergent phenomena arose? (include screenshots)
+* Implications
+
+## Conclusion
+
+* What would future work on this look like?
+* What might you suggest for further validation?
+
+\pagebreak
+
+## References {.appendix}
