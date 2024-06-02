@@ -253,12 +253,13 @@ to-report benefits-of-proponent [a-bill] ; senator reporter
   report bill-utility a-bill * ((100 - n-proponents) / 50)
 end
 
-; benefits to each individual member of the opponent coalition
-to-report benefits-of-opponent [a-bill] ; senator reporter
-  ; blocking benefits are the inverse of the benefits of passage
-  ; for the purpose of scaling benefits, obstructionists count for opponents
-  ; TODO: figure out the correct constants in the scaling factor for opponents
-  report (- bill-utility a-bill) * ((100 - n-opponents - n-obstructionists) / 50)
+; benefits to each individual member of the obstructionist coalition
+to-report benefits-of-obstructionist [a-bill] ; senator reporter
+  ; obstructionists also get position-taking benefits for their effort
+  ; position-taking benefits take the same sign as blocking benefits
+  ; TODO: fix using formulas in section 5.2.2 (pp. 19-21)
+  let my-bill-utility bill-utility a-bill
+  report (- (my-bill-utility + position-taking-benefits * (sign my-bill-utility))) * ((50 - n-obstructionists) / 50)
 end
 
 to-report costs-of-proponent [a-bill] ; senator reporter
