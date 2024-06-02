@@ -246,20 +246,33 @@ end
 
 ; NOTE: all benefits are shared among coalition members, so they are
 ; highest when the coalition is small, linearly declining to 0 if
-; all senators are in a coalition
+; there are 100 proponents or 50 obstructionists.
+; NOTE: opponents are defined to have 0 utility.
 
-; benefits to each individual member of the proponent coalition
+; expected benefits: raw benefits * passage probability
+to-report exp-benefits-of-proponent [a-bill] ; senator reporter
+  report (benefits-of-proponent a-bill) * passage-probability
+end
+
+to-report exp-benefits-of-obstructionist [a-bill] ; senator reporter
+  report (1 - passage-probability) * (obst-blocking-benefits a-bill) + (obst-position-taking-benefits a-bill)
+end
+
+; raw policy benefits to a proponent
 to-report benefits-of-proponent [a-bill] ; senator reporter
   report bill-utility a-bill * ((100 - n-proponents) / 50)
 end
 
-; benefits to each individual member of the obstructionist coalition
-to-report benefits-of-obstructionist [a-bill] ; senator reporter
-  ; obstructionists also get position-taking benefits for their effort
-  ; position-taking benefits take the same sign as blocking benefits
-  ; TODO: fix using formulas in section 5.2.2 (pp. 19-21)
-  let my-bill-utility bill-utility a-bill
-  report (- (my-bill-utility + position-taking-benefits * (sign my-bill-utility))) * ((50 - n-obstructionists) / 50)
+; an obstructionist's raw benefits of blocking a bill:
+; the inverse of their policy benefits, scaled by the number of obstructionists
+to-report obst-blocking-benefits [a-bill] ; senator reporter
+  report (- bill-utility a-bill) * ((50 - n-obstructionists) / 50)
+end
+
+; an obstructionist's raw position-taking benefits
+; position-taking benefits take the same sign as blocking benefits
+to-report obst-position-taking-benefits [a-bill] ; senator reporter
+  report position-taking-benefits * (sign bill-utility a-bill) * ((50 - n-obstructionists) / 50)
 end
 
 to-report costs-of-proponent [a-bill] ; senator reporter
