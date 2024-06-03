@@ -75,10 +75,12 @@ to go
 
   ; build coalitions
   create-coalitions
-  ; TODO: loop until coalitions stabilize
-  ; while [not coalitions-stabilized?] [
-  ; advance-coalitions
-  ; ]
+  ; loop until bill passes or dies
+  while [not bill-done?] [
+    advance-coalitions
+    ask active-bill [ attempt-passage ]
+  ]
+  clear-bills
   tick
 end
 
@@ -153,6 +155,8 @@ end
 ; create a new bill and associated status quo, and
 ; tick and increment active-time
 to place-bill
+  set bill-done? false
+  ; placeholder to pair bill to status quo
   let new-status-quo 0
   create-status-quos 1 [
     set dwnom1 (random-float 2) - 1
@@ -295,6 +299,46 @@ to find-coalition [a-bill] ; senator procedure
   set coalition ifelse-value (better-coalition-utility > 0) [better-coalition] ["opponent"]
 end
 
+; check passage conditions
+to attempt-passage
+  let bill-passed? false
+
+  ; 4 bill end states
+  ; each sets bill-done? to true and
+  ; increments their associated counter
+  (ifelse
+    bill-failing? [
+      set bill-done? true
+      set bills-failed bills-failed + 1
+    ]
+    unanimous-consent? [
+      set bill-done? true
+      set bill-passed? true
+      set bills-passed-uc bills-passed-uc + 1
+    ]
+    passage-vote? [
+      set bill-done? true
+      set bill-passed? true
+      set bills-passed-simple bills-passed-simple + 1
+    ]
+    cloture-vote? [
+      set bill-done? true
+      set bill-passed? true
+      set bills-passed-cloture bills-passed-cloture + 1
+    ]
+  ) ; else: bill continues
+
+  ; record metrics for passed bills
+  if bill-passed? [
+    set passing-coalitions lput n-proponents passing-coalitions
+    ; passing-biparts records % of proponents from minority party
+    set passing-biparts lput (
+      100 * (count proponents with [not majority?]) / n-proponents
+    ) passing-biparts
+    set bill-times lput active-time bill-times
+  ]
+end
+
 ;;; COALITION UTILITY CALCULATIONS ;;;
 
 ;; UTILITY ;;
@@ -374,6 +418,30 @@ end
 
 to-report obstructionist-debate-time-costs [a-bill] ; senator reporter
   report [active-time] of a-bill * obst-debate-costs
+end
+
+;;; BILL END STATES ;;;
+
+; bills fail when it is clear they don't have majority support
+to-report bill-failing?
+  report n-proponents < 47
+end
+
+; bills can pass by UC if about all senators support it
+; and no senator is obstructing it
+to-report unanimous-consent?
+  report n-proponents > 90 and n-obstructionists = 0
+end
+
+; cloture is invoked with a supermajority vote
+to-report cloture-vote?
+  report n-proponents >= cloture-threshold
+end
+
+; bills pass by simple majority vote
+; if there is no organized obstruction
+to-report passage-vote?
+  report n-proponents > 50 and n-obstructionists < 5
 end
 
 ;;; COALITIONS AND THEIR SIZES ;;;
