@@ -5,7 +5,17 @@
 
 extensions [ csv ]
 
-globals [ active-bill ]
+globals [
+  active-bill          ; the bill under consideration
+  bill-done?           ; signal to start a new bill
+  bills-passed-uc      ; number of bills passed by unanimous consent
+  bills-passed-cloture ; number of bills passed using cloture
+  bills-passed-simple  ; number of bills passed without cloture
+  bills-failed         ; number of bills that failed
+  passing-coalitions   ; list: number of proponents on passed bills
+  passing-biparts      ; list: percent minority support on passed bills
+  bill-times           ; list: consideration time on all bills
+]
 
 breed [senators senator]
 breed [bills bill]
@@ -53,6 +63,8 @@ to setup
   set-default-shape policy-movements "movement"
   ; initialize senators
   setup-senators "data/senators_data_114.csv"
+  ; initialize metrics
+  setup-metrics
   reset-ticks
 end
 
@@ -123,6 +135,17 @@ to read-senator-data [filename]
   ]
 
   file-close ; close the CSV file
+end
+
+; initialize metrics
+to setup-metrics
+  set bills-passed-uc 0
+  set bills-passed-cloture 0
+  set bills-passed-simple 0
+  set bills-failed 0
+  set passing-coalitions (list)
+  set passing-biparts (list)
+  set bill-times (list)
 end
 
 ;;; CREATING A BILL ;;;
