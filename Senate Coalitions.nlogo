@@ -329,11 +329,26 @@ end
 ;; COSTS ;;
 
 to-report costs-of-proponent [a-bill] ; senator reporter
-  report 0
+  report floor-time-costs a-bill + proponent-debate-time-costs a-bill
 end
 
 to-report costs-of-obstructionist [a-bill] ; senator reporter
-  report 0
+  report floor-time-costs a-bill + obstructionist-debate-time-costs a-bill
+end
+
+; floor time costs are higher for majority-party senators
+to-report floor-time-costs [a-bill] ; senator reporter
+  report (floor (([active-time] of a-bill) / 10))
+  * ifelse-value majority? [majority-floor-time-costs] [minority-floor-time-costs]
+end
+
+; debate time costs may vary by coalition
+to-report proponent-debate-time-costs [a-bill] ; senator reporter
+  report [active-time] of a-bill * prop-debate-costs
+end
+
+to-report obstructionist-debate-time-costs [a-bill] ; senator reporter
+  report [active-time] of a-bill * obst-debate-costs
 end
 
 ;;; COALITIONS AND THEIR SIZES ;;;
