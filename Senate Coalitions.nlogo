@@ -13,7 +13,7 @@ globals [
   bills-passed-simple  ; number of bills passed without cloture
   bills-failed         ; number of bills that failed
   passing-coalitions   ; list: number of proponents on passed bills
-  passing-biparts      ; list: percent minority support on passed bills
+  minority-supports    ; list: % of minority senators in support of passed bills
   bill-times           ; list: consideration time on all bills
 ]
 
@@ -147,7 +147,7 @@ to setup-metrics
   set bills-passed-simple 0
   set bills-failed 0
   set passing-coalitions (list)
-  set passing-biparts (list)
+  set minority-supports (list)
   set bill-times (list)
 end
 
@@ -332,10 +332,10 @@ to attempt-passage
   ; record metrics for passed bills
   if bill-passed? [
     set passing-coalitions lput n-proponents passing-coalitions
-    ; passing-biparts records % of proponents from minority party
-    set passing-biparts lput (
-      100 * (count proponents with [not majority?]) / n-proponents
-    ) passing-biparts
+    ; minority-supports records % of minority party in proponent coalition
+    set minority-supports lput (
+      100 * (count proponents with [not majority?]) / (count senators with [not majority?])
+    ) minority-supports
     set bill-times lput active-time bill-times
   ]
 end
@@ -863,7 +863,7 @@ PLOT
 1155
 325
 Minority support on passed bills
-% support from minority
+% of minority in support
 NIL
 0.0
 100.0
@@ -873,7 +873,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 1 -13345367 true "" "histogram passing-biparts"
+"default" 1.0 1 -13345367 true "" "histogram minority-supports"
 
 MONITOR
 940
@@ -946,7 +946,7 @@ MONITOR
 962
 370
 mean
-mean passing-biparts
+mean minority-supports
 1
 1
 11
