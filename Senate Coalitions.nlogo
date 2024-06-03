@@ -250,7 +250,7 @@ end
 ; ask senators to find-coalition, and
 ; tick and increment active-time
 to advance-coalitions
-  ask senators [
+  ask non-sponsors [
     find-coalition active-bill
   ]
   ask active-bill [
@@ -337,6 +337,13 @@ to-report costs-of-obstructionist [a-bill] ; senator reporter
 end
 
 ;;; COALITIONS AND THEIR SIZES ;;;
+
+; flippable senators: everyone except sponsor and cosponsors
+to-report non-sponsors
+  report senators who-are-not (
+    turtle-set ([sponsor] of active-bill) ([cosponsors] of active-bill)
+  )
+end
 
 ;; coalition turtle sets
 to-report proponents
