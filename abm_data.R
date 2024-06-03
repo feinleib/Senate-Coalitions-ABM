@@ -56,6 +56,20 @@ s_data_114 <- s_bipart_data |>
   ) |>
   arrange(dwnom1)
 
+# estimate PBCA for independents using their PBCO
+pbca_lm <- lm(mean_pct_cospon_opp_spon_SN ~ perc_co_bipart, data = s_data_114)
+pbca_nc_lm <- lm(mean_pct_cospon_opp_spon_SN_nc ~ perc_co_bipart_nc, data = s_data_114)
+
+# impute PBCA, which is NA for independents
+s_data_114 <- s_data_114 |>
+  mutate(mean_pct_cospon_opp_spon_SN = ifelse(is.na(mean_pct_cospon_opp_spon_SN),
+                                              predict(pbca_lm, s_data_114),
+                                              mean_pct_cospon_opp_spon_SN),
+         mean_pct_cospon_opp_spon_SN_nc = ifelse(is.na(mean_pct_cospon_opp_spon_SN_nc),
+                                                 predict(pbca_nc_lm, s_data_114),
+                                                 mean_pct_cospon_opp_spon_SN_nc))
+
+
 # compare Voteview and LES/HVW dwnom scores
 s_joined <- s_data_114 |>
   left_join(s_members_114, by = "icpsr")
