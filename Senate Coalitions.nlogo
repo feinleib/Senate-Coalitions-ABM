@@ -14,6 +14,7 @@ globals [
   bills-failed         ; number of bills that failed
   passing-coalitions   ; list: number of proponents on passed bills
   minority-supports    ; list: % of minority senators in support of passed bills
+  passed-bill-times    ; list: consideration time on passed bills
   bill-times           ; list: consideration time on all bills
 ]
 
@@ -148,6 +149,7 @@ to setup-metrics
   set bills-failed 0
   set passing-coalitions (list)
   set minority-supports (list)
+  set passed-bill-times (list)
   set bill-times (list)
 end
 
@@ -329,15 +331,17 @@ to attempt-passage
     ]
   ) ; else: bill continues
 
-  ; record metrics for passed bills
+  ; record metrics for finished bills
   if bill-passed? [
     set passing-coalitions lput n-proponents passing-coalitions
     ; minority-supports records % of minority party in proponent coalition
     set minority-supports lput (
       100 * (count proponents with [not majority?]) / (count senators with [not majority?])
     ) minority-supports
-    set bill-times lput active-time bill-times
+    set passed-bill-times lput active-time passed-bill-times
   ]
+
+  if bill-done? [ set bill-times lput active-time bill-times ]
 end
 
 ;;; COALITION UTILITY CALCULATIONS ;;;
@@ -950,6 +954,21 @@ mean minority-supports
 1
 1
 11
+
+SLIDER
+15
+295
+195
+328
+obsts-to-block-vote
+obsts-to-block-vote
+1
+50
+3.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
