@@ -18,8 +18,8 @@ senators-own [
   lastname
   firstname
   home-state
-  dwnom1         ; 1st-dimension DW-NOMINATE estimate
-  dwnom2         ; 2nd-dimension DW-NOMINATE estimate
+  dwnom1         ; 1st-dimension DW-NOMINATE location
+  dwnom2         ; 2nd-dimension DW-NOMINATE location
   party          ; ICPSR party code (independents are marked separately)
   pbca           ; percent bipartisan cosponsors attracted (as bill sponsor)
   pbco           ; percent bipartisan cosponsorships offered (as non-sponsor)
@@ -28,17 +28,17 @@ senators-own [
 ]
 
 bills-own [
-  dwnom1      ; 1st-dimension DW-NOMINATE estimate
-  dwnom2      ; 2nd-dimension DW-NOMINATE estimate
+  dwnom1      ; 1st-dimension DW-NOMINATE location
+  dwnom2      ; 2nd-dimension DW-NOMINATE location
   sponsor     ; sponsoring senator
   cosponsors  ; agentset of cosponsoring senators
-  squo-policy ; location of related status quo policy in policy space
+  squo-policy ; the related status-quo policy
   active-time ; how long this bill has been active, in ticks
 ]
 
 status-quos-own [
-  dwnom1 ; 1st-dimension DW-NOMINATE estimate
-  dwnom2 ; 2nd-dimension DW-NOMINATE estimate
+  dwnom1 ; 1st-dimension DW-NOMINATE location
+  dwnom2 ; 2nd-dimension DW-NOMINATE location
 ]
 
 to setup
