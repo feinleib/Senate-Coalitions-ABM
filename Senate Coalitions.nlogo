@@ -663,9 +663,7 @@ PENS
 
 ## NETLOGO FEATURES
 
-(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
-
-* Ticks occur in several sub-procedures of the GO procedure (e.g. PLACE-BILL, GET-SPONSOR-AND-COSPONSORS). This design allows the model to describe how long it takes to consider each bill.
+Unlike most NetLogo models, ticks do not occur once per iteration of the GO procedure. Instead, ticks occur in several sub-procedures of the GO procedure (e.g. PLACE-BILL, GET-SPONSOR-AND-COSPONSORS, CREATE-COALITIONS, ADVANCE-COALITIONS). This design allows the model to describe how long it takes to consider each bill.
 
 ## RELATED MODELS
 
