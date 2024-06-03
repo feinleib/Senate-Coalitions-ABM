@@ -839,6 +839,118 @@ Rules environment
 0.0
 1
 
+PLOT
+905
+15
+1155
+145
+Passing coalitions
+Senators
+NIL
+50.0
+100.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 1 -13840069 true "" "histogram passing-coalitions"
+
+PLOT
+905
+200
+1155
+325
+Minority support on passed bills
+% support from minority
+NIL
+0.0
+100.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 1 -13345367 true "" "histogram passing-biparts"
+
+MONITOR
+940
+505
+1035
+550
+pass (simple)
+bills-passed-simple / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture + bills-passed-simple) * 100
+1
+1
+11
+
+TEXTBOX
+985
+380
+1085
+398
+Bill outcomes (%)
+11
+0.0
+1
+
+MONITOR
+1055
+405
+1112
+450
+fail
+bills-failed / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture + bills-passed-simple) * 100
+1
+1
+11
+
+MONITOR
+940
+405
+1035
+450
+pass (UC)
+bills-passed-uc / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture + bills-passed-simple) * 100
+1
+1
+11
+
+MONITOR
+940
+455
+1035
+500
+pass (cloture)
+bills-passed-cloture / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture + bills-passed-simple) * 100
+1
+1
+11
+
+MONITOR
+905
+145
+962
+190
+mean
+mean passing-coalitions
+1
+1
+11
+
+MONITOR
+905
+325
+962
+370
+mean
+mean passing-biparts
+1
+1
+11
+
 @#$#@#$#@
 ## WHAT IS IT?
 
