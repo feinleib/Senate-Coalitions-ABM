@@ -457,23 +457,6 @@ NIL
 NIL
 1
 
-BUTTON
-15
-95
-102
-128
-NIL
-place-bill
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
 SLIDER
 15
 155
@@ -635,6 +618,23 @@ PENS
 "proponents" 1.0 0 -8732573 true "" "plot count proponents"
 "opponents" 1.0 0 -1604481 true "" "plot count opponents"
 "obstructionists" 1.0 0 -5298144 true "" "plot count obstructionists"
+
+BUTTON
+15
+95
+162
+128
+NIL
+advance-coalitions
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
