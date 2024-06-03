@@ -33,6 +33,7 @@ bills-own [
   sponsor     ; sponsoring senator
   cosponsors  ; agentset of cosponsoring senators
   squo-policy ; location of related status quo policy in policy space
+  active-time ; how long this bill has been active, in ticks
 ]
 
 status-quos-own [
@@ -59,10 +60,7 @@ to go
   get-sponsor-and-cosponsors
 
   ; build coalitions
-  ask senators with [coalition = ""] [
-    find-initial-coalition active-bill
-  ]
-  tick
+  create-coalitions
   ; TODO: loop until coalitions stabilize
   ; while [not coalitions-stabilized?] [
   ; advance-coalitions
@@ -125,7 +123,7 @@ end
 ;;; CREATING A BILL ;;;
 
 ; create a new bill and associated status quo, and
-; tick
+; tick and increment active-time
 to place-bill
   let new-status-quo 0
   create-status-quos 1 [
@@ -142,6 +140,7 @@ to place-bill
     set color green + 1
     set sponsor nobody
     set cosponsors no-turtles
+    set active-time 1
     ; pair bills and status quos one-to-one
     set squo-policy new-status-quo
     create-policy-movement-from squo-policy [
@@ -163,11 +162,12 @@ to clear-bills
 end
 
 ; call GET-SPONSOR and ATTRACT-COSPONSORS, and
-; tick
+; tick and increment active-time
 to get-sponsor-and-cosponsors
   ask active-bill [
     get-sponsor
     attract-cosponsors
+    set active-time active-time + 1
   ]
   tick
 end
@@ -227,6 +227,16 @@ end
 
 ;;; GENERATING COALITIONS ;;;
 
+; ask senators to find-initial-coalition, and
+; tick and increment active-time
+to create-coalitions
+  ask senators with [coalition = ""] [
+    find-initial-coalition active-bill
+    set active-time active-time + 1
+  ]
+  tick
+end
+
 ; set initial proponent/opponent coalitions
 ; because the general utility formulas need existing coalition sizes
 to find-initial-coalition [a-bill] ; senator procedure
@@ -234,9 +244,14 @@ to find-initial-coalition [a-bill] ; senator procedure
   set coalition ifelse-value (bill-utility a-bill > 0) ["proponent"] ["opponent"]
 end
 
+; ask senators to find-coalition, and
+; tick and increment active-time
 to advance-coalitions
   ask senators [
     find-coalition active-bill
+  ]
+  ask active-bill [
+    set active-time active-time + 1
   ]
   tick
 end
