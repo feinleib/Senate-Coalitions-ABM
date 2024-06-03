@@ -80,6 +80,7 @@ to go
     advance-coalitions
     ask active-bill [ attempt-passage ]
   ]
+  ; reset and move on to next bill
   clear-bills
   tick
 end
@@ -678,7 +679,7 @@ BUTTON
 88
 NIL
 go
-NIL
+T
 1
 T
 OBSERVER
