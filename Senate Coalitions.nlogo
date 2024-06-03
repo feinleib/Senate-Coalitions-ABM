@@ -333,7 +333,7 @@ to-report costs-of-obstructionist [a-bill] ; senator reporter
   report 0
 end
 
-;;; SMALL HELPERS AND REPORTERS ;;;
+;;; COALITIONS AND THEIR SIZES ;;;
 
 ;; coalition turtle sets
 to-report proponents
@@ -360,6 +360,8 @@ end
 to-report n-obstructionists
   report count obstructionists
 end
+
+;;; DW-NOMINATE HELPERS ;;;
 
 ; a senator's utility from a bill is the reduction in the senator's
 ; distance to the bill (versus its associated status quo)
@@ -398,6 +400,8 @@ end
 to-report dwnom2-range ; turtle reporter
   report sqrt (1 - dwnom1 ^ 2)
 end
+
+;;; SMALL GENERAL HELPERS ;;;
 
 ; first (up to) n elements in a list
 to-report first-n-from-list [n lst]
