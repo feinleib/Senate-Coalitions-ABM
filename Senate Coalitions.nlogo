@@ -532,8 +532,8 @@ to-report sign [number]
 end
 
 
-; Credit: Some CSV code comes from the "CSV Example" model in the NetLogo
-; Models Library. That model has been dedicated to the public domain.
+; Credit: Some CSV code comes from the "CSV Example" model in the NetLogo Models Library.
+; That model has been dedicated to the public domain.
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
