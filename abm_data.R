@@ -10,7 +10,6 @@ devtools::install_github("feinleib/filibustr", ref = "local-arg-dev")
 
 library(dplyr)
 library(readr)
-
 library(filibustr)
 
 ###############
@@ -63,6 +62,23 @@ s_joined <- s_data_114 |>
 
 plot(s_joined$dwnom1, s_joined$nominate_dim1)
 plot(s_joined$dwnom2, s_joined$nominate_dim2)
+
+
+# majority leader nays
+s_114_votes <- get_voteview_member_votes(chamber = "s", congress = 114)
+
+maj_leaders <- s_data_114 |>
+  filter(maj_leader == 1) |>
+  select(last, first, icpsr)
+
+s_114_votes |>
+  left_join(get_voteview_cast_codes(), by = "cast_code") |>
+  inner_join(maj_leaders, by = "icpsr") |>
+  group_by(rollnumber) |>
+  summarize(n_yeas = sum(vote_cast == "Yea")) |>
+  pull(n_yeas) |>
+  table()
+
 
 
 ########################
