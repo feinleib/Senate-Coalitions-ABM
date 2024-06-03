@@ -24,6 +24,7 @@ senators-own [
   pbca           ; percent bipartisan cosponsors attracted (as bill sponsor)
   pbco           ; percent bipartisan cosponsorships offered (as non-sponsor)
   avg-cosponsors ; average number of cosponsors attracted (as bill sponsor)
+  majority?      ; whether a senator is in the majority party
   coalition      ; "proponent", "opponent", "obstructionist", or "" (blank)
 ]
 
@@ -74,9 +75,11 @@ to setup-senators [filename]
   ; set most senator properties from CSV data
   read-senator-data filename
 
-  ; set senator location (by DW-NOMINATE), color (by party), and a blank coalition
+  ; set senator location (by DW-NOMINATE), color (by party),
+  ; majority status, and a blank coalition
   ask senators [
     set-dwnom-location
+    set majority? (party = first modes [party] of senators)
     set color (
       ifelse-value
       party = 100 [blue]   ; Dem
