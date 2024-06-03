@@ -2,7 +2,9 @@
 title: Senate Coalitions
 subtitle: An Agent-Based Model
 author: 
-  - name: Max H. Feinleib
+  - name: 
+      given: Max H. 
+      family: Feinleib
     orcid: 0009-0002-9604-3533
     email: maxfeinleib2024@u.northwestern.edu
     affiliation:
@@ -12,7 +14,10 @@ author:
         url: https://www.northwestern.edu
 date: 2024-06-03
 date-format: long
-format: html
+format: 
+  html: default
+  pdf:
+    linestretch: 2.0
 keywords: 
   - U.S. Senate
   - legislative coalitions
@@ -23,10 +28,10 @@ bibliography: abm_bib.json
 csl: apa.csl
 toc: true
 number-sections: true
-linestretch: 2.0
 lightbox: true
 execute:
   echo: false
+citation: true
 ---
 
 \pagebreak
