@@ -321,7 +321,7 @@ end
 ; probability of bill passage based on size of proponent coalition
 ; "pi" parameter in Wawro & Schickler (2006), Feinleib (2024)
 to-report passage-probability
-  let alpha-value ifelse-value (n-proponents >= cloture-threshold) [alpha-star] [alpha]
+  let alpha-value ifelse-value (n-proponents >= cloture-threshold) [alpha-above-cloture] [alpha]
   ; if there are less than 50 proponents, pi = 0.01
   report ifelse-value (n-proponents >= 50) [((n-proponents - 50) / 50) ^ alpha-value] [0.01]
 end
@@ -472,10 +472,10 @@ NIL
 1
 
 SLIDER
-15
-155
-195
-188
+350
+385
+530
+418
 dwnom1-emphasis
 dwnom1-emphasis
 0
@@ -504,10 +504,10 @@ NIL
 1
 
 SLIDER
-15
-195
-195
-228
+350
+425
+530
+458
 position-taking-benefits
 position-taking-benefits
 0
@@ -520,9 +520,9 @@ HORIZONTAL
 
 SLIDER
 15
-235
+175
 195
-268
+208
 alpha
 alpha
 0.01
@@ -535,11 +535,11 @@ HORIZONTAL
 
 SLIDER
 15
-275
+215
 195
-308
-alpha-star
-alpha-star
+248
+alpha-above-cloture
+alpha-above-cloture
 0.01
 1
 0.1
@@ -550,9 +550,9 @@ HORIZONTAL
 
 SLIDER
 15
-315
+255
 195
-348
+288
 cloture-threshold
 cloture-threshold
 50
@@ -648,6 +648,86 @@ NIL
 NIL
 NIL
 NIL
+1
+
+SLIDER
+535
+385
+745
+418
+majority-floor-time-costs
+majority-floor-time-costs
+0
+0.1
+0.05
+0.005
+1
+NIL
+HORIZONTAL
+
+SLIDER
+535
+425
+745
+458
+minority-floor-time-costs
+minority-floor-time-costs
+0
+0.1
+0.02
+0.005
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+355
+365
+460
+383
+Utility parameters
+11
+0.0
+1
+
+SLIDER
+350
+465
+530
+498
+prop-debate-costs
+prop-debate-costs
+0
+0.1
+0.01
+0.005
+1
+NIL
+HORIZONTAL
+
+SLIDER
+535
+465
+745
+498
+obst-debate-costs
+obst-debate-costs
+0
+0.1
+0.02
+0.005
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+15
+155
+125
+173
+Rules environment
+11
+0.0
 1
 
 @#$#@#$#@
