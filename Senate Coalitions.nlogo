@@ -244,12 +244,20 @@ end
 
 ;;; COALITION UTILITY CALCULATIONS ;;;
 
-; NOTE: all benefits are shared among coalition members, so they are
-; highest when the coalition is small, linearly declining to 0 if
-; there are 100 proponents or 50 obstructionists.
-; NOTE: opponents are defined to have 0 utility.
+;; UTILITY ;;
 
-; expected benefits: raw benefits * passage probability
+to-report proponent-utility [a-bill] ; senator procedure
+  report exp-benefits-of-proponent a-bill - costs-of-proponent a-bill
+end
+
+to-report obstructionist-utility [a-bill] ; senator procedure
+  report exp-benefits-of-obstructionist a-bill - costs-of-obstructionist a-bill
+end
+
+;; EXPECTED BENEFITS ;;
+
+; expected benefits = raw benefits * passage probability
+
 to-report exp-benefits-of-proponent [a-bill] ; senator reporter
   report (benefits-of-proponent a-bill) * passage-probability
 end
@@ -257,6 +265,13 @@ end
 to-report exp-benefits-of-obstructionist [a-bill] ; senator reporter
   report (1 - passage-probability) * (obst-blocking-benefits a-bill) + (obst-position-taking-benefits a-bill)
 end
+
+;; RAW BENEFITS ;;
+
+; NOTE: benefits are shared among coalition members, so they are
+; highest when the coalition is small, linearly declining to 0 if
+; there are 100 proponents or 50 obstructionists.
+; NOTE: opponents are defined to have 0 utility.
 
 ; raw policy benefits to a proponent
 to-report benefits-of-proponent [a-bill] ; senator reporter
@@ -272,20 +287,27 @@ end
 ; an obstructionist's raw position-taking benefits
 ; position-taking benefits take the same sign as blocking benefits
 to-report obst-position-taking-benefits [a-bill] ; senator reporter
-  report position-taking-benefits * (sign bill-utility a-bill) * ((50 - n-obstructionists) / 50)
-end
-
-to-report costs-of-proponent [a-bill] ; senator reporter
-end
-
-to-report costs-of-obstructionist [a-bill] ; senator reporter
+  report position-taking-benefits * (- sign bill-utility a-bill) * ((50 - n-obstructionists) / 50)
 end
 
 ; probability of bill passage based on size of proponent coalition
 ; "pi" parameter in Wawro & Schickler (2006), Feinleib (2024)
 to-report passage-probability
   let alpha-value ifelse-value (n-proponents >= cloture-threshold) [alpha-star] [alpha]
-  report ((n-proponents - 50) / 50) ^ alpha-value
+  ; if there are less than 50 proponents, pi = 0.01
+  report ifelse-value (n-proponents >= 50) [((n-proponents - 50) / 50) ^ alpha-value] [0.01]
+end
+
+;; COSTS ;;
+
+to-report costs-of-proponent [a-bill] ; senator reporter
+  report 0
+end
+
+to-report costs-of-obstructionist [a-bill] ; senator reporter
+  report 0
+end
+
 end
 
 ;;; SMALL HELPERS AND REPORTERS ;;;
