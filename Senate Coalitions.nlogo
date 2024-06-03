@@ -275,21 +275,21 @@ end
 ;; UTILITY ;;
 
 to-report proponent-utility [a-bill] ; senator procedure
-  report exp-benefits-of-proponent a-bill - costs-of-proponent a-bill
+  report (exp-benefits-of-proponent a-bill) - (costs-of-proponent a-bill)
 end
 
 to-report obstructionist-utility [a-bill] ; senator procedure
-  report exp-benefits-of-obstructionist a-bill - costs-of-obstructionist a-bill
+  report (exp-benefits-of-obstructionist a-bill) - (costs-of-obstructionist a-bill)
 end
 
 ;; EXPECTED BENEFITS ;;
 
-; expected benefits = raw benefits * passage probability
-
+; proponents' expected benefits = raw benefits * passage probability
 to-report exp-benefits-of-proponent [a-bill] ; senator reporter
   report (benefits-of-proponent a-bill) * passage-probability
 end
 
+; obstructionists also get position-taking benefits regardless of success
 to-report exp-benefits-of-obstructionist [a-bill] ; senator reporter
   report (1 - passage-probability) * (obst-blocking-benefits a-bill) + (obst-position-taking-benefits a-bill)
 end
