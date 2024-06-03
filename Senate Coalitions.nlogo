@@ -589,7 +589,7 @@ dwnom1-emphasis
 dwnom1-emphasis
 0
 100
-85.0
+90.0
 5
 1
 %
@@ -621,7 +621,7 @@ position-taking-benefits
 position-taking-benefits
 0
 2
-0.4
+1.0
 0.05
 1
 NIL
@@ -783,7 +783,7 @@ minority-floor-time-costs
 minority-floor-time-costs
 0
 0.1
-0.02
+0.01
 0.005
 1
 NIL
