@@ -232,8 +232,8 @@ end
 to create-coalitions
   ask senators with [coalition = ""] [
     find-initial-coalition active-bill
-    set active-time active-time + 1
   ]
+  ask active-bill [ set active-time active-time + 1 ]
   tick
 end
 
