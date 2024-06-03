@@ -568,6 +568,59 @@ NIL
 NIL
 1
 
+MONITOR
+15
+365
+97
+410
+proponents
+n-proponents
+0
+1
+11
+
+MONITOR
+190
+365
+297
+410
+obstructionists
+n-obstructionists
+17
+1
+11
+
+MONITOR
+105
+365
+182
+410
+opponents
+n-opponents
+17
+1
+11
+
+PLOT
+15
+420
+295
+570
+Coalitions
+NIL
+Senators
+0.0
+10.0
+0.0
+100.0
+true
+true
+"" ""
+PENS
+"proponents" 1.0 0 -8732573 true "" "plot count proponents"
+"opponents" 1.0 0 -1604481 true "" "plot count opponents"
+"obstructionists" 1.0 0 -5298144 true "" "plot count obstructionists"
+
 @#$#@#$#@
 ## WHAT IS IT?
 
