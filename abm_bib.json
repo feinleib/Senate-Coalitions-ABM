@@ -1,5 +1,45 @@
 [
 	{
+		"id": "curryNonpartyGovernmentBipartisan2019",
+		"type": "article-journal",
+		"abstract": "Majority leaders of the contemporary Congress preside over parties that are more cohesive than at any point in the modern era, and power has been centralized in party leadership offices. Do today’s majority parties succeed in enacting their legislative agendas to a greater extent than the less-cohesive parties of earlier eras? To address this question, we examine votes on all laws enacted from 1973–2016, as well as on the subset of landmark laws identified by Mayhew. In addition, we analyze the efforts of congressional majority parties to pass their agendas from 1985 to 2016. We find that enacting coalitions in recent congresses are nearly as bipartisan as they were in the 1970s. Most laws, including landmark enactments, continue to garner substantial bipartisan support. Furthermore, majority parties have not gotten better at passing their legislative programs. Contemporary congressional majorities actually fail on their agenda items at somewhat higher rates than the less-cohesive majority parties of the 1980s and 1990s. When majority parties succeed on their agenda priorities, they usually do so with support from a majority of the minority party in at least one chamber and with the endorsement of one or more of the minority party’s top leaders.",
+		"container-title": "Perspectives on Politics",
+		"DOI": "10.1017/S1537592718002128",
+		"ISSN": "1541-0986",
+		"issue": "1",
+		"note": "Curry and Lee find that despite increased partisanship in Congress, it still takes a bipartisan coalition to pass significant legislation. Lawmaking is as bipartisan as it was in the 1970s. Major policy successes for the majority party usually come through coopting some minority support. These findings suggest that the Senate's rules, which require bipartisan cooperation, may foster productivity in lawmaking.",
+		"page": "47-65",
+		"title": "Non-party government: Bipartisan lawmaking and party power in Congress",
+		"URL": "https://www.cambridge.org/core/article/nonparty-government-bipartisan-lawmaking-and-party-power-in-congress/5500EC62EA53CE786B3A69C51BB29E0C",
+		"volume": "17",
+		"author": [
+			{
+				"family": "Curry",
+				"given": "James M."
+			},
+			{
+				"family": "Lee",
+				"given": "Frances E."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2023",
+					4,
+					12
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2019"
+				]
+			]
+		}
+	},
+	{
 		"id": "harbridge-yongBipartisanPathEffective2023",
 		"type": "article-journal",
 		"abstract": "We confront the puzzle of why bipartisanship is alive and well in Congress, despite notable increases in party polarization and rising primary election threats. The answer is remarkably simple—bipartisanship unambiguously helps individual legislators who seek to advance their policy goals. We show that members of the House and Senate from the 93rd to 114th Congresses (1973–2016) who attract a larger portion of their bill cosponsors from the opposing party are much more successful at lawmaking. We show these patterns to be remarkably robust to both majority-party and minority-party lawmakers, under changing legislative and electoral conditions and over time. Moreover, a clear path to attracting bipartisan cosponsors involves reciprocity, making cosponsoring others’ bills across party lines attractive.",
@@ -247,6 +287,7 @@
 		"id": "wilenskyNetLogo1999",
 		"type": "software",
 		"event-place": "Evanston",
+		"note": "Preferred citation:\nWilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for\nConnected Learning and Computer-Based Modeling, Northwestern University,\nEvanston, IL.",
 		"publisher": "Center for Connected Learning and Computer-Based Modeling, Northwestern University",
 		"publisher-place": "Evanston",
 		"title": "NetLogo",
@@ -320,8 +361,8 @@
 			"date-parts": [
 				[
 					"2024",
-					5,
-					27
+					6,
+					2
 				]
 			]
 		},
@@ -329,8 +370,8 @@
 			"date-parts": [
 				[
 					"2024",
-					4,
-					30
+					6,
+					2
 				]
 			]
 		}
@@ -417,6 +458,38 @@
 			"date-parts": [
 				[
 					"1979"
+				]
+			]
+		}
+	},
+	{
+		"id": "feinleibSenateCoalitionsAgentbased2024",
+		"type": "webpage",
+		"language": "en",
+		"title": "Senate coalitions: An agent-based model",
+		"title-short": "Senate coalitions",
+		"URL": "https://feinleib.quarto.pub/senate-coalitions/",
+		"author": [
+			{
+				"family": "Feinleib",
+				"given": "Max H."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					6,
+					3
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2024",
+					6,
+					3
 				]
 			]
 		}
