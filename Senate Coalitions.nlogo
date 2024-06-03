@@ -599,23 +599,6 @@ dwnom1-emphasis
 %
 HORIZONTAL
 
-BUTTON
-105
-55
-197
-88
-NIL
-clear-bills
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
 SLIDER
 350
 425
@@ -745,23 +728,6 @@ PENS
 "proponents" 1.0 0 -8732573 true "" "plot count proponents"
 "opponents" 1.0 0 -1604481 true "" "plot count opponents"
 "obstructionists" 1.0 0 -5298144 true "" "plot count obstructionists"
-
-BUTTON
-15
-95
-162
-128
-NIL
-advance-coalitions
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
 
 SLIDER
 535
