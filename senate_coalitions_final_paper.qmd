@@ -23,8 +23,7 @@ bibliography: abm_bib.json
 csl: apa.csl
 toc: true
 number-sections: true
-lof: true
-lot: true
+linestretch: 2.0
 lightbox: true
 execute:
   echo: false
