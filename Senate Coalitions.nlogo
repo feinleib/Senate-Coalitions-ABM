@@ -939,35 +939,45 @@ HORIZONTAL
 @#$#@#$#@
 ## WHAT IS IT?
 
-(a general understanding of what the model is trying to show or explain)
+This is a model of legislative coalitions and the lawmaking process in the U.S. Senate. It shows the impact of different rules environments and member incentives on the operation of the Senate.
+
+This model is based on the equation-based models of Senate coalitions in "Redesigning the Filibuster for More Effective Lawmaking in a Polarized Senate" by Max Feinleib (2024). That model in turn is a derivative of the model from *Filibuster: Obstruction and Lawmaking in the U.S. Senate* by Gregory J. Wawro and Eric Schickler (2006).
+
 
 ## HOW IT WORKS
 
 (what rules the agents use to create the overall behavior of the model)
 
+
 ## HOW TO USE IT
 
 (how to use the model, including a description of each of the items in the Interface tab)
+
 
 ## THINGS TO NOTICE
 
 (suggested things for the user to notice while running the model)
 
+
 ## THINGS TO TRY
 
 (suggested things for the user to try to do (move sliders, switches, etc.) with the model)
+
 
 ## EXTENDING THE MODEL
 
 (suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
 
+
 ## NETLOGO FEATURES
 
 Unlike most NetLogo models, ticks do not occur once per iteration of the GO procedure. Instead, ticks occur in several sub-procedures of the GO procedure (e.g. PLACE-BILL, GET-SPONSOR-AND-COSPONSORS, CREATE-COALITIONS, ADVANCE-COALITIONS). This design allows the model to describe how long it takes to consider each bill.
 
+
 ## RELATED MODELS
 
 (models in the NetLogo Models Library and elsewhere which are of related interest)
+
 
 ## CREDITS AND REFERENCES
 
