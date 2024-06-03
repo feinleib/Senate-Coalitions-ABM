@@ -239,7 +239,13 @@ end
 
 ; find a senator's coalition for the next tick
 to find-coalition [a-bill] ; senator procedure
-  ; TODO
+  let eu-prop proponent-utility a-bill
+  let eu-obst obstructionist-utility a-bill
+  ; tiebreaker goes to proponent over obstructionist coalition
+  let better-coalition ifelse-value (eu-prop >= eu-obst) ["proponent"] ["obstructionist"]
+  let better-coalition-utility max list eu-prop eu-obst
+  ; but opponent still wins tiebreaker over proponent
+  set coalition ifelse-value (better-coalition-utility > 0) [better-coalition] ["opponent"]
 end
 
 ;;; COALITION UTILITY CALCULATIONS ;;;
