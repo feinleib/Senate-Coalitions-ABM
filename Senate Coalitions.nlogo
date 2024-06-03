@@ -65,10 +65,7 @@ to go
   tick
   ; TODO: loop until coalitions stabilize
   ; while [not coalitions-stabilized?] [
-  ask senators [
-    find-coalition active-bill
-  ]
-  tick
+  ; advance-coalitions
   ; ]
   tick
 end
@@ -235,6 +232,13 @@ end
 to find-initial-coalition [a-bill] ; senator procedure
   ; NOTE: if bill-utility is zero, initial coalition will be "opponent"
   set coalition ifelse-value (bill-utility a-bill > 0) ["proponent"] ["opponent"]
+end
+
+to advance-coalitions
+  ask senators [
+    find-coalition active-bill
+  ]
+  tick
 end
 
 ; find a senator's coalition for the next tick
