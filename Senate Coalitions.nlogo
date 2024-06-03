@@ -21,6 +21,7 @@ senators-own [
   dwnom1         ; 1st-dimension DW-NOMINATE location
   dwnom2         ; 2nd-dimension DW-NOMINATE location
   party          ; ICPSR party code (independents are marked separately)
+  maj-leader     ; 1 for majority-party leadership, 0 otherwise
   pbca           ; percent bipartisan cosponsors attracted (as bill sponsor)
   pbco           ; percent bipartisan cosponsorships offered (as non-sponsor)
   avg-cosponsors ; average number of cosponsors attracted (as bill sponsor)
@@ -114,6 +115,7 @@ to read-senator-data [filename]
       set dwnom1         item 4 data  ; dwnom1
       set dwnom2         item 5 data  ; dwnom2
       set party          item 10 data ; party
+      set maj-leader     item 14 data ; maj_leader
       set avg-cosponsors item 22 data ; mean_cospon_spon_SN_nc
       set pbca           item 24 data ; mean_pct_cospon_opp_spon_SN_nc
       set pbco           item 26 data ; perc_co_bipart_nc
