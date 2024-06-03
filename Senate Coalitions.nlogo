@@ -446,7 +446,7 @@ end
 ; bills pass by simple majority vote
 ; if there is no organized obstruction
 to-report passage-vote?
-  report n-proponents > 50 and n-obstructionists < 3
+  report n-proponents > 50 and n-obstructionists < obsts-to-block-vote
 end
 
 ;;; COALITIONS AND THEIR SIZES ;;;
