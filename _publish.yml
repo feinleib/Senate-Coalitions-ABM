@@ -1,0 +1,4 @@
+- source: senate_coalitions_final_paper.qmd
+  quarto-pub:
+    - id: f3b52400-c083-4eb5-9ad3-9b5285130858
+      url: 'https://feinleib.quarto.pub/senate-coalitions'
