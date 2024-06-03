@@ -318,21 +318,32 @@ to-report costs-of-obstructionist [a-bill] ; senator reporter
   report 0
 end
 
+;;; SMALL HELPERS AND REPORTERS ;;;
+
+;; coalition turtle sets
+to-report proponents
+  report turtle-set senators with [coalition = "proponent"]
 end
 
-;;; SMALL HELPERS AND REPORTERS ;;;
+to-report opponents
+  report turtle-set senators with [coalition = "opponent"]
+end
+
+to-report obstructionists
+  report turtle-set senators with [coalition = "obstructionist"]
+end
 
 ;; coalition sizes
 to-report n-proponents
-  report count senators with [coalition = "proponent"]
+  report count proponents
 end
 
 to-report n-opponents
-  report count senators with [coalition = "opponent"]
+  report count opponents
 end
 
 to-report n-obstructionists
-  report count senators with [coalition = "obstructionist"]
+  report count obstructionists
 end
 
 ; a senator's utility from a bill is the reduction in the senator's
