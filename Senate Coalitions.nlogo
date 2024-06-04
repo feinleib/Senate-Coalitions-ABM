@@ -18,12 +18,12 @@ globals [
   bill-times           ; list: consideration time on all bills
 ]
 
-breed [senators senator]
-breed [bills bill]
-breed [status-quos status-quo]
+breed [ senators senator ]
+breed [ bills bill ]
+breed [ status-quos status-quo ]
 
-directed-link-breed [policy-movements policy-movement]
-undirected-link-breed [supports support]
+directed-link-breed [ policy-movements policy-movement ]
+undirected-link-breed [ supports support ]
 
 senators-own [
   lastname
@@ -209,7 +209,7 @@ end
 
 to get-sponsor ; bill procedure
   ; sponsor is the senator with maximum policy benefits
-  set sponsor max-one-of senators [policy-benefits myself]
+  set sponsor max-one-of senators [ policy-benefits myself ]
   create-support-with sponsor [
     set color green + 1
     set thickness 0.2
@@ -224,14 +224,14 @@ to attract-cosponsors ; bill procedure
   ; ask other senators to cosponsor bill
   ; order asks by senators' bill utility, PBCA/PBCO, home state
   let potential-cosponsor-list (
-    reverse sort-on [cosponsor-likelihood myself]
-    senators with [cosponsor-likelihood myself > 0] who-are-not sponsor
+    reverse sort-on [ cosponsor-likelihood myself ]
+    senators with [ cosponsor-likelihood myself > 0 ] who-are-not sponsor
   )
   set cosponsors turtle-set first-n-from-list n-cosponsors potential-cosponsor-list
   ; create links between cosponsors and sponsor
   ; and add cosponsors to proponent coalition
   ask cosponsors [
-    create-support-with [sponsor] of myself
+    create-support-with [ sponsor ] of myself
     set coalition "proponent"
   ]
 end
@@ -239,23 +239,23 @@ end
 ; likelihood of a senator to cosponsor a bill
 ; NOTE: not a calibrated probability, just used for ordering potential cosponsors
 to-report cosponsor-likelihood [a-bill] ; senator procedure
-  let sponsor-pbca [[pbca] of sponsor] of a-bill
-  let sponsor-state [[home-state] of sponsor] of a-bill
-  let sponsor-party [[party] of sponsor] of a-bill
+  let sponsor-pbca [ [ pbca ] of sponsor ] of a-bill
+  let sponsor-state [ [ home-state ] of sponsor ] of a-bill
+  let sponsor-party [ [ party ] of sponsor ] of a-bill
 
   ; base benefits
   let benefits policy-benefits a-bill
   ; more likely to attract cosponsors from same party (according to PBCA)
   let party-factor (ifelse-value
     ; same party: (100 - PBCO) * (100 - sponsor PBCA)
-    (party = sponsor-party) [(100 - pbco) * (100 - sponsor-pbca)]
+    (party = sponsor-party) [ (100 - pbco) * (100 - sponsor-pbca) ]
     ; independents: 50 * 50 = 25
-    (party = 328) [25]
+    (party = 328) [ 25 ]
     ; opposite party: PBCO * sponsor PBCA
-    [pbco * sponsor-pbca]
+    [ pbco * sponsor-pbca ]
   )
   ; bump cosponsor likelihood of senator from the same state as sponsor
-  let state-bonus ifelse-value (home-state = sponsor-state) [10] [0]
+  let state-bonus ifelse-value (home-state = sponsor-state) [ 10 ] [ 0 ]
 
   report benefits * party-factor + state-bonus
 end
@@ -276,7 +276,9 @@ end
 ; because the general utility formulas need existing coalition sizes
 to find-initial-coalition [a-bill] ; senator procedure
   ; NOTE: if policy-benefits is zero, initial coalition will be "opponent"
-  set coalition ifelse-value (policy-benefits a-bill > 0) ["proponent"] ["opponent"]
+  set coalition (
+    ifelse-value (policy-benefits a-bill > 0) [ "proponent" ] [ "opponent" ]
+  )
 end
 
 ; ask senators to find-coalition, and
@@ -297,12 +299,12 @@ to find-coalition [a-bill] ; senator procedure
   let eu-obst obstructionist-utility a-bill
   ; tiebreaker goes to proponent over obstructionist coalition
   let better-coalition (
-    ifelse-value (eu-prop >= eu-obst) ["proponent"] ["obstructionist"]
+    ifelse-value (eu-prop >= eu-obst) [ "proponent" ] [ "obstructionist" ]
   )
   let better-coalition-utility max list eu-prop eu-obst
   ; but opponent still wins tiebreaker over the others
   set coalition (
-    ifelse-value (better-coalition-utility > 0) [better-coalition] ["opponent"]
+    ifelse-value (better-coalition-utility > 0) [ better-coalition ] [ "opponent" ]
   )
 end
 
@@ -340,7 +342,9 @@ to attempt-passage
     set passing-coalitions lput n-proponents passing-coalitions
     ; minority-supports records % of minority party in proponent coalition
     set minority-supports lput (
-      100 * (count proponents with [not majority?]) / (count senators with [not majority?])
+      (count proponents with [ not majority? ])
+      / (count senators with [ not majority? ])
+      * 100
     ) minority-supports
     set passed-bill-times lput active-time passed-bill-times
   ]
@@ -406,9 +410,17 @@ end
 ; probability of bill passage based on size of proponent coalition
 ; "pi" parameter in Wawro & Schickler (2006), Feinleib (2024)
 to-report passage-probability
-  let alpha-value ifelse-value (n-proponents >= cloture-threshold) [alpha-above-cloture] [alpha]
+  let alpha-value (
+    ifelse-value (n-proponents >= cloture-threshold)
+    [ alpha-above-cloture ]
+    [ alpha ]
+  )
   ; if there are less than 50 proponents, pi = 0.01
-  report ifelse-value (n-proponents >= 50) [((n-proponents - 50) / 50) ^ alpha-value] [0.01]
+  report (
+    ifelse-value (n-proponents >= 50)
+    [ ((n-proponents - 50) / 50) ^ alpha-value ]
+    [ 0.01 ]
+  )
 end
 
 ;; COSTS ;;
@@ -423,17 +435,21 @@ end
 
 ; floor time costs are higher for majority-party senators
 to-report floor-time-costs [a-bill] ; senator reporter
-  report (floor (([active-time] of a-bill) / 10))
-  * ifelse-value majority? [majority-floor-time-costs] [minority-floor-time-costs]
+  report (floor (([ active-time ] of a-bill) / 10))
+  * (
+    ifelse-value majority?
+    [ majority-floor-time-costs ]
+    [ minority-floor-time-costs ]
+  )
 end
 
 ; debate time costs may vary by coalition
 to-report proponent-debate-time-costs [a-bill] ; senator reporter
-  report [active-time] of a-bill * prop-debate-costs
+  report [ active-time ] of a-bill * prop-debate-costs
 end
 
 to-report obstructionist-debate-time-costs [a-bill] ; senator reporter
-  report [active-time] of a-bill * obst-debate-costs
+  report [ active-time ] of a-bill * obst-debate-costs
 end
 
 ;;;;; BILL END STATES ;;;;;
@@ -465,21 +481,21 @@ end
 ; flippable senators: everyone except sponsor and cosponsors
 to-report non-sponsors
   report senators who-are-not (
-    turtle-set ([sponsor] of active-bill) ([cosponsors] of active-bill)
+    turtle-set ([ sponsor ] of active-bill) ([ cosponsors ] of active-bill)
   )
 end
 
 ;; coalition turtle sets
 to-report proponents
-  report turtle-set senators with [coalition = "proponent"]
+  report turtle-set senators with [ coalition = "proponent" ]
 end
 
 to-report opponents
-  report turtle-set senators with [coalition = "opponent"]
+  report turtle-set senators with [ coalition = "opponent" ]
 end
 
 to-report obstructionists
-  report turtle-set senators with [coalition = "obstructionist"]
+  report turtle-set senators with [ coalition = "obstructionist" ]
 end
 
 ;; coalition sizes
@@ -500,7 +516,7 @@ end
 ; a senator's utility from a bill is the reduction in the senator's
 ; distance to the bill (versus its associated status quo)
 to-report policy-benefits [a-bill] ; senator reporter
-  let status-quo-dist dwnom-distance [squo-policy] of a-bill
+  let status-quo-dist dwnom-distance [ squo-policy ] of a-bill
   let bill-dist dwnom-distance a-bill
   report status-quo-dist - bill-dist
 end
@@ -510,9 +526,9 @@ end
 to-report dwnom-distance [other-agent] ; agent reporter
   ; sign of components doesn't matter because they're getting squared
   let dwnom1-distance
-  ([dwnom1] of self) - ([dwnom1] of other-agent) * (dwnom1-emphasis / 50)
+  ([ dwnom1 ] of self) - ([ dwnom1 ] of other-agent) * (dwnom1-emphasis / 50)
   let dwnom2-distance
-  ([dwnom2] of self) - ([dwnom2] of other-agent) * ((100 - dwnom1-emphasis) / 50)
+  ([ dwnom2 ] of self) - ([ dwnom2 ] of other-agent) * ((100 - dwnom1-emphasis) / 50)
 
   report sqrt (dwnom1-distance ^ 2 + dwnom2-distance ^ 2)
 end
@@ -547,8 +563,8 @@ to-report sign [number]
   report ifelse-value (number = 0) [ 0 ] [ number / abs number ]
 end
 
-
-; Credit: Some CSV code comes from the "CSV Example" model in the NetLogo Models Library.
+; Credit: Some CSV code comes from the "CSV Example" model
+; in the NetLogo Models Library.
 ; That model has been dedicated to the public domain.
 @#$#@#$#@
 GRAPHICS-WINDOW
