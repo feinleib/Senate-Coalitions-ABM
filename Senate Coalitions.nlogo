@@ -941,7 +941,7 @@ HORIZONTAL
 
 This is a model of legislative coalitions and the lawmaking process in the U.S. Senate. It shows the impact of different rules environments and member incentives on the operation of the Senate.
 
-This model is based on the equation-based models of Senate coalitions in "Redesigning the Filibuster for More Effective Lawmaking in a Polarized Senate" by Max Feinleib (2024). That model in turn is a derivative of the model from *Filibuster: Obstruction and Lawmaking in the U.S. Senate* by Gregory J. Wawro and Eric Schickler (2006).
+This model is based on the equation-based model of Senate coalitions in "Redesigning the Filibuster for More Effective Lawmaking in a Polarized Senate" by Max Feinleib (2024). That model in turn is a derivative of the model from the book *Filibuster* by Gregory J. Wawro and Eric Schickler (2006).
 
 
 ## HOW IT WORKS
