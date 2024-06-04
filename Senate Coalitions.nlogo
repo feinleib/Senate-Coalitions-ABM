@@ -208,8 +208,8 @@ to get-sponsor-and-cosponsors
 end
 
 to get-sponsor ; bill procedure
-  ; sponsor is the senator with maximum utility
-  set sponsor max-one-of senators [bill-utility myself]
+  ; sponsor is the senator with maximum policy benefits
+  set sponsor max-one-of senators [policy-benefits myself]
   create-support-with sponsor [
     set color green + 1
     set thickness 0.2
@@ -243,8 +243,8 @@ to-report cosponsor-likelihood [a-bill] ; senator procedure
   let sponsor-state [[home-state] of sponsor] of a-bill
   let sponsor-party [[party] of sponsor] of a-bill
 
-  ; base utility
-  let utility bill-utility a-bill
+  ; base benefits
+  let benefits policy-benefits a-bill
   ; more likely to attract cosponsors from same party (according to PBCA)
   let party-factor (ifelse-value
     ; same party: (100 - PBCO) * (100 - sponsor PBCA)
@@ -257,7 +257,7 @@ to-report cosponsor-likelihood [a-bill] ; senator procedure
   ; bump cosponsor likelihood of senator from the same state as sponsor
   let state-bonus ifelse-value (home-state = sponsor-state) [10] [0]
 
-  report utility * party-factor + state-bonus
+  report benefits * party-factor + state-bonus
 end
 
 ;;; GENERATING COALITIONS ;;;
@@ -275,8 +275,8 @@ end
 ; set initial proponent/opponent coalitions
 ; because the general utility formulas need existing coalition sizes
 to find-initial-coalition [a-bill] ; senator procedure
-  ; NOTE: if bill-utility is zero, initial coalition will be "opponent"
-  set coalition ifelse-value (bill-utility a-bill > 0) ["proponent"] ["opponent"]
+  ; NOTE: if policy-benefits is zero, initial coalition will be "opponent"
+  set coalition ifelse-value (policy-benefits a-bill > 0) ["proponent"] ["opponent"]
 end
 
 ; ask senators to find-coalition, and
@@ -377,19 +377,19 @@ end
 
 ; raw policy benefits to a proponent
 to-report benefits-of-proponent [a-bill] ; senator reporter
-  report bill-utility a-bill * ((100 - n-proponents) / 50)
+  report policy-benefits a-bill * ((100 - n-proponents) / 50)
 end
 
 ; an obstructionist's raw benefits of blocking a bill:
 ; the inverse of their policy benefits, scaled by the number of obstructionists
 to-report obst-blocking-benefits [a-bill] ; senator reporter
-  report (- bill-utility a-bill) * ((50 - n-obstructionists) / 50)
+  report (- policy-benefits a-bill) * ((50 - n-obstructionists) / 50)
 end
 
 ; an obstructionist's raw position-taking benefits
 ; position-taking benefits take the same sign as blocking benefits
 to-report obst-position-taking-benefits [a-bill] ; senator reporter
-  report position-taking-benefits * (- sign bill-utility a-bill) * ((50 - n-obstructionists) / 50)
+  report position-taking-benefits * (- sign policy-benefits a-bill) * ((50 - n-obstructionists) / 50)
 end
 
 ; probability of bill passage based on size of proponent coalition
@@ -488,7 +488,7 @@ end
 
 ; a senator's utility from a bill is the reduction in the senator's
 ; distance to the bill (versus its associated status quo)
-to-report bill-utility [a-bill] ; senator reporter
+to-report policy-benefits [a-bill] ; senator reporter
   let status-quo-dist dwnom-distance [squo-policy] of a-bill
   let bill-dist dwnom-distance a-bill
   report status-quo-dist - bill-dist
