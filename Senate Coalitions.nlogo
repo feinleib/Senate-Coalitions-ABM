@@ -597,9 +597,9 @@ NIL
 
 SLIDER
 350
-385
+430
 530
-418
+463
 dwnom1-emphasis
 dwnom1-emphasis
 0
@@ -612,9 +612,9 @@ HORIZONTAL
 
 SLIDER
 350
-425
+470
 530
-458
+503
 position-taking-benefits
 position-taking-benefits
 0
@@ -742,9 +742,9 @@ PENS
 
 SLIDER
 535
-385
+430
 745
-418
+463
 majority-floor-time-costs
 majority-floor-time-costs
 0
@@ -757,9 +757,9 @@ HORIZONTAL
 
 SLIDER
 535
-425
+470
 745
-458
+503
 minority-floor-time-costs
 minority-floor-time-costs
 0
@@ -772,9 +772,9 @@ HORIZONTAL
 
 TEXTBOX
 355
-365
+410
 530
-383
+428
 Utility parameters
 11
 0.0
@@ -782,9 +782,9 @@ Utility parameters
 
 SLIDER
 350
-465
+510
 530
-498
+543
 prop-debate-costs
 prop-debate-costs
 0
@@ -797,9 +797,9 @@ HORIZONTAL
 
 SLIDER
 535
-465
+510
 745
-498
+543
 obst-debate-costs
 obst-debate-costs
 0
@@ -946,6 +946,26 @@ obsts-to-block-vote
 1
 NIL
 HORIZONTAL
+
+TEXTBOX
+440
+360
+690
+378
+DW-NOMINATE 1st dimension
+15
+0.0
+1
+
+TEXTBOX
+90
+100
+210
+136
+DW-NOMINATE 2nd dimension
+15
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
