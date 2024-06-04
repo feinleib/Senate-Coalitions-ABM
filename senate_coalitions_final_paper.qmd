@@ -336,6 +336,41 @@ The most substantive portion of the `SETUP` procedure is the initialization of s
 Senators' locations in the view are based on their DW-NOMINATE coordinates, and they are colored by party (blue for Democrats, red for Republicans, and yellow for independents). Senators from the most common party are labeled as majority-party senators. All senators are placed in an empty coalition.
 The `SETUP` procedure also clears previous model state, resets the tick counter, and resets the metrics that are used in the monitors and plots in the interface.
 
+### Go
+The `GO` procedure runs through the introduction and consideration of a bill. Unlike in most NetLogo models, the `GO` procedure does not last just one tick. Instead, each of the below sub-procedures, each of which represents one step in the legislative process, increments the tick counter. This design gives the model a richer conception of the time it takes to consider a bill.
+
+#### Creating a Bill
+The `PLACE-BILL` procedure creates a new bill. First, it creates a status quo policy at a random point in DW-NOMINATE policy space. Then it creates a bill at another random point in policy space. Thus, the bills that are introduced are totally random and independent of the policy preferences of all senators. Bills that make little political sense are introduced, but these reliably fail.
+
+The new bill is initialized with no sponsor or cosponsors. The new bill adopts the just-created status quo as its `squo-policy`, and creates an arrow-shaped link from that status quo. The new bill becomes the active bill.
+
+The tick counter is incremented, and the `active-time` of the bill is set to 1.
+
+#### Attracting a Sponsor and Cosponsors
+This step occurs in the `GET-SPONSOR-AND-COSPONSORS` procedure.
+
+##### Sponsor
+All bills in the Senate must be introduced by a sponsoring senator. It is reasonable to assume that senators introduce bills that align with their policy preferences. Thus, the bill selects the senator with the greatest benefits from its policy movement to be the sponsor. The bill creates a green link with its sponsor, and the sponsor permanently becomes a proponent of this bill.
+
+##### Cosponsors
+The bill then proceeds to attract cosponsors. The cosponsorship-attraction process is based on the interaction of the bill's policy movement, the properties of the bill's sponsor, and the properties of the other 99 senators. First, the number of cosponsors (`n-cosponsors`) is randomly drawn from a Poisson distribution using the sponsor’s average number of cosponsors on their bills.
+
+Next, the 99 other senators calculate their "cosponsor likelihood" for the bill based on three factors.
+First, the senator calculates their policy benefits from the bill.
+Then, the senator multiplies those benefits by a "party factor" based on the interaction of their own party and the sponsor's party. The party factor is the product of the senator's frequency of offering cosponsorships to members of the sponsor's party (PBCO) and the sponsor's frequency of attracting cosponsorships from member's of the senator's party (PBCA). If either the senator or the sponsor is an Independent, both the PBCO and PBCA are treated as 50%. This calculation considers the varying behaviors of senators related to bipartisanship.
+Finally, a small bonus is added if the senator is from the same home state as the sponsor. It is common for senators from the same state to work together on legislation, and this bonus represents that.
+
+Note that this "cosponsor likelihood" is not a proper 0--1 probability. It is a real number that may be positive or negative, and take on quite large magnitudes. These facts are not significant, though, as the cosponsor likelihood is simply used for ordering.
+
+The bill sets its cosponsors agentset to be the `n-cosponsors` senators with the highest positive cosponsor likelihoods. If less than N-COSPONSORS senators have positive cosponsor likelihoods, the cosponsors will just be those senators with positive cosponsor likelihoods.
+The cosponsors create gray links with the sponsor, and the cosponsors permanently become proponents of the bill. This commitment to the bill is based on the reliable support of cosponsors in the real-life Congress [@bernhardCommitmentConsequencesReneging2013].
+
+The tick counter and the `active-time` of the bill are both incremented.
+
+#### Creating Initial Coalitions
+
+
+#### Iterating Coalitions
 
 Benefits:
 
