@@ -246,15 +246,15 @@ to-report cosponsor-likelihood [a-bill] ; senator procedure
   let benefits policy-benefits a-bill
   ; more likely to attract cosponsors from same party (according to PBCA)
   let party-factor (ifelse-value
+    ; independents: 50 * 50 = 25
+    (party = 328 or sponsor-party = 328) [ 2500 ]
     ; same party: (100 - PBCO) * (100 - sponsor PBCA)
     (party = sponsor-party) [ (100 - pbco) * (100 - sponsor-pbca) ]
-    ; independents: 50 * 50 = 25
-    (party = 328) [ 25 ]
     ; opposite party: PBCO * sponsor PBCA
     [ pbco * sponsor-pbca ]
   )
   ; bump cosponsor likelihood of senator from the same state as sponsor
-  let state-bonus ifelse-value (home-state = sponsor-state) [ 10 ] [ 0 ]
+  let state-bonus ifelse-value (home-state = sponsor-state) [ 100 ] [ 0 ]
 
   report benefits * party-factor + state-bonus
 end
