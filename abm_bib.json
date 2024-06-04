@@ -40,6 +40,40 @@
 		}
 	},
 	{
+		"id": "desilverPolarizationTodayCongress2022",
+		"type": "webpage",
+		"abstract": "On average, Democrats and Republicans are farther apart ideologically today than at any time in the past 50 years.",
+		"container-title": "Pew Research Center",
+		"language": "en-US",
+		"title": "The polarization in today’s Congress has roots that go back decades",
+		"title-short": "The polarization in today’s Congress",
+		"URL": "https://www.pewresearch.org/fact-tank/2022/03/10/the-polarization-in-todays-congress-has-roots-that-go-back-decades/",
+		"author": [
+			{
+				"family": "Desilver",
+				"given": "Drew"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2023",
+					5,
+					10
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2022",
+					3,
+					10
+				]
+			]
+		}
+	},
+	{
 		"id": "bernhardCommitmentConsequencesReneging2013",
 		"type": "article-journal",
 		"container-title": "Legislative Studies Quarterly",
@@ -256,7 +290,7 @@
 		"author": [
 			{
 				"family": "Feinleib",
-				"given": "Max"
+				"given": "Max H."
 			}
 		],
 		"accessed": {
