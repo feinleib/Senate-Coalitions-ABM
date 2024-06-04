@@ -265,7 +265,7 @@ end
 ; ask senators to find-initial-coalition, and
 ; tick and increment active-time
 to create-coalitions
-  ask senators with [coalition = ""] [
+  ask non-sponsors [
     find-initial-coalition active-bill
   ]
   ask active-bill [ set active-time active-time + 1 ]
