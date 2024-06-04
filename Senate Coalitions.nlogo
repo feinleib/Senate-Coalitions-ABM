@@ -308,7 +308,7 @@ to find-coalition [a-bill] ; senator procedure
 end
 
 ; check passage conditions
-to attempt-passage
+to attempt-passage ; bill procedure
   let bill-passed? false
 
   ; 4 bill end states
