@@ -30,6 +30,7 @@ keywords:
 bibliography: abm_bib.json
 csl: apa.csl
 number-sections: true
+number-depth: 3
 execute:
   echo: false
 citation: true
@@ -327,6 +328,25 @@ This utility-based method to predict the winner of a legislative fight is possib
 At first glance, this rule to predict winners using expected utility may appear rigid, as if either the proponents or obstructionists are doomed from the start of a legislative fight. How does this rule explain the negotiation process that is so critical for proponents to grow the coalition to pass a bill, or for obstructionists to kill it? The answer is that the expected utility of these two factions constantly varies as the factions grow and shrink and they change their cost-benefit calculations. As the coalitions and the political environment change, and more and more time passes, the expected-utility winner may shift. This change over time is what makes the expected-utility system dynamic.
 
 ## An Agent-Based Representation
+
+The Senate Coalitions ABM is a agent-based representation of the equation-based model described above. While the agent-based model does not fully reproduce all the elements of the equation-based model, its behavior resembles the expected behavior of the equation-based model and that of the real-life Senate. I will now explain the rules of the Senate Coalitions model.
+
+### Setup
+The most substantive portion of the `SETUP` procedure is the initialization of senators. Senators are created using data from @harbridge-yongBipartisanPathEffective2023 on the 114th Congress (2015--16). The following senator properties come from this data: first name, last name, home state, DW-NOMINATE 1st-dimension estimate, DW-NOMINATE 2nd-dimension estimate, party, average number of cosponsors on sponsored bills, PBCA, and PBCO.
+Senators' locations in the view are based on their DW-NOMINATE coordinates, and they are colored by party (blue for Democrats, red for Republicans, and yellow for independents). Senators from the most common party are labeled as majority-party senators. All senators are placed in an empty coalition.
+The `SETUP` procedure also clears previous model state, resets the tick counter, and resets the metrics that are used in the monitors and plots in the interface.
+
+
+Benefits:
+
+* heterogenous treatment of members
+
+Simplifications/omissions:
+
+* looking at individual members' utilities, not the total expected utility of the coalitions
+* Not considering the various strategies available to senators/coalitions
+
+Sections:
 
 * Rules of the model
 * Justifications for rules
