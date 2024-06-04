@@ -40,6 +40,64 @@
 		}
 	},
 	{
+		"id": "kogerFilibusteringPoliticalHistory2010",
+		"type": "book",
+		"call-number": "JK1041 .K64 2010",
+		"collection-title": "Chicago studies in American politics",
+		"event-place": "Chicago",
+		"ISBN": "978-0-226-44964-7",
+		"language": "en",
+		"number-of-pages": "229",
+		"publisher": "University of Chicago Press",
+		"publisher-place": "Chicago",
+		"source": "Library of Congress ISBN",
+		"title": "Filibustering: A political history of obstruction in the House and Senate",
+		"title-short": "Filibustering",
+		"author": [
+			{
+				"family": "Koger",
+				"given": "Gregory"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2010"
+				]
+			]
+		}
+	},
+	{
+		"id": "wawroFilibusterObstructionLawmaking2006",
+		"type": "book",
+		"collection-title": "Princeton studies in American politics",
+		"event-place": "Princeton",
+		"ISBN": "978-0-691-13406-2",
+		"language": "en",
+		"publisher": "Princeton University Press",
+		"publisher-place": "Princeton",
+		"source": "BnF ISBN",
+		"title": "Filibuster: Obstruction and lawmaking in the U.S. Senate",
+		"title-short": "Filibuster",
+		"author": [
+			{
+				"family": "Wawro",
+				"given": "Gregory J."
+			},
+			{
+				"family": "Schickler",
+				"given": "Eric"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2006"
+				]
+			]
+		}
+	},
+	{
 		"id": "harbridge-yongBipartisanPathEffective2023",
 		"type": "article-journal",
 		"abstract": "We confront the puzzle of why bipartisanship is alive and well in Congress, despite notable increases in party polarization and rising primary election threats. The answer is remarkably simple—bipartisanship unambiguously helps individual legislators who seek to advance their policy goals. We show that members of the House and Senate from the 93rd to 114th Congresses (1973–2016) who attract a larger portion of their bill cosponsors from the opposing party are much more successful at lawmaking. We show these patterns to be remarkably robust to both majority-party and minority-party lawmakers, under changing legislative and electoral conditions and over time. Moreover, a clear path to attracting bipartisan cosponsors involves reciprocity, making cosponsoring others’ bills across party lines attractive.",
@@ -118,6 +176,48 @@
 				[
 					"2024",
 					5,
+					2
+				]
+			]
+		}
+	},
+	{
+		"id": "gibbsReputationPoliticsFilibuster2023",
+		"type": "article-journal",
+		"abstract": "The Reputation Politics of the Filibuster",
+		"container-title": "Quarterly Journal of Political Science",
+		"DOI": "10.1561/100.00020109",
+		"ISSN": "1554-0626, 1554-0634",
+		"issue": "4",
+		"journalAbbreviation": "QJPS",
+		"language": "English",
+		"note": "publisher: Now Publishers, Inc.",
+		"page": "469-511",
+		"source": "nowpublishers.com",
+		"title": "The reputation politics of the filibuster",
+		"title-short": "The reputation politics",
+		"URL": "https://nowpublishers.com/article/Details/QJPS-20109",
+		"volume": "18",
+		"author": [
+			{
+				"family": "Gibbs",
+				"given": "Daniel"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					1,
+					12
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2023",
+					10,
 					2
 				]
 			]
