@@ -96,13 +96,13 @@ to setup-senators [filename]
   ; majority status, and a blank coalition
   ask senators [
     set-dwnom-location
-    set majority? (party = first modes [party] of senators)
     set color (
       ifelse-value
       party = 100 [blue]   ; Dem
       party = 328 [yellow] ; Ind
       party = 200 [red]    ; GOP
     )
+    set majority? (party = first modes [party] of senators)
     set coalition "" ; no initial coalition
   ]
 end
