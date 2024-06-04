@@ -73,7 +73,7 @@ The Senate Coalitions model is an agent-based representation of the equation-bas
 
 As emphasized by Koger [-@kogerFilibusteringPoliticalHistory2010], the key factors in senators' decision-making during legislative fights are the relative costs and benefits of the different strategies available to them in such fights. Thus, to predict the outcomes of legislative battles, I compare the relative utilities of bill proponents and obstructionists under various rules environments.
 
-### The Benefits for Proponents
+### The Benefits for Proponents {#sec-prop-benefits}
 The first element of my equation-based model is the benefits for bill proponents. This component comes directly from Wawro and Schickler [-@wawroFilibusterObstructionLawmaking2006], who model the expected benefits of bill proponents under the Senate cloture rule. This model, which I refer to as WS~K~,^[$K$ stands for cloture because $C$ refers to costs in my model. Wawro and Schickler also present a model without a cloture rule (labeled WS in @feinleibRedesigningFilibusterMore2024). I am skipping that model for brevity.] focuses on a legislative entrepreneur (LE) who receives benefits from passing their bills. The LE may add legislators to a coalition supporting their bill, which increases the probability that their proposal passes. However, growing the coalition decreases the benefits of passing the bill, as the LE may have to make compromises or share credit to gain additional support. Thus, legislative entrepreneurs face a trade-off when forming their proponent coalition.
 
 The WS~K~ model is based on the following fundamentals:
@@ -267,7 +267,7 @@ plot_eb(alpha = 0.25)
 plot_eb_k(alpha = 0.25, alpha_star = 0.1, k = 0.60)
 ```
 
-### The Benefits for Obstructionists
+### The Benefits for Obstructionists {#sec-obst-benefits}
 In a legislative debate, the opponents are the remaining senators who do not support a bill. However, not all these opponents are willing to engage in active obstruction to prevent a bill from coming to a vote. 
 These obstructionists are a subset of the bill opponents. As the opponents are a group with size $1 − \eta$, I label the size of the obstructionist faction $\omega \in [0, 1 − \eta]$.
 
@@ -367,26 +367,54 @@ The cosponsors create gray links with the sponsor, and the cosponsors permanentl
 
 The tick counter and the `active-time` of the bill are both incremented.
 
-#### Creating Initial Coalitions
+#### Building Initial Coalitions
+The senators (besides the sponsor and cosponsors) find their initial coalition: either proponent or opponent, depending on whether they receive positive policy benefits from the bill.
 
+The tick counter and the `active-time` of the bill are both incremented.
 
-#### Iterating Coalitions
+#### Playing It Out
+The following substeps loop until the bill reaches an end state.
 
-Benefits:
+##### Advancing Coaltions
+The senators (besides the sponsor and cosponsors) re-select their coalitions out of proponent, opponent, or obstructionist.
 
-* heterogenous treatment of members
+First, the senators calculate the expected utility they would receive from joining the proponent or obstructionist coalitions. Expected utility refers to expected benefits minus costs.
 
-Simplifications/omissions:
+The expected benefits for proponents come from the formulas of the WS~K~ model in @sec-prop-benefits. One major difference, though, is that each senator receives their own policy benefits. That is,
+$$
+B = \frac{1 - \eta}{.5} * (\text{policy benefits})
+$$
+This addition customizes the benefits of each proponent and deepens the meaning of the $B$ parameter. Otherwise, the formula for proponent benefits is the same as the $EB_K$ formula in @sec-prop-benefits, incorporating the `alpha`, `alpha-after-cloture`, and `cloture-threshold` parameters.
 
-* looking at individual members' utilities, not the total expected utility of the coalitions
-* Not considering the various strategies available to senators/coalitions
+The expected benefits for obstructionists similarly consider each senator's individual policy preferences when computing the blocking benefits. Thus, the formula for $\beta_{block}$ in this model is:
+$$
+\beta_{block} = \left( \frac{.5 - \omega}{.5} \right) 
+* (- \text{ policy benefits})
+$$
+The position-taking benefits take the same sign as the blocking benefits (that is, the opposite sign of the policy benefits), and the base size is controlled by the `position-taking-benefits` slider. From there, the obstructionists' benefits are given by the formula for $EB_{obst}$ in @sec-obst-benefits.
 
-Sections:
+The costs are a combination of the costs of consuming floor time and the costs of debate time ($C_{i, t}$ and $C_{i, d}$ in the equation-based model). The cost of voting time is not considered in the agent-based model.
+The floor time costs depend on a senator's party. These costs are given by one-tenth of the bills `active-time` (rounded down) times the `majority-floor-time-costs` or `minority-floor-time-costs`, depending on the senator's party.
+The costs of debate time vary by coalition. The debate time costs are the product of the bill's `active-time` and the `prop-debate-costs` for proponents or the `obst-debate-costs` for obstructionists.
+Thus, the costs for all senators increase over time. This decreases the incentives to join the proponent or obstructionist coalition, pushing senators into a "default" of the opponent coalition in case of a stalemate.
 
-* Rules of the model
-* Justifications for rules
-* Model parameters
-* Simplifications and assumption
+Each senator (again, excluding the sponsor and cosponsors) joins the coalition with the higher (positive) expected utility between proponent or obstructionist. If neither of those have positive expected utility, the senator joins the opponent coalition, which is always defined to have zero utility.
+
+##### Attempting Passage
+Once the coalitions are formed, the bill tests for whether it can pass, or if it has too little support to continue. These rules approximate the different strategies available to pass bills in the Senate.
+These rules are different than the expected-utility comparisons that occur in the equation-based model. Designing stopping conditions for the expected-utility system would take substantial additional work and introduce many new assumptions. 
+
+1. If the bill has fewer than 47 proponents, it fails.
+2. If the bill has more than 90 proponents and obstructionists, it passes via unanimous consent.
+3. If the bill has more than 50 proponents and fewer than `obsts-to-block-vote` obstructionists, it passes by a simple majority vote.
+4. If the bill has at least `cloture-threshold` proponents, it passes using cloture.
+
+If any of these stopping conditions apply, the corresponding counter is incremented, and the `active-time` is recorded. If the bill passes (conditions 2-4), the size of the proponent coalition and the percent of minority-party senators who are proponents are also recorded. These records are used in the histograms and monitors in the interface.
+
+If none of these conditions apply, Step 4 (advancing coalitions and attempting passage) repeats.
+
+#### Clearing the Bill
+After a bill either passes or failed, the bill, status quo, and links are deleted, and all senators return to the empty coalition.
 
 ## Results
 
