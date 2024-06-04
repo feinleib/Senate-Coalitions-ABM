@@ -256,6 +256,13 @@ plot_eb_k(alpha = 0.25, alpha_star = 0.1, k = 0.60)
 ```
 
 ### The Benefits for Obstructionists
+In a legislative debate, the opponents are the remaining senators who do not support a bill. However, not all these opponents are willing to engage in active obstruction to prevent a bill from coming to a vote. 
+These obstructionists are a subset of the bill opponents. As the opponents are a group with size $1 − \eta$, I label the size of the obstructionist faction $\omega \in [0, 1 − \eta]$.
+
+Similar to bill proponents, the obstructionists receive benefits if they successfully kill a bill. These blocking benefits represent the obstructionists' preference for the status quo over the new policy proposal (the opposite of the proponents' policy benefits). They also may receive position-taking benefits for the act of obstruction regardless of the bill's outcome. By committing effort to actively obstruct a bill, obstructionists publicly demonstrate the strength of their policy commitments, which may improve their reputation with voters [@gibbsReputationPoliticsFilibuster2023]. Thus, the expected benefits of obstruction are:
+$$
+EB_{obst} = (1 - \pi)\beta_{block} + \beta_{position}
+$$
 
 
 ## An Agent-Based Representation
