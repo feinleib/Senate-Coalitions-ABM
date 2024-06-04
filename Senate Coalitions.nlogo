@@ -972,7 +972,7 @@ DW-NOMINATE 2nd dimension
 
 This is a model of legislative coalitions and the lawmaking process in the U.S. Senate. It shows the impact of different rules environments and member incentives on the operation of the Senate.
 
-This model is based on the equation-based model of Senate coalitions in "Redesigning the Filibuster for More Effective Lawmaking in a Polarized Senate" by Max Feinleib (2024). That model in turn is a derivative of the model from the book *Filibuster* by Gregory J. Wawro and Eric Schickler (2006).
+This model is based on the equation-based model of Senate coalitions in "Redesigning the Filibuster for More Effective Lawmaking in a Polarized Senate" by Max Feinleib (2024a). That model in turn is a derivative of the model from the book *Filibuster* by Gregory J. Wawro and Eric Schickler (2006).
 
 
 ## HOW IT WORKS
@@ -1034,8 +1034,24 @@ Steps 4a and 4b repeat until the bill passes or fails. When that occurs, the out
 
 ## HOW TO USE IT
 
-(how to use the model, including a description of each of the items in the Interface tab)
+Click the SETUP button to create the senators (using data on the 114th Congress).
 
+Click the GO button to simulate bills.
+
+### Interface sliders
+
+#### Rules and environment
+
+* **CLOTURE-THRESHOLD:** The votes required to invoke cloture to pass a bill.
+* **ALPHA, ALPHA-ABOVE-CLOTURE:** These parameters control how much each additional proponent contributes to the probability of a bill passing. Higher values make it harder to pass bills, leading to larger passing coalitions. ALPHA is used when there are fewer than CLOTURE-THRESHOLD proponents for a bill, and ALPHA-ABOVE-CLOTURE is used when there are at least CLOTURE-THRESHOLD proponents.
+* **OBSTS-TO-BLOCK-VOTE:** The number of obstructionists needed to force a cloture vote (instead of a simple majority vote on passage).
+
+#### Utility parameters
+
+* **DWNOM1-EMPHASIS:** How much senators weight policy movements in the 1st dimension of DW-NOMINATE (left-right spectrum) versus movements in the 2nd dimension (other considerations).
+* **POSITION-TAKING-BENEFITS:** The size of position-taking benefits for obstructionist senators.
+* **MAJORITY-FLOOR-TIME-COSTS, MINORITY-FLOOR-TIME-COSTS:** The costs of consuming floor time for majority-party and minority-party senators, respectively.
+* **PROP-DEBATE-COSTS, OBST-DEBATE-COSTS:** The costs of debate time for proponents and obstructionists, respectively.
 
 ## THINGS TO NOTICE
 
@@ -1070,12 +1086,34 @@ Unlike most NetLogo models, ticks do not occur once per iteration of the GO proc
 
 ## RELATED MODELS
 
-(models in the NetLogo Models Library and elsewhere which are of related interest)
+The CSV Example model contains useful code for importing data from CSV files.
 
 
 ## CREDITS AND REFERENCES
 
-(a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
+**The paper introducing this model is available at:**
+
+Feinleib, M. H. (2024b, June 3). *Senate coalitions: An agent-based model*. <https://feinleib.quarto.pub/senate-coalitions/>
+
+**References:**
+
+*CSV extension* (1.1.1). (2024). [Scala]. Center for Connected Learning, Northwestern University, Evanston, IL. <https://github.com/NetLogo/CSV-Extension> (Original work published 2015)
+
+Feinleib, M. (2024). *filibustr: Data utilities for congressional research* (0.2.1) [R]. <https://CRAN.R-project.org/package=filibustr> (Original work published 2023)
+
+Feinleib, M. H. (2024a). *Redesigning the filibuster for more effective lawmaking in a polarized Senate* [Northwestern University]. <https://feinleib.quarto.pub/redesigning-the-filibuster-2024/>
+
+Harbridge-Yong, L., Volden, C., & Wiseman, A. E. (2023). The bipartisan path to effective lawmaking. *The Journal of Politics*, *85*(3), 1048–1063. <https://doi.org/10.1086/723805>
+
+Lewis, J. B., Poole, K., Rosenthal, H., Boche, A., Rudkin, A., & Sonnet, L. (2024). *Voteview: Congressional roll-call votes database*. <https://voteview.com/>
+
+Volden, C., & Wiseman, A. E. (2023). Legislative effectiveness scores [dataset]. Center for Effective Lawmaking. <https://thelawmakers.org/>
+
+Wawro, G. J., & Schickler, E. (2006). *Filibuster: Obstruction and lawmaking in the U.S. Senate*. Princeton University Press.
+
+Wilensky, U. (n.d.). *CSV example* [NetLogo]. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
+
+Wilensky, U. (1999). NetLogo. <http://ccl.northwestern.edu/netlogo/>. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
 @#$#@#$#@
 default
 true
