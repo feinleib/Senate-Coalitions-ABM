@@ -296,10 +296,14 @@ to find-coalition [a-bill] ; senator procedure
   let eu-prop proponent-utility a-bill
   let eu-obst obstructionist-utility a-bill
   ; tiebreaker goes to proponent over obstructionist coalition
-  let better-coalition ifelse-value (eu-prop >= eu-obst) ["proponent"] ["obstructionist"]
+  let better-coalition (
+    ifelse-value (eu-prop >= eu-obst) ["proponent"] ["obstructionist"]
+  )
   let better-coalition-utility max list eu-prop eu-obst
-  ; but opponent still wins tiebreaker over proponent
-  set coalition ifelse-value (better-coalition-utility > 0) [better-coalition] ["opponent"]
+  ; but opponent still wins tiebreaker over the others
+  set coalition (
+    ifelse-value (better-coalition-utility > 0) [better-coalition] ["opponent"]
+  )
 end
 
 ; check passage conditions
@@ -365,7 +369,10 @@ end
 
 ; obstructionists also get position-taking benefits regardless of success
 to-report exp-benefits-of-obstructionist [a-bill] ; senator reporter
-  report (1 - passage-probability) * (obst-blocking-benefits a-bill) + (obst-position-taking-benefits a-bill)
+  report (
+    (1 - passage-probability) * (obst-blocking-benefits a-bill)
+    + (obst-position-taking-benefits a-bill)
+  )
 end
 
 ;; RAW BENEFITS ;;
@@ -389,7 +396,11 @@ end
 ; an obstructionist's raw position-taking benefits
 ; position-taking benefits take the same sign as blocking benefits
 to-report obst-position-taking-benefits [a-bill] ; senator reporter
-  report position-taking-benefits * (- sign policy-benefits a-bill) * ((50 - n-obstructionists) / 50)
+  report (
+    position-taking-benefits
+    * (- sign policy-benefits a-bill)
+    * ((50 - n-obstructionists) / 50)
+  )
 end
 
 ; probability of bill passage based on size of proponent coalition
@@ -438,15 +449,15 @@ to-report unanimous-consent?
   report n-proponents > 90 and n-obstructionists = 0
 end
 
-; cloture is invoked with a supermajority vote
-to-report cloture-vote?
-  report n-proponents >= cloture-threshold
-end
-
 ; bills pass by simple majority vote
 ; if there is no organized obstruction
 to-report passage-vote?
   report n-proponents > 50 and n-obstructionists < obsts-to-block-vote
+end
+
+; cloture is invoked with a supermajority vote
+to-report cloture-vote?
+  report n-proponents >= cloture-threshold
 end
 
 ;;; COALITIONS AND THEIR SIZES ;;;
