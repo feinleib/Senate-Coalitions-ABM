@@ -86,7 +86,7 @@ to go
   tick
 end
 
-;;; SETUP ;;;
+;;;;; SETUP ;;;;;
 
 to setup-senators [filename]
   ; set most senator properties from CSV data
@@ -153,7 +153,7 @@ to setup-metrics
   set bill-times (list)
 end
 
-;;; CREATING A BILL ;;;
+;;;;; CREATING A BILL ;;;;;
 
 ; create a new bill and associated status quo, and
 ; tick and increment active-time
@@ -260,7 +260,7 @@ to-report cosponsor-likelihood [a-bill] ; senator procedure
   report benefits * party-factor + state-bonus
 end
 
-;;; GENERATING COALITIONS ;;;
+;;;;; GENERATING COALITIONS ;;;;;
 
 ; ask senators to find-initial-coalition, and
 ; tick and increment active-time
@@ -348,7 +348,7 @@ to attempt-passage
   if bill-done? [ set bill-times lput active-time bill-times ]
 end
 
-;;; COALITION UTILITY CALCULATIONS ;;;
+;;;;; COALITION UTILITY CALCULATIONS ;;;;;
 
 ;; UTILITY ;;
 
@@ -436,7 +436,7 @@ to-report obstructionist-debate-time-costs [a-bill] ; senator reporter
   report [active-time] of a-bill * obst-debate-costs
 end
 
-;;; BILL END STATES ;;;
+;;;;; BILL END STATES ;;;;;
 
 ; bills fail when it is clear they don't have majority support
 to-report bill-failing?
@@ -460,7 +460,7 @@ to-report cloture-vote?
   report n-proponents >= cloture-threshold
 end
 
-;;; COALITIONS AND THEIR SIZES ;;;
+;;;;; COALITIONS AND THEIR SIZES ;;;;;
 
 ; flippable senators: everyone except sponsor and cosponsors
 to-report non-sponsors
@@ -495,7 +495,7 @@ to-report n-obstructionists
   report count obstructionists
 end
 
-;;; DW-NOMINATE HELPERS ;;;
+;;;;; DW-NOMINATE HELPERS ;;;;;
 
 ; a senator's utility from a bill is the reduction in the senator's
 ; distance to the bill (versus its associated status quo)
@@ -535,7 +535,7 @@ to-report dwnom2-range ; turtle reporter
   report sqrt (1 - dwnom1 ^ 2)
 end
 
-;;; SMALL GENERAL HELPERS ;;;
+;;;;; SMALL GENERAL HELPERS ;;;;;
 
 ; first (up to) n elements in a list
 to-report first-n-from-list [n lst]
