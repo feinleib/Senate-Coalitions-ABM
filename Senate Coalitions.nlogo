@@ -957,7 +957,59 @@ This model is based on the equation-based model of Senate coalitions in "Redesig
 
 ## HOW IT WORKS
 
-(what rules the agents use to create the overall behavior of the model)
+### Setup
+
+* Senators are initialized using data from Harbridge-Yong et al., "The Bipartisan Path to Effective Lawmaking" (2023). The data in this model is for the 114th Congress (2015-16).
+   * Their locations correspond to their ideal points according to DW-NOMINATE.
+   * Democrats are colored blue, Republicans red, and Independents yellow.
+* The metrics on bill outcomes are reset.
+
+### Go
+
+The GO procedure runs a series of steps to consider a bill. For each bill:
+
+**Step 1:** A bill is created at a random point in DW-NOMINATE policy space and associated with a status quo policy, which is also at a random point.
+
+**Step 2a:** The bill attracts a sponsor.
+
+* The sponsor will be the senator who receives the most policy benefits from the bill (because the bill moves policy toward their ideal point).
+* The bill creates a green link with its sponsor.
+* The sponsor permanently becomes a proponent of the bill.
+
+**Step 2b:** The bill attracts cosponsors.
+
+* The number of cosponsors (N-COSPONSORS) is randomly drawn from a Poisson distribution using the sponsor's average number of cosponsors on their bills.
+* The 99 other senators calculate their "cosponsor likelihood" based on: 
+	* Their own policy benefits from the bill, 
+	* The party of the sponsor, how often the sponsor *attracts* bipartisan cosponsors, and how often the senator *offers* bipartisan cosponsorships, and 
+	* A small bonus if they are from the same state as the sponsor.
+* The cosponsors will be the N-COSPONSORS senators with the highest (positive) cosponsor likelihoods. If less than N-COSPONSORS senators have positive cosponsor likelihoods, the cosponsors will just be those senators with positive cosponsor likelihoods.
+* The cosponsors create gray links with the sponsor.
+* The cosponsors permanently become proponents of the bill.
+
+**Step 3:** The senators (besides the sponsor and cosponsors) find their initial coalition: either **proponent** or **opponent**, depending on whether they receive positive policy benefits from the bill.
+
+**Step 4a:** The senators (besides the sponsor and cosponsors) re-select their coalitions out of **proponent**, **opponent**, or **obstructionist**.
+
+* The senators calculate their expected utility from joining the **proponent** or **obstructionist** coalitions. Expected utility refers to expected benefits minus costs.
+	* The expected benefits for proponents start with their policy benefits. The benefits are downscaled based on the number of proponents, and upscaled based on the probability of passage (which depends on the number of proponents and the ALPHA parameters).
+	* The expected benefits for obstructionists start with the opposite of their policy benefits. These benefits are downscaled based on the number of obstructionists and the probability of passage (which represents failure for obstructionists). Obstructionists also receive position-taking-benefits (which are similarly downscaled by the number of obstructionists) regardless of their probability of success.
+	* The costs are a combination of:
+		* The costs of consuming floor time, which are governed by MAJORITY-FLOOR-TIME-COSTS for majority-party senators, and MINORITY-FLOOR-TIME-COSTS for minority-party senators.
+		* The costs of debate time, which increase by PROP-DEBATE-COSTS and OBST-DEBATE-COSTS for proponents and obstructionists, respectively, at each tick.
+* The senator joins the coalition with the higher (positive) expected utility between **proponent** or **obstructionist**. If neither of those have positive expected utility, the senator joins the **opponent** coalition, which is defined to have zero utility.
+
+**Step 4b:** The bill attempts to pass (or fails) based on the sizes of the different coalitions.
+
+* **A bill fails** if there are less than 47 proponents.
+* **A bill passes by unanimous consent (UC)** if there are more than 90 proponents and no obstructionists.
+* **A bill passes with a simple majority vote** if there are more than 50 proponents and fewer than OBSTS-TO-BLOCK-VOTE obstructionsists.
+* **A bill passes using cloture** if the number of proponents is greater than or equal to the CLOTURE-THRESHOLD.
+
+Steps 4a and 4b repeat until the bill passes or fails. When that occurs, the outcome of the bill is recorded for the metrics in the interface monitors and plots.
+
+**Step 5:** The bill is deleted (along with the associated status quo and links), and all senators clear their coalitions.
+
 
 
 ## HOW TO USE IT
