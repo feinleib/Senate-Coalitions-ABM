@@ -289,10 +289,12 @@ $$
 * What would future work on this look like?
 * What might you suggest for further validation?
 
+## Software Credits {.appendix}
+
+This agent-based model was built in the NetLogo programming language [@wilenskyNetLogo1999].
+The model uses the NetLogo CSV extension [@CSVExtension2024], and borrows code for that extension from the CSV Example model in the NetLogo Models Library [@wilenskyCSVExample].
+Data used in the model comes from @harbridge-yongBipartisanPathEffective2023 and the Legislative Effectiveness Scores project [@voldenLegislativeEffectivenessScores2023]. This data was retrieved using the `filibustr` R package [@feinleibFilibustrDataUtilities2024].
+
 \pagebreak
 
 ## References {.appendix}
-
-<!-- * Cite relevant papers -->
-<!-- * Remember to cite software and models (citation for NetLogo is below; find the citation for any Models Library models you used as reference in the INFO tab) -->
-
