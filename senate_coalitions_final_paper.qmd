@@ -73,7 +73,7 @@ The Senate Coalitions model is an agent-based representation of the equation-bas
 As emphasized by Koger [-@kogerFilibusteringPoliticalHistory2010], the key factors in senators' decision-making during legislative fights are the relative costs and benefits of the different strategies available to them in such fights. Thus, to predict the outcomes of legislative battles, I compare the relative utilities of bill proponents and obstructionists under various rules environments.
 
 ### The Benefits for Proponents
-Wawro and Schickler [-@wawroFilibusterObstructionLawmaking2006] model the expected benefits of bill proponents under the Senate cloture rule. This model, which I refer to as WS~K~,^[$K$ stands for cloture because $C$ refers to costs in my model. Wawro and Schickler also present a model without a cloture rule (labeled WS in @feinleibRedesigningFilibusterMore2024). I am skipping that model for brevity.] focuses on a legislative entrepreneur (LE) who receives benefits from passing their bills. The LE may add legislators to a coalition supporting their bill, which increases the probability that their proposal passes. However, growing the coalition decreases the benefits of passing the bill, as the LE may have to make compromises or share credit to gain additional support. Thus, legislative entrepreneurs face a trade-off when forming their proponent coalition.
+The first element of my equation-based model is the benefits for bill proponents. This component comes directly from Wawro and Schickler [-@wawroFilibusterObstructionLawmaking2006], who model the expected benefits of bill proponents under the Senate cloture rule. This model, which I refer to as WS~K~,^[$K$ stands for cloture because $C$ refers to costs in my model. Wawro and Schickler also present a model without a cloture rule (labeled WS in @feinleibRedesigningFilibusterMore2024). I am skipping that model for brevity.] focuses on a legislative entrepreneur (LE) who receives benefits from passing their bills. The LE may add legislators to a coalition supporting their bill, which increases the probability that their proposal passes. However, growing the coalition decreases the benefits of passing the bill, as the LE may have to make compromises or share credit to gain additional support. Thus, legislative entrepreneurs face a trade-off when forming their proponent coalition.
 
 The WS~K~ model is based on the following fundamentals:
 
@@ -287,6 +287,44 @@ where $\sum\beta_{block}$ and $\sum\beta_{position}$ are the total benefits of o
 For each $\beta$, if there is a single obstructionist, then that member alone accrues the entire benefit. If $\omega = 0.50$ (i.e., the obstructionists make up half the chamber), then obstruction produces no benefits, as in that case, the bill opponents already have enough votes to block a bill without any additional obstruction.
 
 ### The Costs for Proponents and Obstructionists
+In order to provide a full accounting of the expected utility for bill proponents and obstructionists, we must also consider the costs each side faces.
+According to Koger's [-@kogerFilibusteringPoliticalHistory2010] analysis of Senate filibustering, the primary factor in these costs is time. Time represents a cost to senators in two forms: the consumption of the finite floor time available during a legislative session and the opportunity costs related to other activities senators could be doing, such as campaigning and fundraising.
+
+The costs associated with passing or obstructing a bill depend heavily on the rules and procedures of the Senate. As the Senate's rules surrounding filibustering and cloture have evolved, so too has the amount of time it takes to debate and vote on a bill.
+In a legislative fight, each faction $i$ faces a time cost $C_i$ of engaging in the fight. The costs to members of the proponent, opponent, and obstructionist factions are denoted as $C_{prop}$, $C_{opp}$, and $C_{obst}$, respectively.
+The time cost $C_i$ of considering a bill can be broken down into the following components, such that $C_i = C_{i,t} + C_{i,d} + C_{i,v}$:
+
+* $C_{i,t}$: The cost of the consumption of floor time.
+* $C_{i,d}$: The cost of physical attendance and debate time.
+* $C_{i,v}$: The cost of voting time.
+
+These costs may be different for each faction. For example, in a talking filibuster, the obstructionists face heavy debate costs from having to continuously speak, while the proponents and opponents just have to wait around (i.e., $C_{obst, d} > C_{prop, d}$ and $C_{obst, d} > C_{opp, d}$).
+Different rules around filibustering and cloture would change the amount of time the Senate spends on each bill. Given a specific set of rules, the amount of time spent on a bill and its cost also depend on the sizes of the proponent and obstructionist factions.
+
+For demonstration, consider the costs of considering bills under the current rules with a few different mixes of proponents and obstructionists:
+
+1. All senators support a bill ($\eta = 1$). The proponents can pass the bill by unanimous consent and spend no floor time, resulting in $C = 0$ for all factions.
+2. A non-unanimous majority of senators supports a bill, but none of the opponents are willing to actively obstruct it ($\eta \in (0.5, 1), \ \omega = 0$). In order to pass the bill, the proponents must spend some floor time for debate and a single passage vote. Since there are no obstructionists, the opponents are submitting to a passage vote without forcing a cloture vote. This results in a small $C$ for the proponents.
+3. A filibuster-proof majority of senators supports a bill, and at least one senator obstructs a bill ($\eta \in [0.6, 1), \ \omega > 0$). In this case, proponents may either spend floor time on holding a cloture vote, or wait for the obstructionist to debate until they submit to a final passage vote. The second option is rare in the modern Senate because of the high cost in floor time, but it is still an available strategy [@kogerFilibusteringPoliticalHistory2010]. For the obstructionists, debate would be even more costly, although they face no additional costs in the case of a cloture vote.
+4. The supporting coalition is smaller than the cloture threshold, and at least one senator obstructs a bill ($\eta \in (0.5, 0.6), \ \omega > 0$). Proponents would fail a cloture vote, so their only option for passing a bill is waiting out the obstructionists. Again, this is extremely costly in floor time ($C_{prop, t}$). Accordingly, senators rarely employ this strategy in the modern Senate. This is why it is nearly impossible to pass a bill with fewer than 60 supporters in today's climate.
+
+Different rules environments would allow for different strategies and different costs.
+
+### Comparing the Expected Utility of the Two Factions
+To predict the outcome of legislative battles, I compare the total expected utility of the members of the proponent and obstructionist factions. Since each member of the proponent and obstructionist factions receives expected benefits $EB_i$ and costs $C_i$, the following expressions give the aggregate expected utility for each faction:
+
+$$
+\begin{aligned}
+\sum EU_{prop} &= \eta   \cdot (EB_{prop} - C_{prop}) \\
+\sum EU_{obst} &= \omega \cdot (EB_{obst} - C_{obst})
+\end{aligned}
+$$
+In this model, it is important to sum the benefits and costs among the members of each faction because those benefits and costs are shared. As a faction grows, even though an individual senator's benefits and costs decrease, the total benefits and costs increase with the size of a faction.
+
+If each faction receives expected utility $\sum EU_i$ from playing their respective strategy (that is, by representing a proponent or obstructionist faction), then the side with the greater (positive) expected utility will be more willing to engage in the legislative fight.^[If a faction receives negative expected utility, then they would simply surrender the fight.]
+This utility-based method to predict the winner of a legislative fight is possible because senators have the ability to ensure a win at great cost (proponents by changing the rules or forcing the obstructionists to continuously debate, and obstructionists by being willing to continuously debate) if they evaluate that winning the fight produces enough benefits.
+
+At first glance, this rule to predict winners using expected utility may appear rigid, as if either the proponents or obstructionists are doomed from the start of a legislative fight. How does this rule explain the negotiation process that is so critical for proponents to grow the coalition to pass a bill, or for obstructionists to kill it? The answer is that the expected utility of these two factions constantly varies as the factions grow and shrink and they change their cost-benefit calculations. As the coalitions and the political environment change, and more and more time passes, the expected-utility winner may shift. This change over time is what makes the expected-utility system dynamic.
 
 ## An Agent-Based Representation
 
