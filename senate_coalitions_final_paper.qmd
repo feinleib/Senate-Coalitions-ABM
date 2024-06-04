@@ -75,12 +75,12 @@ The Senate Coalitions model is an agent-based representation of the equation-bas
 As emphasized by Koger [-@kogerFilibusteringPoliticalHistory2010], the key factors in senators' decision-making during legislative fights are the relative costs and benefits of the different strategies available to them in such fights. Thus, to predict the outcomes of legislative battles, I compare the relative utilities of bill proponents and obstructionists under various rules environments.
 
 ### The Benefits for Proponents
-Wawro and Schickler [-@wawroFilibusterObstructionLawmaking2006] model the expected benefits of bill proponents under the Senate cloture rule. This model, which I refer to as WS~K~,^[$K$ stands for cloture because $C$ refers to costs in my model. Wawro and Schickler also present a model without a cloture rule (labeled WS in @feinleibRedesigningFilibusterMore2024); I am skipping that model for brevity.] focuses on a legislative entrepreneur (LE) who receives benefits from passing their bills. The LE may add legislators to a coalition supporting their bill, which increases the probability that their proposal passes. However, growing the coalition decreases the benefits of passing the bill, as the LE may have to make compromises or share credit to gain additional support. Thus, legislative entrepreneurs face a trade-off when forming their proponent coalition.
+Wawro and Schickler [-@wawroFilibusterObstructionLawmaking2006] model the expected benefits of bill proponents under the Senate cloture rule. This model, which I refer to as WS~K~,^[$K$ stands for cloture because $C$ refers to costs in my model. Wawro and Schickler also present a model without a cloture rule (labeled WS in @feinleibRedesigningFilibusterMore2024). I am skipping that model for brevity.] focuses on a legislative entrepreneur (LE) who receives benefits from passing their bills. The LE may add legislators to a coalition supporting their bill, which increases the probability that their proposal passes. However, growing the coalition decreases the benefits of passing the bill, as the LE may have to make compromises or share credit to gain additional support. Thus, legislative entrepreneurs face a trade-off when forming their proponent coalition.
 
-The WS model is based on the following fundamentals:
+The WS~K~ model is based on the following fundamentals:
 
 * $\eta$: The size of the supporting coalition, as a proportion. 
-  * $\eta$ is restricted to $\eta \in [.5, 1]$, as any bill must have at least majority support to pass. ^[For simplicity, WS ignores the case of a tie. In my agent-based model, I require bills to have strictly more than 50 votes to pass.]
+  * $\eta$ is restricted to $\eta \in [.5, 1]$, as any bill must have at least majority support to pass. ^[For simplicity, WS~K~ ignores the case of a tie. In my agent-based model, I require bills to have strictly more than 50 votes to pass.]
   
 * $\pi$: The probability the bill passes, which is a function of $\eta$:
 $$
@@ -276,7 +276,19 @@ Similar to bill proponents, the obstructionists receive benefits if they success
 $$
 EB_{obst} = (1 - \pi)\beta_{block} + \beta_{position}
 $$
+where $\beta_{block}$ and $\beta_{position}$ represent the obstructionists' benefits for blocking a bill and their position-taking benefits, respectively. These terms are measured relative to the proponents' benefits $B$, which are fixed to a maximum of 1.
 
+As with proponents, the probability and benefits of success for obstructionists depend on the size of the obstructionist faction.
+Both forms of benefits for the obstructionists are shared among all the members of the obstructionist faction. Thus, the benefits for each individual obstructionist are:
+$$
+\beta_{block} = \left( \frac{.5 - \omega}{.5} \right) \sum\beta_{block}
+\qquad
+\beta_{position} = \left( \frac{.5 - \omega}{.5} \right) \sum\beta_{position}
+$$
+where $\sum\beta_{block}$ and $\sum\beta_{position}$ are the total benefits of obstruction shared among the obstructionists.
+For each $\beta$, if there is a single obstructionist, then that member alone accrues the entire benefit. If $\omega = 0.50$ (i.e., the obstructionists make up half the chamber), then obstruction produces no benefits, as in that case, the bill opponents already have enough votes to block a bill without any additional obstruction.
+
+### The Costs for Proponents and Obstructionists
 
 ## An Agent-Based Representation
 
