@@ -15,7 +15,8 @@ author:
 date: 2024-06-03
 date-format: long
 format: 
-  html: default
+  html:
+    toc: true
   pdf:
     linestretch: 1.8
     # indent: true
@@ -28,14 +29,11 @@ keywords:
   - agent-based modeling
 bibliography: abm_bib.json
 csl: apa.csl
-toc: true
 number-sections: true
 execute:
   echo: false
 citation: true
 ---
-
-\pagebreak
 
 ```{r packages}
 #| message: false
