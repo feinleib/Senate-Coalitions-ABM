@@ -40,20 +40,21 @@ citation: true
 #| message: false
 
 ## packages used
+library(dplyr)
+library(ggplot2)
 library(knitr)
+library(readr)
 library(rlang)
+library(tidyr)
 ```
 
-
 ## Introduction
+For my senior honors thesis, I developed an expected utility-based model of legislative coalitions to predict the effects of different rules surrounding the filibuster and cloture on the U.S. Senate. In my model, senators join proponent, opponent, or obstructionist coalitions based on the expected benefits and costs they would accrue in those coalitions. The choices of individual senators combine to form coalitions that are able to pass or kill bills in the Senate. This concept---of individual decisions combining to form group effects---makes my model a natural fit to translate to an agent-based representation.
 
-* Describe phenomenon
-* Motivate
-* Fit with ABM
+Using an agent-based representation of my original model, I produce behaviors that better match the real-life Senate than my equation-based model would predict. This improvement represents an exciting discovery for a broad swath of political science models that suffer from similar predictive failures in their equation-based forms.
 
-## Background
-
-The U.S. Congress as a whole, and the Senate more specifically, are unsurprisingly the subject of numerous formal models in political science.
+## Background {#sec-background}
+The U.S. Congress as a whole, and the Senate more specifically, are naturally the subject of numerous formal models in political science.
 A foundational model in this area is pivotal politics theory [@krehbielPivotalPoliticsTheory1998]. In pivotal politics theory, legislators get utility from bills based on how bills move policy toward their *ideal point* policy preferences. In my model, I use DW-NOMINATE scores from Voteview [@lewisVoteviewCongressionalRollcall2024] to measure these ideal points. In order for a bill to pass, the bill must move policy towards the ideal points of a majority of senators (and a three-fifths supermajority if a bill is filibustered). Pivotal politics and its conception of policy benefits are fundamental components of my agent-based model.
 
 One of the defining features of the modern Senate is the filibuster and the cloture rule. Over time, the Senate's longstanding norms respecting senators' right to debate have evolved into the filibuster as we know it today: a tool of obstruction used by united minority parties against nearly all bills in the Senate [@jentlesonKillSwitchRise2022]. The filibuster is now so strong that it has created a "60-vote Senate," in which almost every bill requires a supermajority to pass [@kogerFilibusteringPoliticalHistory2010].
@@ -416,25 +417,94 @@ If none of these conditions apply, Step 4 (advancing coalitions and attempting p
 #### Clearing the Bill
 After a bill either passes or failed, the bill, status quo, and links are deleted, and all senators return to the empty coalition.
 
-## Results
+## Experiment: The Effects of Different Cloture Thresholds
+I performed a BehaviorSpace experiment to explore the effects of different cloture thresholds and obstruction costs (`obst_debate_costs`) on bill outcomes. I evaluated each parameter set on the following measures:
 
-* Experiments you ran (parameters, # of repetitions)
-* Results from those experiments (include graphs)
-* Empirical validation (if applicable)
+* mean passing coalition
+* mean minority-party support
 
-## Analysis and Discussion
+These measures correspond to the plots and monitors on the right-hand side of the interface.
 
-* Interpretation of results (include graphs)
-* What emergent phenomena arose? (include screenshots)
-* Implications
+```{r import b-space data}
+#| message: false
 
-## Conclusion
+bspace_table <- read_csv("data/BehaviorSpace-table.csv",
+                         show_col_types = FALSE,
+                         name_repair = \(.x) gsub("\\.", "_", make.names(.x))) |> 
+  rename(run_number = X_run_number_,
+         step = X_step_)
+```
 
-* What would future work on this look like?
-* What might you suggest for further validation?
+```{r b-space data manipulation}
+bspace_data <- bspace_table |> 
+  select(cloture_threshold, obst_debate_costs, 
+         mean_passing_coalitions, mean_minority_supports)
+
+bspace_params <- bspace_table |> 
+  group_by(alpha, alpha_above_cloture, obsts_to_block_vote,
+           dwnom1_emphasis, position_taking_benefits,
+           majority_floor_time_costs, minority_floor_time_costs,
+           prop_debate_costs) |> 
+  group_keys() |> 
+  pivot_longer(cols = everything())
+```
+
+I tested four cloture thresholds (51, 60, 67, and 100) and four levels of obstruction costs (0.01, 0.02, 0.05, 0.10). I performed 5 repetitions for each combination of cloture threshold and obstruction costs, resulting in 80 total runs. I measured the mean passing coalition and minority-party support after 2000 bills had been considered in each run.
+The values of the other parameters were as follows:
+
+```{r bspace fixed param values}
+bspace_params |> knitr::kable()
+```
+
+The plots below show the results of the BehaviorSpace experiment.
+@fig-passing-coalitions shows the effect of obstructionist costs on passing coalitions at the different cloture thresholds. Average passing coalitions are highest for lower obstructionist costs. Also, lowering the cloture threshold from 67 to 60 to 51 lowers passing coalitions.
+These relationships suggest that when obstruction is easier (low-cost), and overcoming obstruction is harder (because of higher cloture thresholds), it takes more support to pass bills.
+
+```{r plot passing coalitions}
+#| label: fig-passing-coalitions
+#| fig-cap: "Results of BehaviorSpace experiment: Passing coalitions"
+#| warning: false
+
+ggplot(bspace_data, aes(x = cloture_threshold, y = mean_passing_coalitions, 
+                        color = as.factor(obst_debate_costs))) + 
+  geom_point() +
+  geom_smooth() +
+  scale_y_continuous(limits = c(60, 100)) +
+  labs(x = "Cloture threshold",
+       y = "Mean passing coalition",
+       color = "obst_debate_costs",
+       title = "Mean passing coalitions",
+       subtitle = "By cloture threshold and obstructionist costs")
+```
+
+@fig-minority-support shows similar trends.
+This plot suggest that when it is harder to overcome obstruction, legislative entrepreneurs have to get more buy-in from minority-party senators to pass bills.
+```{r plot minority support}
+#| label: fig-minority-support
+#| fig-cap: "Results of BehaviorSpace experiment: Minority-party support"
+#| warning: false
+
+ggplot(bspace_data, aes(x = cloture_threshold, y = mean_minority_supports, 
+                        color = as.factor(obst_debate_costs))) + 
+  geom_point() +
+  geom_smooth() +
+  scale_y_continuous(limits = c(60, 100)) +
+  labs(x = "Cloture threshold",
+       y = "Mean minority support (%)",
+       color = "obst_debate_costs",
+       title = "Mean minority-party support",
+       subtitle = "By cloture threshold and obstructionist costs")
+```
+
+## Discussion
+The results of my BehaviorSpace have exciting implications for the puzzles I raised in @sec-background. Using an agent-based representation, I was able to develop a pivotal politics-based model that did not predict minimal majorities or minority-party rolls.
+The behavior of this agent-based model is a better match than the predictions of equation-based models for the behavior of the real-life Senate.
+Crucially, these problems were solved while preserving the core elements of my original equation-based model.
+Converting traditional models to use agent-based representations may therefore represent a powerful methodological tool for analyzing Congress.
+I find this result surprising. It is not intuitive from the rules of the model why an agent-based approach would produce different results from the equation-based predictions.
+This, of course, is the beauty of agent-based modeling.
 
 ## Software Credits {.appendix}
-
 This agent-based model was built in the NetLogo programming language [@wilenskyNetLogo1999].
 The model uses the NetLogo CSV extension [@CSVExtension2024], and borrows code for that extension from the CSV Example model in the NetLogo Models Library [@wilenskyCSVExample].
 Data used in the model comes from @harbridge-yongBipartisanPathEffective2023 and the Legislative Effectiveness Scores project [@voldenLegislativeEffectivenessScores2023]. This data was retrieved using the `filibustr` R package [@feinleibFilibustrDataUtilities2024].

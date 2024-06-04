@@ -56,9 +56,6 @@ div.csl-indent {
 <script src="senate_coalitions_final_paper_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="senate_coalitions_final_paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="senate_coalitions_final_paper_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script src="senate_coalitions_final_paper_files/libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="senate_coalitions_final_paper_files/libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="senate_coalitions_final_paper_files/libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -101,15 +98,22 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background"><span class="header-section-number">2</span> Background</a></li>
-  <li><a href="#the-underlying-model" id="toc-the-underlying-model" class="nav-link" data-scroll-target="#the-underlying-model"><span class="header-section-number">3</span> The Underlying Model</a>
+  <li><a href="#sec-background" id="toc-sec-background" class="nav-link" data-scroll-target="#sec-background"><span class="header-section-number">2</span> Background</a></li>
+  <li><a href="#sec-ebm" id="toc-sec-ebm" class="nav-link" data-scroll-target="#sec-ebm"><span class="header-section-number">3</span> The Underlying Model</a>
   <ul class="collapse">
-  <li><a href="#the-benefits-to-proponents" id="toc-the-benefits-to-proponents" class="nav-link" data-scroll-target="#the-benefits-to-proponents"><span class="header-section-number">3.1</span> The Benefits to Proponents</a></li>
+  <li><a href="#sec-prop-benefits" id="toc-sec-prop-benefits" class="nav-link" data-scroll-target="#sec-prop-benefits"><span class="header-section-number">3.1</span> The Benefits for Proponents</a></li>
+  <li><a href="#sec-obst-benefits" id="toc-sec-obst-benefits" class="nav-link" data-scroll-target="#sec-obst-benefits"><span class="header-section-number">3.2</span> The Benefits for Obstructionists</a></li>
+  <li><a href="#the-costs-for-proponents-and-obstructionists" id="toc-the-costs-for-proponents-and-obstructionists" class="nav-link" data-scroll-target="#the-costs-for-proponents-and-obstructionists"><span class="header-section-number">3.3</span> The Costs for Proponents and Obstructionists</a></li>
+  <li><a href="#comparing-the-expected-utility-of-the-two-factions" id="toc-comparing-the-expected-utility-of-the-two-factions" class="nav-link" data-scroll-target="#comparing-the-expected-utility-of-the-two-factions"><span class="header-section-number">3.4</span> Comparing the Expected Utility of the Two Factions</a></li>
   </ul></li>
-  <li><a href="#an-agent-based-representation" id="toc-an-agent-based-representation" class="nav-link" data-scroll-target="#an-agent-based-representation"><span class="header-section-number">4</span> An Agent-Based Representation</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">5</span> Results</a></li>
-  <li><a href="#analysis-and-discussion" id="toc-analysis-and-discussion" class="nav-link" data-scroll-target="#analysis-and-discussion"><span class="header-section-number">6</span> Analysis and Discussion</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">7</span> Conclusion</a></li>
+  <li><a href="#an-agent-based-representation" id="toc-an-agent-based-representation" class="nav-link" data-scroll-target="#an-agent-based-representation"><span class="header-section-number">4</span> An Agent-Based Representation</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">4.1</span> Setup</a></li>
+  <li><a href="#go" id="toc-go" class="nav-link" data-scroll-target="#go"><span class="header-section-number">4.2</span> Go</a></li>
+  </ul></li>
+  <li><a href="#experiment-the-effects-of-different-cloture-thresholds" id="toc-experiment-the-effects-of-different-cloture-thresholds" class="nav-link" data-scroll-target="#experiment-the-effects-of-different-cloture-thresholds"><span class="header-section-number">5</span> Experiment: The Effects of Different Cloture Thresholds</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">6</span> Discussion</a></li>
+  
   
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Feinleib_senate_coalitions.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -163,29 +167,30 @@ window.Quarto = {
 </header>
 
 
-<div style="page-break-after: always;"></div>
 <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<ul>
-<li>Describe phenomenon</li>
-<li>Motivate</li>
-<li>Fit with ABM</li>
-</ul>
+<p>For my senior honors thesis, I developed an expected utility-based model of legislative coalitions to predict the effects of different rules surrounding the filibuster and cloture on the U.S. Senate. In my model, senators join proponent, opponent, or obstructionist coalitions based on the expected benefits and costs they would accrue in those coalitions. The choices of individual senators combine to form coalitions that are able to pass or kill bills in the Senate. This concept—of individual decisions combining to form group effects—makes my model a natural fit to translate to an agent-based representation.</p>
+<p>Using an agent-based representation of my original model, I produce behaviors that better match the real-life Senate than my equation-based model would predict. This improvement represents an exciting discovery for a broad swath of political science models that suffer from similar predictive failures in their equation-based forms.</p>
 </section>
-<section id="background" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="background"><span class="header-section-number">2</span> Background</h2>
+<section id="sec-background" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="sec-background"><span class="header-section-number">2</span> Background</h2>
+<p>The U.S. Congress as a whole, and the Senate more specifically, are naturally the subject of numerous formal models in political science. A foundational model in this area is pivotal politics theory <span class="citation" data-cites="krehbielPivotalPoliticsTheory1998">(<a href="#ref-krehbielPivotalPoliticsTheory1998" role="doc-biblioref">Krehbiel, 1998</a>)</span>. In pivotal politics theory, legislators get utility from bills based on how bills move policy toward their <em>ideal point</em> policy preferences. In my model, I use DW-NOMINATE scores from Voteview <span class="citation" data-cites="lewisVoteviewCongressionalRollcall2024">(<a href="#ref-lewisVoteviewCongressionalRollcall2024" role="doc-biblioref">Lewis et al., 2024</a>)</span> to measure these ideal points. In order for a bill to pass, the bill must move policy towards the ideal points of a majority of senators (and a three-fifths supermajority if a bill is filibustered). Pivotal politics and its conception of policy benefits are fundamental components of my agent-based model.</p>
+<p>One of the defining features of the modern Senate is the filibuster and the cloture rule. Over time, the Senate’s longstanding norms respecting senators’ right to debate have evolved into the filibuster as we know it today: a tool of obstruction used by united minority parties against nearly all bills in the Senate <span class="citation" data-cites="jentlesonKillSwitchRise2022">(<a href="#ref-jentlesonKillSwitchRise2022" role="doc-biblioref">Jentleson, 2022</a>)</span>. The filibuster is now so strong that it has created a “60-vote Senate,” in which almost every bill requires a supermajority to pass <span class="citation" data-cites="kogerFilibusteringPoliticalHistory2010">(<a href="#ref-kogerFilibusteringPoliticalHistory2010" role="doc-biblioref">Koger, 2010</a>)</span>. <span class="citation" data-cites="wawroFilibusterObstructionLawmaking2006">Wawro &amp; Schickler (<a href="#ref-wawroFilibusterObstructionLawmaking2006" role="doc-biblioref">2006</a>)</span> explained the impact of the Senate’s original 1917 cloture rule by modeling the incentives of legislative entrepreneurs before and after the introduction of the rule. This model is the foundation of my equation-based model <span class="citation" data-cites="feinleibRedesigningFilibusterMore2024">(<a href="#ref-feinleibRedesigningFilibusterMore2024" role="doc-biblioref">Feinleib, 2024</a>)</span>. Both of these models are explained further in <a href="#sec-ebm" class="quarto-xref">Section&nbsp;3</a>. <span class="citation" data-cites="kogerFilibusteringPoliticalHistory2010">Koger (<a href="#ref-kogerFilibusteringPoliticalHistory2010" role="doc-biblioref">2010</a>)</span> responded to Wawro and Schickler by focusing more heavily on the costs of legislative obstruction (and the costs to the majority of withstanding it). Koger also presented a different model of the filibuster that is more explicitly based on game theory. My model incorporates Koger’s focus on costs into Wawro and Schickler’s original model.</p>
+<p>Another theoretical building-block of my model is the role of cosponsorship in the lawmaking process. Cosponsorship signals a strong commitment to support a bill: senators who cosponsor a bill almost never vote against it <span class="citation" data-cites="bernhardCommitmentConsequencesReneging2013">(<a href="#ref-bernhardCommitmentConsequencesReneging2013" role="doc-biblioref">Bernhard &amp; Sulkin, 2013</a>)</span>. <span class="citation" data-cites="harbridge-yongBipartisanPathEffective2023">Harbridge-Yong et al. (<a href="#ref-harbridge-yongBipartisanPathEffective2023" role="doc-biblioref">2023</a>)</span> use cosponsor relationships to measure the level of bipartisanship in Congress. They introduce two measures of senators’ bipartisanship that are included in my model:</p>
 <ul>
-<li>Existing work on the phenomenon</li>
+<li><em>Percent bipartisan cosponsors attracted (PBCA):</em> the average percentage of cosponsors that come from the opposite party on bills sponsored by a senator.</li>
+<li><em>Percent bipartisan cosponsorships offered (PBCO):</em> the percentage of a senator’s cosponsorships that go to bills sponsored by members of the opposite party.</li>
 </ul>
+<p>Finally, my model aims to address a major outstanding puzzle in models on Congress. Many formal models, especially those based on pivotal politics, predict that bills will tend to pass with <em>minimal majorities</em>, that is, the smallest amount of support required by the rules of the Senate and House (three-fifths and one-half, respectively). The equation-based model in my thesis is one such model. However, these minimal majorities are relatively rare, empirically <span class="citation" data-cites="grosecloseBuyingSupermajorities1996 uslanerPartisanshipCoalitionFormation1975">(<a href="#ref-grosecloseBuyingSupermajorities1996" role="doc-biblioref">Groseclose &amp; Snyder, 1996</a>; <a href="#ref-uslanerPartisanshipCoalitionFormation1975" role="doc-biblioref">Uslaner, 1975</a>)</span>. Relatedly, even as the parties have become more polarized over the past few decades <span class="citation" data-cites="desilverPolarizationTodayCongress2022">(<a href="#ref-desilverPolarizationTodayCongress2022" role="doc-biblioref">Desilver, 2022</a>)</span>, the level of bipartisanship in bills that pass Congress has remained steady <span class="citation" data-cites="curryNonpartyGovernmentBipartisan2019">(<a href="#ref-curryNonpartyGovernmentBipartisan2019" role="doc-biblioref">Curry &amp; Lee, 2019</a>)</span>. An agent-based representation of my model, due to its heterogeneous treatment of individual members, has the potential to solve these issues with equation-based pivotal politics models.</p>
 </section>
-<section id="the-underlying-model" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="the-underlying-model"><span class="header-section-number">3</span> The Underlying Model</h2>
+<section id="sec-ebm" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="sec-ebm"><span class="header-section-number">3</span> The Underlying Model</h2>
 <p>The Senate Coalitions model is an agent-based representation of the equation-based model of legislative coalitions by <span class="citation" data-cites="feinleibRedesigningFilibusterMore2024">Feinleib (<a href="#ref-feinleibRedesigningFilibusterMore2024" role="doc-biblioref">2024</a>)</span>, which is in turn an expansion of Wawro and Schickler’s <span class="citation" data-cites="wawroFilibusterObstructionLawmaking2006">(<a href="#ref-wawroFilibusterObstructionLawmaking2006" role="doc-biblioref">2006</a>)</span> model of legislative entrepreneurship under cloture. Thus, understanding these models is essential for understanding many elements of the agent-based model. I will now proceed to describe those models, naturally borrowing heavily from the original papers.</p>
 <p>As emphasized by Koger <span class="citation" data-cites="kogerFilibusteringPoliticalHistory2010">(<a href="#ref-kogerFilibusteringPoliticalHistory2010" role="doc-biblioref">2010</a>)</span>, the key factors in senators’ decision-making during legislative fights are the relative costs and benefits of the different strategies available to them in such fights. Thus, to predict the outcomes of legislative battles, I compare the relative utilities of bill proponents and obstructionists under various rules environments.</p>
-<section id="the-benefits-to-proponents" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="the-benefits-to-proponents"><span class="header-section-number">3.1</span> The Benefits to Proponents</h3>
-<p>Wawro and Schickler <span class="citation" data-cites="wawroFilibusterObstructionLawmaking2006">(<a href="#ref-wawroFilibusterObstructionLawmaking2006" role="doc-biblioref">2006</a>)</span> model the expected benefits of bill proponents under the Senate cloture rule. This model, which I refer to as WS<sub>K</sub>,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> focuses on a legislative entrepreneur (LE) who receives benefits from passing their bills. The LE may add legislators to a coalition supporting their bill, which increases the probability that their proposal passes. However, growing the coalition decreases the benefits of passing the bill, as the LE may have to make compromises or share credit to gain additional support. Thus, legislative entrepreneurs face a trade-off when forming their proponent coalition.</p>
-<p>The WS model is based on the following fundamentals:</p>
+<section id="sec-prop-benefits" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="sec-prop-benefits"><span class="header-section-number">3.1</span> The Benefits for Proponents</h3>
+<p>The first element of my equation-based model is the benefits for bill proponents. This component comes directly from Wawro and Schickler <span class="citation" data-cites="wawroFilibusterObstructionLawmaking2006">(<a href="#ref-wawroFilibusterObstructionLawmaking2006" role="doc-biblioref">2006</a>)</span>, who model the expected benefits of bill proponents under the Senate cloture rule. This model, which I refer to as WS<sub>K</sub>,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> focuses on a legislative entrepreneur (LE) who receives benefits from passing their bills. The LE may add legislators to a coalition supporting their bill, which increases the probability that their proposal passes. However, growing the coalition decreases the benefits of passing the bill, as the LE may have to make compromises or share credit to gain additional support. Thus, legislative entrepreneurs face a trade-off when forming their proponent coalition.</p>
+<p>The WS<sub>K</sub> model is based on the following fundamentals:</p>
 <ul>
 <li><p><span class="math inline">\(\eta\)</span>: The size of the supporting coalition, as a proportion.</p>
 <ul>
@@ -222,13 +227,13 @@ EB_K =
 \pi(\alpha^*)B &amp; \text{if } \eta ≥ K
 \end{cases}
 \]</span></p>
-<p><a href="#fig-ws-comp" class="quarto-xref">Figure&nbsp;1</a> below illustrates how the expected benefits to the LE vary with the size of the supporting coalition. The plot on the left shows a Senate without a cloture rule, and the plot on the right shows a Senate with a cloture rule. <span class="citation" data-cites="wawroFilibusterObstructionLawmaking2006">Wawro &amp; Schickler (<a href="#ref-wawroFilibusterObstructionLawmaking2006" role="doc-biblioref">2006, p. 217</a>)</span> found that an <span class="math inline">\(\alpha\)</span> around 0.25 best fit the Senate of the late-19th and early-20th centuries.</p>
+<p><a href="#fig-ws-comp" class="quarto-xref">Figure&nbsp;1</a> below illustrates how the expected benefits to the LE vary with the size of the supporting coalition. The plots on the left show a Senate without a cloture rule, and those on the right show a Senate with a cloture rule. <span class="citation" data-cites="wawroFilibusterObstructionLawmaking2006">Wawro &amp; Schickler (<a href="#ref-wawroFilibusterObstructionLawmaking2006" role="doc-biblioref">2006, p. 217</a>)</span> found that an <span class="math inline">\(\alpha\)</span> around 0.25 best fit the Senate of the late-19th and early-20th centuries, when the original cloture rule was introduced. The plot shows how a cloture rule created a sharp increase in benefits at the 60-vote threshold. Thus, the WS<sub>K</sub> model predicts that legislative entrepreneurs will seek supporting coalitions just large enough to clear the cloture threshold.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-ws-comp" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ws-comp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="senate_coalitions_final_paper_files/figure-html/fig-ws-comp-1.png" class="lightbox" data-glightbox="description: .lightbox-desc-1" data-gallery="quarto-lightbox-gallery-1"><img src="senate_coalitions_final_paper_files/figure-html/fig-ws-comp-1.png" class="img-fluid figure-img" width="672"></a>
+<img src="senate_coalitions_final_paper_files/figure-html/fig-ws-comp-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ws-comp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Proponents’ expected benefits without (left) and with (right) a cloture rule
@@ -238,66 +243,285 @@ Figure&nbsp;1: Proponents’ expected benefits without (left) and with (right) a
 </div>
 </div>
 </section>
+<section id="sec-obst-benefits" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="sec-obst-benefits"><span class="header-section-number">3.2</span> The Benefits for Obstructionists</h3>
+<p>In a legislative debate, the opponents are the remaining senators who do not support a bill. However, not all these opponents are willing to engage in active obstruction to prevent a bill from coming to a vote. These obstructionists are a subset of the bill opponents. As the opponents are a group with size <span class="math inline">\(1 − \eta\)</span>, I label the size of the obstructionist faction <span class="math inline">\(\omega \in [0, 1 − \eta]\)</span>.</p>
+<p>Similar to bill proponents, the obstructionists receive benefits if they successfully kill a bill. These blocking benefits represent the obstructionists’ preference for the status quo over the new policy proposal (the opposite of the proponents’ policy benefits). They also may receive position-taking benefits for the act of obstruction regardless of the bill’s outcome. By committing effort to actively obstruct a bill, obstructionists publicly demonstrate the strength of their policy commitments, which may improve their reputation with voters <span class="citation" data-cites="gibbsReputationPoliticsFilibuster2023">(<a href="#ref-gibbsReputationPoliticsFilibuster2023" role="doc-biblioref">Gibbs, 2023</a>)</span>. Thus, the expected benefits of obstruction are: <span class="math display">\[
+EB_{obst} = (1 - \pi)\beta_{block} + \beta_{position}
+\]</span> where <span class="math inline">\(\beta_{block}\)</span> and <span class="math inline">\(\beta_{position}\)</span> represent the obstructionists’ benefits for blocking a bill and their position-taking benefits, respectively. These terms are measured relative to the proponents’ benefits <span class="math inline">\(B\)</span>, which are fixed to a maximum of 1.</p>
+<p>As with proponents, the probability and benefits of success for obstructionists depend on the size of the obstructionist faction. Both forms of benefits for the obstructionists are shared among all the members of the obstructionist faction. Thus, the benefits for each individual obstructionist are: <span class="math display">\[
+\beta_{block} = \left( \frac{.5 - \omega}{.5} \right) \sum\beta_{block}
+\qquad
+\beta_{position} = \left( \frac{.5 - \omega}{.5} \right) \sum\beta_{position}
+\]</span> where <span class="math inline">\(\sum\beta_{block}\)</span> and <span class="math inline">\(\sum\beta_{position}\)</span> are the total benefits of obstruction shared among the obstructionists. For each <span class="math inline">\(\beta\)</span>, if there is a single obstructionist, then that member alone accrues the entire benefit. If <span class="math inline">\(\omega = 0.50\)</span> (i.e., the obstructionists make up half the chamber), then obstruction produces no benefits, as in that case, the bill opponents already have enough votes to block a bill without any additional obstruction.</p>
+</section>
+<section id="the-costs-for-proponents-and-obstructionists" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="the-costs-for-proponents-and-obstructionists"><span class="header-section-number">3.3</span> The Costs for Proponents and Obstructionists</h3>
+<p>In order to provide a full accounting of the expected utility for bill proponents and obstructionists, we must also consider the costs each side faces. According to Koger’s <span class="citation" data-cites="kogerFilibusteringPoliticalHistory2010">(<a href="#ref-kogerFilibusteringPoliticalHistory2010" role="doc-biblioref">2010</a>)</span> analysis of Senate filibustering, the primary factor in these costs is time. Time represents a cost to senators in two forms: the consumption of the finite floor time available during a legislative session and the opportunity costs related to other activities senators could be doing, such as campaigning and fundraising.</p>
+<p>The costs associated with passing or obstructing a bill depend heavily on the rules and procedures of the Senate. As the Senate’s rules surrounding filibustering and cloture have evolved, so too has the amount of time it takes to debate and vote on a bill. In a legislative fight, each faction <span class="math inline">\(i\)</span> faces a time cost <span class="math inline">\(C_i\)</span> of engaging in the fight. The costs to members of the proponent, opponent, and obstructionist factions are denoted as <span class="math inline">\(C_{prop}\)</span>, <span class="math inline">\(C_{opp}\)</span>, and <span class="math inline">\(C_{obst}\)</span>, respectively. The time cost <span class="math inline">\(C_i\)</span> of considering a bill can be broken down into the following components, such that <span class="math inline">\(C_i = C_{i,t} + C_{i,d} + C_{i,v}\)</span>:</p>
+<ul>
+<li><span class="math inline">\(C_{i,t}\)</span>: The cost of the consumption of floor time.</li>
+<li><span class="math inline">\(C_{i,d}\)</span>: The cost of physical attendance and debate time.</li>
+<li><span class="math inline">\(C_{i,v}\)</span>: The cost of voting time.</li>
+</ul>
+<p>These costs may be different for each faction. For example, in a talking filibuster, the obstructionists face heavy debate costs from having to continuously speak, while the proponents and opponents just have to wait around (i.e., <span class="math inline">\(C_{obst, d} &gt; C_{prop, d}\)</span> and <span class="math inline">\(C_{obst, d} &gt; C_{opp, d}\)</span>). Different rules around filibustering and cloture would change the amount of time the Senate spends on each bill. Given a specific set of rules, the amount of time spent on a bill and its cost also depend on the sizes of the proponent and obstructionist factions.</p>
+<p>For demonstration, consider the costs of considering bills under the current rules with a few different mixes of proponents and obstructionists:</p>
+<ol type="1">
+<li>All senators support a bill (<span class="math inline">\(\eta = 1\)</span>). The proponents can pass the bill by unanimous consent and spend no floor time, resulting in <span class="math inline">\(C = 0\)</span> for all factions.</li>
+<li>A non-unanimous majority of senators supports a bill, but none of the opponents are willing to actively obstruct it (<span class="math inline">\(\eta \in (0.5, 1), \ \omega = 0\)</span>). In order to pass the bill, the proponents must spend some floor time for debate and a single passage vote. Since there are no obstructionists, the opponents are submitting to a passage vote without forcing a cloture vote. This results in a small <span class="math inline">\(C\)</span> for the proponents.</li>
+<li>A filibuster-proof majority of senators supports a bill, and at least one senator obstructs a bill (<span class="math inline">\(\eta \in [0.6, 1), \ \omega &gt; 0\)</span>). In this case, proponents may either spend floor time on holding a cloture vote, or wait for the obstructionist to debate until they submit to a final passage vote. The second option is rare in the modern Senate because of the high cost in floor time, but it is still an available strategy <span class="citation" data-cites="kogerFilibusteringPoliticalHistory2010">(<a href="#ref-kogerFilibusteringPoliticalHistory2010" role="doc-biblioref">Koger, 2010</a>)</span>. For the obstructionists, debate would be even more costly, although they face no additional costs in the case of a cloture vote.</li>
+<li>The supporting coalition is smaller than the cloture threshold, and at least one senator obstructs a bill (<span class="math inline">\(\eta \in (0.5, 0.6), \ \omega &gt; 0\)</span>). Proponents would fail a cloture vote, so their only option for passing a bill is waiting out the obstructionists. Again, this is extremely costly in floor time (<span class="math inline">\(C_{prop, t}\)</span>). Accordingly, senators rarely employ this strategy in the modern Senate. This is why it is nearly impossible to pass a bill with fewer than 60 supporters in today’s climate.</li>
+</ol>
+<p>Different rules environments would allow for different strategies and different costs.</p>
+</section>
+<section id="comparing-the-expected-utility-of-the-two-factions" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="comparing-the-expected-utility-of-the-two-factions"><span class="header-section-number">3.4</span> Comparing the Expected Utility of the Two Factions</h3>
+<p>To predict the outcome of legislative battles, I compare the total expected utility of the members of the proponent and obstructionist factions. Since each member of the proponent and obstructionist factions receives expected benefits <span class="math inline">\(EB_i\)</span> and costs <span class="math inline">\(C_i\)</span>, the following expressions give the aggregate expected utility for each faction:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum EU_{prop} &amp;= \eta   \cdot (EB_{prop} - C_{prop}) \\
+\sum EU_{obst} &amp;= \omega \cdot (EB_{obst} - C_{obst})
+\end{aligned}
+\]</span> In this model, it is important to sum the benefits and costs among the members of each faction because those benefits and costs are shared. As a faction grows, even though an individual senator’s benefits and costs decrease, the total benefits and costs increase with the size of a faction.</p>
+<p>If each faction receives expected utility <span class="math inline">\(\sum EU_i\)</span> from playing their respective strategy (that is, by representing a proponent or obstructionist faction), then the side with the greater (positive) expected utility will be more willing to engage in the legislative fight.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> This utility-based method to predict the winner of a legislative fight is possible because senators have the ability to ensure a win at great cost (proponents by changing the rules or forcing the obstructionists to continuously debate, and obstructionists by being willing to continuously debate) if they evaluate that winning the fight produces enough benefits.</p>
+<p>At first glance, this rule to predict winners using expected utility may appear rigid, as if either the proponents or obstructionists are doomed from the start of a legislative fight. How does this rule explain the negotiation process that is so critical for proponents to grow the coalition to pass a bill, or for obstructionists to kill it? The answer is that the expected utility of these two factions constantly varies as the factions grow and shrink and they change their cost-benefit calculations. As the coalitions and the political environment change, and more and more time passes, the expected-utility winner may shift. This change over time is what makes the expected-utility system dynamic.</p>
+</section>
 </section>
 <section id="an-agent-based-representation" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="an-agent-based-representation"><span class="header-section-number">4</span> An Agent-Based Representation</h2>
-<ul>
-<li>Rules of the model</li>
-<li>Justifications for rules</li>
-<li>Model parameters</li>
-<li>Simplifications and assumption</li>
-</ul>
+<p>The Senate Coalitions ABM is a agent-based representation of the equation-based model described above. While the agent-based model does not fully reproduce all the elements of the equation-based model, its behavior resembles the expected behavior of the equation-based model and that of the real-life Senate. I will now explain the rules of the Senate Coalitions model.</p>
+<section id="setup" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">4.1</span> Setup</h3>
+<p>The most substantive portion of the <code>SETUP</code> procedure is the initialization of senators. Senators are created using data from <span class="citation" data-cites="harbridge-yongBipartisanPathEffective2023">Harbridge-Yong et al. (<a href="#ref-harbridge-yongBipartisanPathEffective2023" role="doc-biblioref">2023</a>)</span> on the 114th Congress (2015–16). The following senator properties come from this data: first name, last name, home state, DW-NOMINATE 1st-dimension estimate, DW-NOMINATE 2nd-dimension estimate, party, average number of cosponsors on sponsored bills, PBCA, and PBCO. Senators’ locations in the view are based on their DW-NOMINATE coordinates, and they are colored by party (blue for Democrats, red for Republicans, and yellow for independents). Senators from the most common party are labeled as majority-party senators. All senators are placed in an empty coalition. The <code>SETUP</code> procedure also clears previous model state, resets the tick counter, and resets the metrics that are used in the monitors and plots in the interface.</p>
 </section>
-<section id="results" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="results"><span class="header-section-number">5</span> Results</h2>
-<ul>
-<li>Experiments you ran (parameters, # of repetitions)</li>
-<li>Results from those experiments (include graphs)</li>
-<li>Empirical validation (if applicable)</li>
-</ul>
+<section id="go" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="go"><span class="header-section-number">4.2</span> Go</h3>
+<p>The <code>GO</code> procedure runs through the introduction and consideration of a bill. Unlike in most NetLogo models, the <code>GO</code> procedure does not last just one tick. Instead, each of the below sub-procedures, each of which represents one step in the legislative process, increments the tick counter. This design gives the model a richer conception of the time it takes to consider a bill.</p>
+<section id="creating-a-bill" class="level4">
+<h4 class="anchored" data-anchor-id="creating-a-bill">Creating a Bill</h4>
+<p>The <code>PLACE-BILL</code> procedure creates a new bill. First, it creates a status quo policy at a random point in DW-NOMINATE policy space. Then it creates a bill at another random point in policy space. Thus, the bills that are introduced are totally random and independent of the policy preferences of all senators. Bills that make little political sense are introduced, but these reliably fail.</p>
+<p>The new bill is initialized with no sponsor or cosponsors. The new bill adopts the just-created status quo as its <code>squo-policy</code>, and creates an arrow-shaped link from that status quo. The new bill becomes the active bill.</p>
+<p>The tick counter is incremented, and the <code>active-time</code> of the bill is set to 1.</p>
 </section>
-<section id="analysis-and-discussion" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="analysis-and-discussion"><span class="header-section-number">6</span> Analysis and Discussion</h2>
-<ul>
-<li>Interpretation of results (include graphs)</li>
-<li>What emergent phenomena arose? (include screenshots)</li>
-<li>Implications</li>
-</ul>
+<section id="attracting-a-sponsor-and-cosponsors" class="level4">
+<h4 class="anchored" data-anchor-id="attracting-a-sponsor-and-cosponsors">Attracting a Sponsor and Cosponsors</h4>
+<p>This step occurs in the <code>GET-SPONSOR-AND-COSPONSORS</code> procedure.</p>
+<section id="sponsor" class="level5">
+<h5 class="anchored" data-anchor-id="sponsor">Sponsor</h5>
+<p>All bills in the Senate must be introduced by a sponsoring senator. It is reasonable to assume that senators introduce bills that align with their policy preferences. Thus, the bill selects the senator with the greatest benefits from its policy movement to be the sponsor. The bill creates a green link with its sponsor, and the sponsor permanently becomes a proponent of this bill.</p>
 </section>
-<section id="conclusion" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7</span> Conclusion</h2>
-<ul>
-<li>What would future work on this look like?</li>
-<li>What might you suggest for further validation?</li>
-</ul>
-<div style="page-break-after: always;"></div>
+<section id="cosponsors" class="level5">
+<h5 class="anchored" data-anchor-id="cosponsors">Cosponsors</h5>
+<p>The bill then proceeds to attract cosponsors. The cosponsorship-attraction process is based on the interaction of the bill’s policy movement, the properties of the bill’s sponsor, and the properties of the other 99 senators. First, the number of cosponsors (<code>n-cosponsors</code>) is randomly drawn from a Poisson distribution using the sponsor’s average number of cosponsors on their bills.</p>
+<p>Next, the 99 other senators calculate their “cosponsor likelihood” for the bill based on three factors. First, the senator calculates their policy benefits from the bill. Then, the senator multiplies those benefits by a “party factor” based on the interaction of their own party and the sponsor’s party. The party factor is the product of the senator’s frequency of offering cosponsorships to members of the sponsor’s party (PBCO) and the sponsor’s frequency of attracting cosponsorships from member’s of the senator’s party (PBCA). If either the senator or the sponsor is an Independent, both the PBCO and PBCA are treated as 50%. This calculation considers the varying behaviors of senators related to bipartisanship. Finally, a small bonus is added if the senator is from the same home state as the sponsor. It is common for senators from the same state to work together on legislation, and this bonus represents that.</p>
+<p>Note that this “cosponsor likelihood” is not a proper 0–1 probability. It is a real number that may be positive or negative, and take on quite large magnitudes. These facts are not significant, though, as the cosponsor likelihood is simply used for ordering.</p>
+<p>The bill sets its cosponsors agentset to be the <code>n-cosponsors</code> senators with the highest positive cosponsor likelihoods. If less than N-COSPONSORS senators have positive cosponsor likelihoods, the cosponsors will just be those senators with positive cosponsor likelihoods. The cosponsors create gray links with the sponsor, and the cosponsors permanently become proponents of the bill. This commitment to the bill is based on the reliable support of cosponsors in the real-life Congress <span class="citation" data-cites="bernhardCommitmentConsequencesReneging2013">(<a href="#ref-bernhardCommitmentConsequencesReneging2013" role="doc-biblioref">Bernhard &amp; Sulkin, 2013</a>)</span>.</p>
+<p>The tick counter and the <code>active-time</code> of the bill are both incremented.</p>
 </section>
-
-
-
-<div id="quarto-appendix" class="default"><section id="references" class="level2 appendix" data-number="8"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">8</span> References</h2><div class="quarto-appendix-contents">
-
-<!-- * Cite relevant papers -->
-<!-- * Remember to cite software and models (citation for NetLogo is below; find the citation for any Models Library models you used as reference in the INFO tab) -->
-<div class="hidden" aria-hidden="true">
-<span class="glightbox-desc lightbox-desc-1">Figure&nbsp;1: Proponents’ expected benefits without (left) and with (right) a cloture rule</span>
+</section>
+<section id="building-initial-coalitions" class="level4">
+<h4 class="anchored" data-anchor-id="building-initial-coalitions">Building Initial Coalitions</h4>
+<p>The senators (besides the sponsor and cosponsors) find their initial coalition: either proponent or opponent, depending on whether they receive positive policy benefits from the bill.</p>
+<p>The tick counter and the <code>active-time</code> of the bill are both incremented.</p>
+</section>
+<section id="playing-it-out" class="level4">
+<h4 class="anchored" data-anchor-id="playing-it-out">Playing It Out</h4>
+<p>The following substeps loop until the bill reaches an end state.</p>
+<section id="advancing-coaltions" class="level5">
+<h5 class="anchored" data-anchor-id="advancing-coaltions">Advancing Coaltions</h5>
+<p>The senators (besides the sponsor and cosponsors) re-select their coalitions out of proponent, opponent, or obstructionist.</p>
+<p>First, the senators calculate the expected utility they would receive from joining the proponent or obstructionist coalitions. Expected utility refers to expected benefits minus costs.</p>
+<p>The expected benefits for proponents come from the formulas of the WS<sub>K</sub> model in <a href="#sec-prop-benefits" class="quarto-xref">Section&nbsp;3.1</a>. One major difference, though, is that each senator receives their own policy benefits. That is, <span class="math display">\[
+B = \frac{1 - \eta}{.5} * (\text{policy benefits})
+\]</span> This addition customizes the benefits of each proponent and deepens the meaning of the <span class="math inline">\(B\)</span> parameter. Otherwise, the formula for proponent benefits is the same as the <span class="math inline">\(EB_K\)</span> formula in <a href="#sec-prop-benefits" class="quarto-xref">Section&nbsp;3.1</a>, incorporating the <code>alpha</code>, <code>alpha-after-cloture</code>, and <code>cloture-threshold</code> parameters.</p>
+<p>The expected benefits for obstructionists similarly consider each senator’s individual policy preferences when computing the blocking benefits. Thus, the formula for <span class="math inline">\(\beta_{block}\)</span> in this model is: <span class="math display">\[
+\beta_{block} = \left( \frac{.5 - \omega}{.5} \right)
+* (- \text{ policy benefits})
+\]</span> The position-taking benefits take the same sign as the blocking benefits (that is, the opposite sign of the policy benefits), and the base size is controlled by the <code>position-taking-benefits</code> slider. From there, the obstructionists’ benefits are given by the formula for <span class="math inline">\(EB_{obst}\)</span> in <a href="#sec-obst-benefits" class="quarto-xref">Section&nbsp;3.2</a>.</p>
+<p>The costs are a combination of the costs of consuming floor time and the costs of debate time (<span class="math inline">\(C_{i, t}\)</span> and <span class="math inline">\(C_{i, d}\)</span> in the equation-based model). The cost of voting time is not considered in the agent-based model. The floor time costs depend on a senator’s party. These costs are given by one-tenth of the bills <code>active-time</code> (rounded down) times the <code>majority-floor-time-costs</code> or <code>minority-floor-time-costs</code>, depending on the senator’s party. The costs of debate time vary by coalition. The debate time costs are the product of the bill’s <code>active-time</code> and the <code>prop-debate-costs</code> for proponents or the <code>obst-debate-costs</code> for obstructionists. Thus, the costs for all senators increase over time. This decreases the incentives to join the proponent or obstructionist coalition, pushing senators into a “default” of the opponent coalition in case of a stalemate.</p>
+<p>Each senator (again, excluding the sponsor and cosponsors) joins the coalition with the higher (positive) expected utility between proponent or obstructionist. If neither of those have positive expected utility, the senator joins the opponent coalition, which is always defined to have zero utility.</p>
+</section>
+<section id="attempting-passage" class="level5">
+<h5 class="anchored" data-anchor-id="attempting-passage">Attempting Passage</h5>
+<p>Once the coalitions are formed, the bill tests for whether it can pass, or if it has too little support to continue. These rules approximate the different strategies available to pass bills in the Senate. These rules are different than the expected-utility comparisons that occur in the equation-based model. Designing stopping conditions for the expected-utility system would take substantial additional work and introduce many new assumptions.</p>
+<ol type="1">
+<li>If the bill has fewer than 47 proponents, it fails.</li>
+<li>If the bill has more than 90 proponents and obstructionists, it passes via unanimous consent.</li>
+<li>If the bill has more than 50 proponents and fewer than <code>obsts-to-block-vote</code> obstructionists, it passes by a simple majority vote.</li>
+<li>If the bill has at least <code>cloture-threshold</code> proponents, it passes using cloture.</li>
+</ol>
+<p>If any of these stopping conditions apply, the corresponding counter is incremented, and the <code>active-time</code> is recorded. If the bill passes (conditions 2-4), the size of the proponent coalition and the percent of minority-party senators who are proponents are also recorded. These records are used in the histograms and monitors in the interface.</p>
+<p>If none of these conditions apply, Step 4 (advancing coalitions and attempting passage) repeats.</p>
+</section>
+</section>
+<section id="clearing-the-bill" class="level4">
+<h4 class="anchored" data-anchor-id="clearing-the-bill">Clearing the Bill</h4>
+<p>After a bill either passes or failed, the bill, status quo, and links are deleted, and all senators return to the empty coalition.</p>
+</section>
+</section>
+</section>
+<section id="experiment-the-effects-of-different-cloture-thresholds" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="experiment-the-effects-of-different-cloture-thresholds"><span class="header-section-number">5</span> Experiment: The Effects of Different Cloture Thresholds</h2>
+<p>I performed a BehaviorSpace experiment to explore the effects of different cloture thresholds and obstruction costs (<code>obst_debate_costs</code>) on bill outcomes. I evaluated each parameter set on the following measures:</p>
+<ul>
+<li>mean passing coalition</li>
+<li>mean minority-party support</li>
+</ul>
+<p>These measures correspond to the plots and monitors on the right-hand side of the interface.</p>
+<p>I tested four cloture thresholds (51, 60, 67, and 100) and four levels of obstruction costs (0.01, 0.02, 0.05, 0.10). I performed 5 repetitions for each combination of cloture threshold and obstruction costs, resulting in 80 total runs. I measured the mean passing coalition and minority-party support after 2000 bills had been considered in each run. The values of the other parameters were as follows:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">alpha</td>
+<td style="text-align: right;">0.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">alpha_above_cloture</td>
+<td style="text-align: right;">0.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">obsts_to_block_vote</td>
+<td style="text-align: right;">3.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dwnom1_emphasis</td>
+<td style="text-align: right;">90.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">position_taking_benefits</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">majority_floor_time_costs</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">minority_floor_time_costs</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">prop_debate_costs</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+<p>The plots below show the results of the BehaviorSpace experiment. <a href="#fig-passing-coalitions" class="quarto-xref">Figure&nbsp;2</a> shows the effect of obstructionist costs on passing coalitions at the different cloture thresholds. Average passing coalitions are highest for lower obstructionist costs. Also, lowering the cloture threshold from 67 to 60 to 51 lowers passing coalitions. These relationships suggest that when obstruction is easier (low-cost), and overcoming obstruction is harder (because of higher cloture thresholds), it takes more support to pass bills.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-passing-coalitions" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-passing-coalitions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="senate_coalitions_final_paper_files/figure-html/fig-passing-coalitions-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-passing-coalitions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Results of BehaviorSpace experiment: Passing coalitions
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-minority-support" class="quarto-xref">Figure&nbsp;3</a> shows similar trends. This plot suggest that when it is harder to overcome obstruction, legislative entrepreneurs have to get more buy-in from minority-party senators to pass bills.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-minority-support" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-minority-support-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="senate_coalitions_final_paper_files/figure-html/fig-minority-support-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-minority-support-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Results of BehaviorSpace experiment: Minority-party support
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="discussion"><span class="header-section-number">6</span> Discussion</h2>
+<p>The results of my BehaviorSpace have exciting implications for the puzzles I raised in <a href="#sec-background" class="quarto-xref">Section&nbsp;2</a>. Using an agent-based representation, I was able to develop a pivotal politics-based model that did not predict minimal majorities or minority-party rolls. The behavior of this agent-based model is a better match than the predictions of equation-based models for the behavior of the real-life Senate. Crucially, these problems were solved while preserving the core elements of my original equation-based model. Converting traditional models to use agent-based representations may therefore represent a powerful methodological tool for analyzing Congress. I find this result surprising. It is not intuitive from the rules of the model why an agent-based approach would produce different results from the equation-based predictions. This, of course, is the beauty of agent-based modeling.</p>
+</section>
 
-</div></section><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+
+
+
+<div id="quarto-appendix" class="default"><section id="software-credits" class="level2 appendix" data-number="7"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">7</span> Software Credits</h2><div class="quarto-appendix-contents">
+
+<p>This agent-based model was built in the NetLogo programming language <span class="citation" data-cites="wilenskyNetLogo1999">(<a href="#ref-wilenskyNetLogo1999" role="doc-biblioref">Wilensky, 1999</a>)</span>. The model uses the NetLogo CSV extension <span class="citation" data-cites="CSVExtension2024">(<a href="#ref-CSVExtension2024" role="doc-biblioref"><em>CSV Extension</em>, 2015/2024</a>)</span>, and borrows code for that extension from the CSV Example model in the NetLogo Models Library <span class="citation" data-cites="wilenskyCSVExample">(<a href="#ref-wilenskyCSVExample" role="doc-biblioref">Wilensky, n.d.</a>)</span>. Data used in the model comes from <span class="citation" data-cites="harbridge-yongBipartisanPathEffective2023">Harbridge-Yong et al. (<a href="#ref-harbridge-yongBipartisanPathEffective2023" role="doc-biblioref">2023</a>)</span> and the Legislative Effectiveness Scores project <span class="citation" data-cites="voldenLegislativeEffectivenessScores2023">(<a href="#ref-voldenLegislativeEffectivenessScores2023" role="doc-biblioref">Volden &amp; Wiseman, 2023</a>)</span>. This data was retrieved using the <code>filibustr</code> R package <span class="citation" data-cites="feinleibFilibustrDataUtilities2024">(<a href="#ref-feinleibFilibustrDataUtilities2024" role="doc-biblioref">Feinleib, 2023/2024</a>)</span>.</p>
+<div style="page-break-after: always;"></div>
+</div></section><section id="references" class="level2 unnumbered appendix" data-number="8"><h2 class="quarto-appendix-heading"></h2><div class="quarto-appendix-contents">
+
+
+</div></section><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">8 References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-bernhardCommitmentConsequencesReneging2013" class="csl-entry" role="listitem">
+Bernhard, W., &amp; Sulkin, T. (2013). Commitment and consequences: Reneging on cosponsorship pledges in the U.S. House. <em>Legislative Studies Quarterly</em>, <em>38</em>(4), 461–487. <a href="https://doi.org/10.1111/lsq.12024">https://doi.org/10.1111/lsq.12024</a>
+</div>
+<div id="ref-CSVExtension2024" class="csl-entry" role="listitem">
+<em>CSV extension</em> (Version 1.1.1). (2024). [Scala]. Center for Connected Learning, Northwestern University. <a href="https://github.com/NetLogo/CSV-Extension">https://github.com/NetLogo/CSV-Extension</a> (Original work published 2015)
+</div>
+<div id="ref-curryNonpartyGovernmentBipartisan2019" class="csl-entry" role="listitem">
+Curry, J. M., &amp; Lee, F. E. (2019). Non-party government: Bipartisan lawmaking and party power in Congress. <em>Perspectives on Politics</em>, <em>17</em>(1), 47–65. <a href="https://doi.org/10.1017/S1537592718002128">https://doi.org/10.1017/S1537592718002128</a>
+</div>
+<div id="ref-desilverPolarizationTodayCongress2022" class="csl-entry" role="listitem">
+Desilver, D. (2022, March 10). <em>The polarization in today’s Congress has roots that go back decades</em>. Pew Research Center. <a href="https://www.pewresearch.org/fact-tank/2022/03/10/the-polarization-in-todays-congress-has-roots-that-go-back-decades/">https://www.pewresearch.org/fact-tank/2022/03/10/the-polarization-in-todays-congress-has-roots-that-go-back-decades/</a>
+</div>
+<div id="ref-feinleibFilibustrDataUtilities2024" class="csl-entry" role="listitem">
+Feinleib, M. H. (2024). <em>filibustr: Data utilities for congressional research</em> (Version 0.2.1) [R]. <a href="https://CRAN.R-project.org/package=filibustr">https://CRAN.R-project.org/package=filibustr</a> (Original work published 2023)
+</div>
 <div id="ref-feinleibRedesigningFilibusterMore2024" class="csl-entry" role="listitem">
 Feinleib, M. H. (2024). <em>Redesigning the filibuster for more effective lawmaking in a polarized Senate</em> [Northwestern University]. <a href="https://feinleib.quarto.pub/redesigning-the-filibuster-2024/">https://feinleib.quarto.pub/redesigning-the-filibuster-2024/</a>
+</div>
+<div id="ref-gibbsReputationPoliticsFilibuster2023" class="csl-entry" role="listitem">
+Gibbs, D. (2023). The reputation politics of the filibuster. <em>Quarterly Journal of Political Science</em>, <em>18</em>(4), 469–511. <a href="https://doi.org/10.1561/100.00020109">https://doi.org/10.1561/100.00020109</a>
+</div>
+<div id="ref-grosecloseBuyingSupermajorities1996" class="csl-entry" role="listitem">
+Groseclose, T., &amp; Snyder, J. M. (1996). Buying supermajorities. <em>American Political Science Review</em>, <em>90</em>(2), 303–315. <a href="https://doi.org/10.2307/2082886">https://doi.org/10.2307/2082886</a>
+</div>
+<div id="ref-harbridge-yongBipartisanPathEffective2023" class="csl-entry" role="listitem">
+Harbridge-Yong, L., Volden, C., &amp; Wiseman, A. E. (2023). The bipartisan path to effective lawmaking. <em>The Journal of Politics</em>, <em>85</em>(3), 1048–1063. <a href="https://doi.org/10.1086/723805">https://doi.org/10.1086/723805</a>
+</div>
+<div id="ref-jentlesonKillSwitchRise2022" class="csl-entry" role="listitem">
+Jentleson, A. (2022). <em>Kill switch: The rise of the modern Senate and the crippling of American democracy</em>. Liveright Publishing Corporation.
 </div>
 <div id="ref-kogerFilibusteringPoliticalHistory2010" class="csl-entry" role="listitem">
 Koger, G. (2010). <em>Filibustering: A political history of obstruction in the House and Senate</em>. University of Chicago Press.
 </div>
+<div id="ref-krehbielPivotalPoliticsTheory1998" class="csl-entry" role="listitem">
+Krehbiel, K. (1998). <em>Pivotal politics: A theory of U.S. lawmaking</em>. University of Chicago Press.
+</div>
+<div id="ref-lewisVoteviewCongressionalRollcall2024" class="csl-entry" role="listitem">
+Lewis, J. B., Poole, K., Rosenthal, H., Boche, A., Rudkin, A., &amp; Sonnet, L. (2024). <em>Voteview: Congressional roll-call votes database</em>. <a href="https://voteview.com/">https://voteview.com/</a>
+</div>
+<div id="ref-uslanerPartisanshipCoalitionFormation1975" class="csl-entry" role="listitem">
+Uslaner, E. M. (1975). Partisanship and coalition formation in Congress. <em>Political Methodology</em>, <em>2</em>(4), 381–414. <a href="https://www.jstor.org/stable/25791431">https://www.jstor.org/stable/25791431</a>
+</div>
+<div id="ref-voldenLegislativeEffectivenessScores2023" class="csl-entry" role="listitem">
+Volden, C., &amp; Wiseman, A. E. (2023). <em>Legislative effectiveness scores</em> [dataset]. Center for Effective Lawmaking. <a href="https://thelawmakers.org/">https://thelawmakers.org/</a>
+</div>
 <div id="ref-wawroFilibusterObstructionLawmaking2006" class="csl-entry" role="listitem">
 Wawro, G. J., &amp; Schickler, E. (2006). <em>Filibuster: Obstruction and lawmaking in the U.S. Senate</em>. Princeton University Press.
+</div>
+<div id="ref-wilenskyCSVExample" class="csl-entry" role="listitem">
+Wilensky, U. (n.d.). <em>CSV example</em> [NetLogo]. Center for Connected Learning and Computer-Based Modeling, Northwestern University.
+</div>
+<div id="ref-wilenskyNetLogo1999" class="csl-entry" role="listitem">
+Wilensky, U. (1999). <em>NetLogo</em> (Version 6.4.0) [Computer software]. Center for Connected Learning and Computer-Based Modeling, Northwestern University. <a href="http://ccl.northwestern.edu/netlogo">http://ccl.northwestern.edu/netlogo</a>
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p><span class="math inline">\(K\)</span> stands for cloture because <span class="math inline">\(C\)</span> refers to costs in my model. Wawro and Schickler also present a model without a cloture rule (labeled WS in <span class="citation" data-cites="feinleibRedesigningFilibusterMore2024">Feinleib (<a href="#ref-feinleibRedesigningFilibusterMore2024" role="doc-biblioref">2024</a>)</span>); I am skipping that model for brevity.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>For simplicity, WS ignores the case of a tie. In my agent-based model, I require bills to have strictly more than 50 votes to pass.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p><span class="math inline">\(K\)</span> stands for cloture because <span class="math inline">\(C\)</span> refers to costs in my model. Wawro and Schickler also present a model without a cloture rule (labeled WS in <span class="citation" data-cites="feinleibRedesigningFilibusterMore2024">Feinleib (<a href="#ref-feinleibRedesigningFilibusterMore2024" role="doc-biblioref">2024</a>)</span>). I am skipping that model for brevity.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For simplicity, WS<sub>K</sub> ignores the case of a tie. In my agent-based model, I require bills to have strictly more than 50 votes to pass.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>If a faction receives negative expected utility, then they would simply surrender the fight.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{feinleib2024,
   author = {Feinleib, Max H.},
@@ -697,31 +921,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":false});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
-    }
-  });
-
-};
-          </script>
 
 
 
