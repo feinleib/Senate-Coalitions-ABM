@@ -475,6 +475,11 @@ to-report cloture-vote?
   report n-proponents >= cloture-threshold
 end
 
+; number of bills finished
+to-report n-bills
+  report bills-passed-uc + bills-passed-cloture + bills-passed-simple + bills-failed
+end
+
 ;;;;; COALITIONS AND THEIR SIZES ;;;;;
 
 ; flippable senators: everyone except sponsor and cosponsors
