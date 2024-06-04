@@ -1019,17 +1019,28 @@ Steps 4a and 4b repeat until the bill passes or fails. When that occurs, the out
 
 ## THINGS TO NOTICE
 
-(suggested things for the user to notice while running the model)
+**Passing coalitions:** How many bills pass with less than CLOTURE-THRESHOLD proponents? How many pass near-unanimously? What are the most common passing coalition sizes?
 
+**Minority support:** How much minority support do passed bills receive? How often is the minority party "rolled" (i.e., a bill passes with less than 50% minority support)?
+
+**Bill outcomes:** What methods are used to pass bills? What percentage of all bills end up passing?
 
 ## THINGS TO TRY
 
-(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
+**Vary the CLOTURE-THRESHOLD:** how does the Senate work under different cloture thresholds? Some notable thresholds to try:
+
+* 100: There was no cloture in the Senate before 1917. Simulate this using a cloture threshold of 100.
+* 67: The cloture threshold from 1917 to 1975.
+* 60: The cloture threshold from 1975 to the present (as of 2024).
+* 51: A simple majority cloture threshold. This would occur if the filibuster is abolished in the Senate (aka the nuclear option).
+
+**Vary the utility parameters** along with the cloture threshold to create even more behaviors.
 
 
 ## EXTENDING THE MODEL
 
-(suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
+* **Costs of passage strategies:** Currently, the outcome of a bill is governed solely by the number of proponents and obstructionists. In the Senate, these strategies take different amounts of time and effort. How can you introduce these varying costs into the model?
+* **Different cloture rules:** How would you model a Senate with a talking filibuster requirement? How about one with a "flipped cloture vote": that is, if obstructionists needed 41 votes to *prolong* debate instead of proponents needing 60 votes to *end* debate?
 
 
 ## NETLOGO FEATURES
