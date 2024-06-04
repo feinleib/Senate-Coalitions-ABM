@@ -605,7 +605,7 @@ dwnom1-emphasis
 0
 100
 90.0
-5
+1
 1
 %
 HORIZONTAL
@@ -627,9 +627,9 @@ HORIZONTAL
 
 SLIDER
 15
-175
+215
 195
-208
+248
 alpha
 alpha
 0.01
@@ -642,9 +642,9 @@ HORIZONTAL
 
 SLIDER
 15
-215
+255
 195
-248
+288
 alpha-above-cloture
 alpha-above-cloture
 0.01
@@ -657,9 +657,9 @@ HORIZONTAL
 
 SLIDER
 15
-255
+175
 195
-288
+208
 cloture-threshold
 cloture-threshold
 50
@@ -773,7 +773,7 @@ HORIZONTAL
 TEXTBOX
 355
 365
-460
+530
 383
 Utility parameters
 11
@@ -811,11 +811,11 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-15
+20
 155
-125
-173
-Rules environment
+195
+181
+Rules and environment
 11
 0.0
 1
