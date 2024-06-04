@@ -810,9 +810,9 @@ Rules environment
 1
 
 PLOT
-905
+885
 15
-1155
+1135
 145
 Passing coalitions
 Senators
@@ -828,9 +828,9 @@ PENS
 "default" 1.0 1 -13840069 true "" "histogram passing-coalitions"
 
 PLOT
-905
+885
 200
-1155
+1135
 325
 Minority support on passed bills
 % of minority in support
@@ -846,9 +846,9 @@ PENS
 "default" 1.0 1 -13345367 true "" "histogram minority-supports"
 
 MONITOR
-940
+920
 505
-1035
+1015
 550
 pass (simple)
 bills-passed-simple / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture + bills-passed-simple) * 100
@@ -857,9 +857,9 @@ bills-passed-simple / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture
 11
 
 TEXTBOX
-985
+965
 380
-1085
+1065
 398
 Bill outcomes (%)
 11
@@ -867,9 +867,9 @@ Bill outcomes (%)
 1
 
 MONITOR
-1055
+1035
 405
-1112
+1092
 450
 fail
 bills-failed / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture + bills-passed-simple) * 100
@@ -878,9 +878,9 @@ bills-failed / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture + bill
 11
 
 MONITOR
-940
+920
 405
-1035
+1015
 450
 pass (UC)
 bills-passed-uc / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture + bills-passed-simple) * 100
@@ -889,9 +889,9 @@ bills-passed-uc / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture + b
 11
 
 MONITOR
-940
+920
 455
-1035
+1015
 500
 pass (cloture)
 bills-passed-cloture / \n(bills-failed + bills-passed-uc \n+ bills-passed-cloture + bills-passed-simple) * 100
@@ -900,9 +900,9 @@ bills-passed-cloture / \n(bills-failed + bills-passed-uc \n+ bills-passed-clotur
 11
 
 MONITOR
-905
+885
 145
-962
+942
 190
 mean
 mean passing-coalitions
@@ -911,9 +911,9 @@ mean passing-coalitions
 11
 
 MONITOR
-905
+885
 325
-962
+942
 370
 mean
 mean minority-supports
