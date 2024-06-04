@@ -446,7 +446,7 @@ end
 ; bills can pass by UC if about all senators support it
 ; and no senator is obstructing it
 to-report unanimous-consent?
-  report n-proponents > 90 and n-obstructionists = 0
+  report n-proponents > 90 and not any? obstructionists
 end
 
 ; bills pass by simple majority vote
