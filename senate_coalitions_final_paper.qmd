@@ -54,9 +54,22 @@ library(rlang)
 
 ## Background
 
-* Existing work on the phenomenon
+The U.S. Congress as a whole, and the Senate more specifically, are unsurprisingly the subject of numerous formal models in political science.
+A foundational model in this area is pivotal politics theory [@krehbielPivotalPoliticsTheory1998]. In pivotal politics theory, legislators get utility from bills based on how bills move policy toward their *ideal point* policy preferences. In my model, I use DW-NOMINATE scores from Voteview [@lewisVoteviewCongressionalRollcall2024] to measure these ideal points. In order for a bill to pass, the bill must move policy towards the ideal points of a majority of senators (and a three-fifths supermajority if a bill is filibustered). Pivotal politics and its conception of policy benefits are fundamental components of my agent-based model.
 
-## The Underlying Model
+One of the defining features of the modern Senate is the filibuster and the cloture rule. Over time, the Senate's longstanding norms respecting senators' right to debate have evolved into the filibuster as we know it today: a tool of obstruction used by united minority parties against nearly all bills in the Senate [@jentlesonKillSwitchRise2022]. The filibuster is now so strong that it has created a "60-vote Senate," in which almost every bill requires a supermajority to pass [@kogerFilibusteringPoliticalHistory2010].
+@wawroFilibusterObstructionLawmaking2006 explained the impact of the Senate's original 1917 cloture rule by modeling the incentives of legislative entrepreneurs before and after the introduction of the rule. This model is the foundation of my equation-based model [@feinleibRedesigningFilibusterMore2024]. Both of these models are explained further in @sec-ebm.
+@kogerFilibusteringPoliticalHistory2010 responded to Wawro and Schickler by focusing more heavily on the costs of legislative obstruction (and the costs to the majority of withstanding it). Koger also presented a different model of the filibuster that is more explicitly based on game theory. My model incorporates Koger’s focus on costs into Wawro and Schickler’s original model.
+
+Another theoretical building-block of my model is the role of cosponsorship in the lawmaking process.  Cosponsorship signals a strong commitment to support a bill: senators who cosponsor a bill almost never vote against it [@bernhardCommitmentConsequencesReneging2013]. @harbridge-yongBipartisanPathEffective2023 use cosponsor relationships to measure the level of bipartisanship in Congress. They introduce two measures of senators' bipartisanship that are included in my model:
+
+* *Percent bipartisan cosponsors attracted (PBCA):* the average percentage of cosponsors that come from the opposite party on bills sponsored by a senator.
+* *Percent bipartisan cosponsorships offered (PBCO):* the percentage of a senator's cosponsorships that go to bills sponsored by members of the opposite party.
+
+Finally, my model aims to address a major outstanding puzzle in models on Congress. Many formal models, especially those based on pivotal politics, predict that bills will tend to pass with *minimal majorities*, that is, the smallest amount of support required by the rules of the Senate and House (three-fifths and one-half, respectively). The equation-based model in my thesis is one such model. However, these minimal majorities are relatively rare, empirically [@grosecloseBuyingSupermajorities1996; @uslanerPartisanshipCoalitionFormation1975]. Relatedly, even as the parties have become more polarized over the past few decades [@desilverPolarizationTodayCongress2022], the level of bipartisanship in bills that pass Congress has remained steady [@curryNonpartyGovernmentBipartisan2019].
+An agent-based representation of my model, due to its heterogeneous treatment of individual members, has the potential to solve these issues with equation-based pivotal politics models.
+
+## The Underlying Model {#sec-ebm}
 The Senate Coalitions model is an agent-based representation of the equation-based model of legislative coalitions by @feinleibRedesigningFilibusterMore2024, which is in turn an expansion of Wawro and Schickler's [-@wawroFilibusterObstructionLawmaking2006] model of legislative entrepreneurship under cloture. Thus, understanding these models is essential for understanding many elements of the agent-based model. I will now proceed to describe those models, naturally borrowing heavily from the original papers.
 
 As emphasized by Koger [-@kogerFilibusteringPoliticalHistory2010], the key factors in senators' decision-making during legislative fights are the relative costs and benefits of the different strategies available to them in such fights. Thus, to predict the outcomes of legislative battles, I compare the relative utilities of bill proponents and obstructionists under various rules environments.
