@@ -1444,6 +1444,51 @@ NetLogo 6.4.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="cloture thresholds and obstruction costs" repetitions="5" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <exitCondition>n-bills = 2000</exitCondition>
+    <metric>mean passing-coalitions</metric>
+    <metric>mean minority-supports</metric>
+    <enumeratedValueSet variable="alpha-above-cloture">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="dwnom1-emphasis">
+      <value value="90"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="minority-floor-time-costs">
+      <value value="0.01"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="prop-debate-costs">
+      <value value="0.01"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="alpha">
+      <value value="0.25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="position-taking-benefits">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cloture-threshold">
+      <value value="51"/>
+      <value value="60"/>
+      <value value="67"/>
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="obst-debate-costs">
+      <value value="0.01"/>
+      <value value="0.02"/>
+      <value value="0.05"/>
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="majority-floor-time-costs">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="obsts-to-block-vote">
+      <value value="3"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
