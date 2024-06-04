@@ -40,6 +40,77 @@
 		}
 	},
 	{
+		"id": "bernhardCommitmentConsequencesReneging2013",
+		"type": "article-journal",
+		"container-title": "Legislative Studies Quarterly",
+		"DOI": "10.1111/lsq.12024",
+		"ISSN": "03629805",
+		"issue": "4",
+		"journalAbbreviation": "Legislative Studies Quarterly",
+		"language": "en",
+		"page": "461-487",
+		"source": "DOI.org (Crossref)",
+		"title": "Commitment and consequences: Reneging on cosponsorship pledges in the U.S. House",
+		"title-short": "Commitment and Consequences",
+		"URL": "https://onlinelibrary.wiley.com/doi/10.1111/lsq.12024",
+		"volume": "38",
+		"author": [
+			{
+				"family": "Bernhard",
+				"given": "William"
+			},
+			{
+				"family": "Sulkin",
+				"given": "Tracy"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2023",
+					5,
+					17
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2013",
+					11
+				]
+			]
+		}
+	},
+	{
+		"id": "jentlesonKillSwitchRise2022",
+		"type": "book",
+		"abstract": "Our democracy is under assault from homegrown authoritarians, with most observers blaming Donald Trump and the Republican Party that submitted to him. Yet as Adam Jentleson shows, the problem not only goes back to the nineteenth century, but is less about the presidency than it is about our nation's most venerated institution: the United States Senate. A revelatory history of minority rule in America as expressed through the Senate filibuster, Kill Switch shows that white conservatives have long relied on the filibuster--which is not featured in the Constitution, and which, as Jentleson demonstrates, the Framers would have opposed--to shut down attempts to create a multiracial democracy. Featuring a new epilogue on filibuster battles under the Biden administration, Kill Switch will remain an essential warning about the costs of empowering this nation's right-wing minority.",
+		"event-place": "New York",
+		"ISBN": "978-1-324-09198-1",
+		"language": "eng",
+		"note": "OCLC: 1268984156\n\nnote: Paperback version was published in 2022. Was first published 2021 in hardcover.",
+		"number-of-pages": "352",
+		"publisher": "Liveright Publishing Corporation",
+		"publisher-place": "New York",
+		"source": "Open WorldCat",
+		"title": "Kill switch: The rise of the modern Senate and the crippling of American democracy",
+		"title-short": "Kill Switch",
+		"author": [
+			{
+				"family": "Jentleson",
+				"given": "Adam"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"2022"
+				]
+			]
+		}
+	},
+	{
 		"id": "kogerFilibusteringPoliticalHistory2010",
 		"type": "book",
 		"call-number": "JK1041 .K64 2010",
@@ -140,6 +211,32 @@
 				[
 					"2023",
 					7
+				]
+			]
+		}
+	},
+	{
+		"id": "krehbielPivotalPoliticsTheory1998",
+		"type": "book",
+		"call-number": "KF4945 .K74 1998",
+		"event-place": "Chicago",
+		"ISBN": "978-0-226-45271-5",
+		"number-of-pages": "258",
+		"publisher": "University of Chicago Press",
+		"publisher-place": "Chicago",
+		"source": "Library of Congress ISBN",
+		"title": "Pivotal politics: A theory of U.S. lawmaking",
+		"title-short": "Pivotal politics",
+		"author": [
+			{
+				"family": "Krehbiel",
+				"given": "Keith"
+			}
+		],
+		"issued": {
+			"date-parts": [
+				[
+					"1998"
 				]
 			]
 		}
