@@ -17,7 +17,8 @@ date-format: long
 format: 
   html: default
   pdf:
-    linestretch: 2.0
+    linestretch: 1.8
+    # indent: true
     output-file: "Feinleib_senate_coalitions.pdf"
 keywords: 
   - U.S. Senate
@@ -29,7 +30,6 @@ bibliography: abm_bib.json
 csl: apa.csl
 toc: true
 number-sections: true
-lightbox: true
 execute:
   echo: false
 citation: true
