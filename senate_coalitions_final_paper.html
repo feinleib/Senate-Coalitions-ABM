@@ -23,7 +23,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="senate_coalitions_final_paper_files/libs/clipboard/clipboard.min.js"></script>
@@ -36,7 +56,39 @@ ul.task-list li input[type="checkbox"] {
 <script src="senate_coalitions_final_paper_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="senate_coalitions_final_paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="senate_coalitions_final_paper_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="senate_coalitions_final_paper_files/libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="senate_coalitions_final_paper_files/libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="senate_coalitions_final_paper_files/libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -50,13 +102,17 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background"><span class="header-section-number">2</span> Background</a></li>
-  <li><a href="#model-design" id="toc-model-design" class="nav-link" data-scroll-target="#model-design"><span class="header-section-number">3</span> Model Design</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">4</span> Results</a></li>
-  <li><a href="#analysis-and-discussion" id="toc-analysis-and-discussion" class="nav-link" data-scroll-target="#analysis-and-discussion"><span class="header-section-number">5</span> Analysis and Discussion</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6</span> Conclusion</a></li>
+  <li><a href="#the-underlying-model" id="toc-the-underlying-model" class="nav-link" data-scroll-target="#the-underlying-model"><span class="header-section-number">3</span> The Underlying Model</a>
+  <ul class="collapse">
+  <li><a href="#the-benefits-to-proponents" id="toc-the-benefits-to-proponents" class="nav-link" data-scroll-target="#the-benefits-to-proponents"><span class="header-section-number">3.1</span> The Benefits to Proponents</a></li>
+  </ul></li>
+  <li><a href="#an-agent-based-representation" id="toc-an-agent-based-representation" class="nav-link" data-scroll-target="#an-agent-based-representation"><span class="header-section-number">4</span> An Agent-Based Representation</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">5</span> Results</a></li>
+  <li><a href="#analysis-and-discussion" id="toc-analysis-and-discussion" class="nav-link" data-scroll-target="#analysis-and-discussion"><span class="header-section-number">6</span> Analysis and Discussion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">7</span> Conclusion</a></li>
   
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="senate_coalitions_final_paper.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Feinleib_senate_coalitions.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -122,8 +178,69 @@ ul.task-list li input[type="checkbox"] {
 <li>Existing work on the phenomenon</li>
 </ul>
 </section>
-<section id="model-design" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="model-design"><span class="header-section-number">3</span> Model Design</h2>
+<section id="the-underlying-model" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="the-underlying-model"><span class="header-section-number">3</span> The Underlying Model</h2>
+<p>The Senate Coalitions model is an agent-based representation of the equation-based model of legislative coalitions by <span class="citation" data-cites="feinleibRedesigningFilibusterMore2024">Feinleib (<a href="#ref-feinleibRedesigningFilibusterMore2024" role="doc-biblioref">2024</a>)</span>, which is in turn an expansion of Wawro and Schickler’s <span class="citation" data-cites="wawroFilibusterObstructionLawmaking2006">(<a href="#ref-wawroFilibusterObstructionLawmaking2006" role="doc-biblioref">2006</a>)</span> model of legislative entrepreneurship under cloture. Thus, understanding these models is essential for understanding many elements of the agent-based model. I will now proceed to describe those models, naturally borrowing heavily from the original papers.</p>
+<p>As emphasized by Koger <span class="citation" data-cites="kogerFilibusteringPoliticalHistory2010">(<a href="#ref-kogerFilibusteringPoliticalHistory2010" role="doc-biblioref">2010</a>)</span>, the key factors in senators’ decision-making during legislative fights are the relative costs and benefits of the different strategies available to them in such fights. Thus, to predict the outcomes of legislative battles, I compare the relative utilities of bill proponents and obstructionists under various rules environments.</p>
+<section id="the-benefits-to-proponents" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="the-benefits-to-proponents"><span class="header-section-number">3.1</span> The Benefits to Proponents</h3>
+<p>Wawro and Schickler <span class="citation" data-cites="wawroFilibusterObstructionLawmaking2006">(<a href="#ref-wawroFilibusterObstructionLawmaking2006" role="doc-biblioref">2006</a>)</span> model the expected benefits of bill proponents under the Senate cloture rule. This model, which I refer to as WS<sub>K</sub>,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> focuses on a legislative entrepreneur (LE) who receives benefits from passing their bills. The LE may add legislators to a coalition supporting their bill, which increases the probability that their proposal passes. However, growing the coalition decreases the benefits of passing the bill, as the LE may have to make compromises or share credit to gain additional support. Thus, legislative entrepreneurs face a trade-off when forming their proponent coalition.</p>
+<p>The WS model is based on the following fundamentals:</p>
+<ul>
+<li><p><span class="math inline">\(\eta\)</span>: The size of the supporting coalition, as a proportion.</p>
+<ul>
+<li><span class="math inline">\(\eta\)</span> is restricted to <span class="math inline">\(\eta \in [.5, 1]\)</span>, as any bill must have at least majority support to pass. <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+</ul></li>
+<li><p><span class="math inline">\(\pi\)</span>: The probability the bill passes, which is a function of <span class="math inline">\(\eta\)</span>: <span class="math display">\[
+\pi(\alpha) = \left( \frac{\eta - .5}{.5} \right) ^ \alpha
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> is a parameter indicating how much each additional coalition member contributes to the probability of passage. In effect, this parameter controls the steepness of the <span class="math inline">\(\pi\)</span> curve. A higher value of <span class="math inline">\(\alpha\)</span> means that it takes more legislators in the supporting coalition to reach the same probability of passing a bill.
+<ul>
+<li><span class="math inline">\(\alpha \in (0, 1]\)</span>, so that as <span class="math inline">\(\alpha\)</span> increases toward 1, each additional legislator in the supporting coalition has a larger impact on the probability of passage.</li>
+</ul></li>
+<li><span class="math inline">\(\pi\)</span> is strictly increasing in <span class="math inline">\(\eta\)</span>. Note that when <span class="math inline">\(\eta = .50\)</span>, <span class="math inline">\(\pi = 0\)</span> (i.e., you need at least a minimum majority to pass a bill), and when <span class="math inline">\(\eta = 1\)</span>, <span class="math inline">\(\pi = 1\)</span> (i.e., a bill with unanimous support is guaranteed to pass).</li>
+</ul></li>
+<li><p><span class="math inline">\(B\)</span>: The benefits to the LE of passing their bill, which is also a function of <span class="math inline">\(\eta\)</span>. The benefits to the LE diminish as they add more supporters, as the LE may have to make compromises on the policy content of the bill or share credit with a larger group of supporters. <span class="math display">\[
+B = \frac{1 - \eta}{.5}
+\]</span></p>
+<ul>
+<li><p>That is, <span class="math inline">\(B\)</span> linearly decreases from 1 to 0 as <span class="math inline">\(\eta\)</span> increases over <span class="math inline">\((0.5, 1]\)</span>.</p></li>
+<li><p>Also, WS<sub>K</sub> sets <span class="math inline">\(B = 0\)</span> if the proposal doesn’t pass.</p></li>
+</ul></li>
+<li><p><span class="math inline">\(EB\)</span>: The expected benefits for the LE, which is simply the probability of passage multiplied by the benefits of passage: <span class="math display">\[
+EB = \pi B
+\]</span></p></li>
+</ul>
+<p>Since <span class="math inline">\(\pi\)</span> is an increasing function in <span class="math inline">\(\eta\)</span>, and <span class="math inline">\(B\)</span> is a decreasing function in <span class="math inline">\(\eta\)</span>, there is an inherent tradeoff in forming an optimally sized coalition.</p>
+<p>Finally, WS<sub>K</sub> represents the Senate cloture rule as an increase in the passage probability when the supporting coalition clears the cloture threshold, <span class="math inline">\(K\)</span> (which is 0.60 under the Senate’s current rules). When <span class="math inline">\(\eta\)</span> crosses <span class="math inline">\(K\)</span>, the probability function switches from <span class="math inline">\(\pi(\alpha)\)</span> to <span class="math inline">\(\pi(\alpha^*)\)</span>, with <span class="math inline">\(\alpha^* &lt; \alpha\)</span>, which scales up the probability.</p>
+<p>Under WS<sub>K</sub>, the expected benefits are:</p>
+<p><span class="math display">\[
+EB_K =
+\begin{cases}
+\pi(\alpha)B &amp; \text{if } \eta &lt; K \\
+\pi(\alpha^*)B &amp; \text{if } \eta ≥ K
+\end{cases}
+\]</span></p>
+<p><a href="#fig-ws-comp" class="quarto-xref">Figure&nbsp;1</a> below illustrates how the expected benefits to the LE vary with the size of the supporting coalition. The plot on the left shows a Senate without a cloture rule, and the plot on the right shows a Senate with a cloture rule. <span class="citation" data-cites="wawroFilibusterObstructionLawmaking2006">Wawro &amp; Schickler (<a href="#ref-wawroFilibusterObstructionLawmaking2006" role="doc-biblioref">2006, p. 217</a>)</span> found that an <span class="math inline">\(\alpha\)</span> around 0.25 best fit the Senate of the late-19th and early-20th centuries.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ws-comp" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ws-comp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="senate_coalitions_final_paper_files/figure-html/fig-ws-comp-1.png" class="lightbox" data-glightbox="description: .lightbox-desc-1" data-gallery="quarto-lightbox-gallery-1"><img src="senate_coalitions_final_paper_files/figure-html/fig-ws-comp-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ws-comp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Proponents’ expected benefits without (left) and with (right) a cloture rule
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="an-agent-based-representation" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="an-agent-based-representation"><span class="header-section-number">4</span> An Agent-Based Representation</h2>
 <ul>
 <li>Rules of the model</li>
 <li>Justifications for rules</li>
@@ -131,24 +248,24 @@ ul.task-list li input[type="checkbox"] {
 <li>Simplifications and assumption</li>
 </ul>
 </section>
-<section id="results" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="results"><span class="header-section-number">4</span> Results</h2>
+<section id="results" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="results"><span class="header-section-number">5</span> Results</h2>
 <ul>
 <li>Experiments you ran (parameters, # of repetitions)</li>
 <li>Results from those experiments (include graphs)</li>
 <li>Empirical validation (if applicable)</li>
 </ul>
 </section>
-<section id="analysis-and-discussion" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="analysis-and-discussion"><span class="header-section-number">5</span> Analysis and Discussion</h2>
+<section id="analysis-and-discussion" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="analysis-and-discussion"><span class="header-section-number">6</span> Analysis and Discussion</h2>
 <ul>
 <li>Interpretation of results (include graphs)</li>
 <li>What emergent phenomena arose? (include screenshots)</li>
 <li>Implications</li>
 </ul>
 </section>
-<section id="conclusion" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6</span> Conclusion</h2>
+<section id="conclusion" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7</span> Conclusion</h2>
 <ul>
 <li>What would future work on this look like?</li>
 <li>What might you suggest for further validation?</li>
@@ -157,11 +274,32 @@ ul.task-list li input[type="checkbox"] {
 </section>
 
 
-<div id="quarto-appendix" class="default"><section id="references" class="level2 appendix" data-number="7"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">7</span> References</h2><div class="quarto-appendix-contents">
+
+<div id="quarto-appendix" class="default"><section id="references" class="level2 appendix" data-number="8"><h2 class="anchored quarto-appendix-heading"><span class="header-section-number">8</span> References</h2><div class="quarto-appendix-contents">
 
 <!-- * Cite relevant papers -->
 <!-- * Remember to cite software and models (citation for NetLogo is below; find the citation for any Models Library models you used as reference in the INFO tab) -->
-</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{feinleib2024,
+<div class="hidden" aria-hidden="true">
+<span class="glightbox-desc lightbox-desc-1">Figure&nbsp;1: Proponents’ expected benefits without (left) and with (right) a cloture rule</span>
+</div>
+
+</div></section><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-feinleibRedesigningFilibusterMore2024" class="csl-entry" role="listitem">
+Feinleib, M. H. (2024). <em>Redesigning the filibuster for more effective lawmaking in a polarized Senate</em> [Northwestern University]. <a href="https://feinleib.quarto.pub/redesigning-the-filibuster-2024/">https://feinleib.quarto.pub/redesigning-the-filibuster-2024/</a>
+</div>
+<div id="ref-kogerFilibusteringPoliticalHistory2010" class="csl-entry" role="listitem">
+Koger, G. (2010). <em>Filibustering: A political history of obstruction in the House and Senate</em>. University of Chicago Press.
+</div>
+<div id="ref-wawroFilibusterObstructionLawmaking2006" class="csl-entry" role="listitem">
+Wawro, G. J., &amp; Schickler, E. (2006). <em>Filibuster: Obstruction and lawmaking in the U.S. Senate</em>. Princeton University Press.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><span class="math inline">\(K\)</span> stands for cloture because <span class="math inline">\(C\)</span> refers to costs in my model. Wawro and Schickler also present a model without a cloture rule (labeled WS in <span class="citation" data-cites="feinleibRedesigningFilibusterMore2024">Feinleib (<a href="#ref-feinleibRedesigningFilibusterMore2024" role="doc-biblioref">2024</a>)</span>); I am skipping that model for brevity.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For simplicity, WS ignores the case of a tie. In my agent-based model, I require bills to have strictly more than 50 votes to pass.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{feinleib2024,
   author = {Feinleib, Max H.},
   title = {Senate {Coalitions}},
   date = {2024-06-03},
@@ -559,6 +697,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":false});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
+        }
+      }
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
 
 
 

@@ -41,6 +41,8 @@ citation: true
 #| message: false
 
 ## packages used
+library(knitr)
+library(rlang)
 ```
 
 
@@ -54,7 +56,209 @@ citation: true
 
 * Existing work on the phenomenon
 
-## Model Design
+## The Underlying Model
+The Senate Coalitions model is an agent-based representation of the equation-based model of legislative coalitions by @feinleibRedesigningFilibusterMore2024, which is in turn an expansion of Wawro and Schickler's [-@wawroFilibusterObstructionLawmaking2006] model of legislative entrepreneurship under cloture. Thus, understanding these models is essential for understanding many elements of the agent-based model. I will now proceed to describe those models, naturally borrowing heavily from the original papers.
+
+As emphasized by Koger [-@kogerFilibusteringPoliticalHistory2010], the key factors in senators' decision-making during legislative fights are the relative costs and benefits of the different strategies available to them in such fights. Thus, to predict the outcomes of legislative battles, I compare the relative utilities of bill proponents and obstructionists under various rules environments.
+
+### The Benefits for Proponents
+Wawro and Schickler [-@wawroFilibusterObstructionLawmaking2006] model the expected benefits of bill proponents under the Senate cloture rule. This model, which I refer to as WS~K~,^[$K$ stands for cloture because $C$ refers to costs in my model. Wawro and Schickler also present a model without a cloture rule (labeled WS in @feinleibRedesigningFilibusterMore2024); I am skipping that model for brevity.] focuses on a legislative entrepreneur (LE) who receives benefits from passing their bills. The LE may add legislators to a coalition supporting their bill, which increases the probability that their proposal passes. However, growing the coalition decreases the benefits of passing the bill, as the LE may have to make compromises or share credit to gain additional support. Thus, legislative entrepreneurs face a trade-off when forming their proponent coalition.
+
+The WS model is based on the following fundamentals:
+
+* $\eta$: The size of the supporting coalition, as a proportion. 
+  * $\eta$ is restricted to $\eta \in [.5, 1]$, as any bill must have at least majority support to pass. ^[For simplicity, WS ignores the case of a tie. In my agent-based model, I require bills to have strictly more than 50 votes to pass.]
+  
+* $\pi$: The probability the bill passes, which is a function of $\eta$:
+$$
+\pi(\alpha) = \left( \frac{\eta - .5}{.5} \right) ^ \alpha
+$$
+
+  * $\alpha$ is a parameter indicating how much each additional coalition member contributes to the probability of passage. In effect, this parameter controls the steepness of the $\pi$ curve. A higher value of $\alpha$ means that it takes more legislators in the supporting coalition to reach the same probability of passing a bill.
+    * $\alpha \in (0, 1]$, so that as $\alpha$ increases toward 1, each additional legislator in the supporting coalition has a larger impact on the probability of passage.
+  * $\pi$ is strictly increasing in $\eta$. Note that when $\eta = .50$, $\pi = 0$ (i.e., you need at least a minimum majority to pass a bill), and when $\eta = 1$, $\pi = 1$ (i.e., a bill with unanimous support is guaranteed to pass).
+  
+* $B$: The benefits to the LE of passing their bill, which is also a function of $\eta$. The benefits to the LE diminish as they add more supporters, as the LE may have to make compromises on the policy content of the bill or share credit with a larger group of supporters.
+$$
+B = \frac{1 - \eta}{.5}
+$$
+  * That is, $B$ linearly decreases from 1 to 0 as $\eta$ increases over $(0.5, 1]$.
+  
+  * Also, WS~K~ sets $B = 0$ if the proposal doesn't pass.
+  
+* $EB$: The expected benefits for the LE, which is simply the probability of passage multiplied by the benefits of passage:
+$$
+EB = \pi B
+$$
+
+Since $\pi$ is an increasing function in $\eta$, and $B$ is a decreasing function in $\eta$, there is an inherent tradeoff in forming an optimally sized coalition.
+
+Finally, WS~K~ represents the Senate cloture rule as an increase in the passage probability when the supporting coalition clears the cloture threshold, $K$ (which is 0.60 under the Senate’s current rules).
+When $\eta$ crosses $K$, the probability function switches from $\pi(\alpha)$ to $\pi(\alpha^*)$, with $\alpha^* < \alpha$, which scales up the probability.
+
+Under WS~K~, the expected benefits are:
+
+$$
+EB_K = 
+\begin{cases}
+\pi(\alpha)B & \text{if } \eta < K \\
+\pi(\alpha^*)B & \text{if } \eta ≥ K
+\end{cases}
+$$
+
+@fig-ws-comp below illustrates how the expected benefits to the LE vary with the size of the supporting coalition. The plots on the left show a Senate without a cloture rule, and those on the right show a Senate with a cloture rule. @wawroFilibusterObstructionLawmaking2006 [p. 217] found that an $\alpha$ around 0.25 best fit the Senate of the late-19th and early-20th centuries, when the original cloture rule was introduced.
+The plot shows how a cloture rule created a sharp increase in benefits at the 60-vote threshold. Thus, the WS~K~ model predicts that legislative entrepreneurs will seek supporting coalitions just large enough to clear the cloture threshold.
+
+```{r WS helper functions}
+prob_pass <- function(x, alpha) ((x - 0.5) / 0.5) ^ alpha
+benefits <- function(x) (1 - x) / 0.5
+eb_pass <- function(x, alpha) prob_pass(x, alpha) * benefits(x)
+
+## plotting helpers
+# linetypes legend
+plot_legend <- function(x, y, linetypes, cex = 1) {
+  legend(
+    x = x, y = y, 
+    legend = c(expr(pi), "B", 
+               # EB or EB_K
+               expr(!!parse_expr(gsub("_K", "[K]", names(linetypes)[3])))),
+    lty = c(linetypes$pi, linetypes$B, linetypes$EB),
+    box.col = "white",
+    cex = cex
+  )
+}
+
+# plot frame (empty plot)
+plot_frame <- function(main, label_cex = 1) {
+  plot(NULL, xlim = c(0.51, 1), ylim = c(0,1),
+       xlab = "Coalition size", 
+       ylab = "Probability of passage/expected benefits",
+       main = main,
+       # control size of labels
+       cex.axis = label_cex,
+       cex.lab = label_cex,
+       cex.main = label_cex)
+  
+  # control size of axis tick labels
+  axis(1, cex.axis = label_cex)
+  axis(2, cex.axis = label_cex)
+}
+
+# plot curves
+plot_curves <- function(pi_fn, b_fn, eb_fn, linetypes, ...) {
+  curve(lapply(x, \(x) pi_fn(x, ...)), 
+        add = T, lty = linetypes$pi)
+  curve(b_fn,
+        add = T, lty = linetypes$B)
+  curve(lapply(x, \(x) eb_fn(x, ...)),
+        add = T, lty = linetypes$EB)
+}
+
+# plot max EB
+plot_max_eb <- function(eb_fn, label_cex = 1, ...) {
+  max_eb <- which.max(vapply(X = seq(0.51, 1, 0.01), 
+                             FUN = \(x) eb_fn(x, ...),
+                             FUN.VALUE = numeric(1))) * 0.01 + 0.5
+  points(max_eb, eb_fn(max_eb, ...), 
+         # diamond shape
+         pch = 18, 
+         cex = 2 * label_cex)
+}
+```
+
+```{r WS_K helper functions}
+prob_pass_k <- function(x, alpha, alpha_star, k) {
+  ifelse(x < k,
+         prob_pass(x, alpha),
+         prob_pass(x, alpha_star))
+}
+
+eb_pass_k <- function(x, alpha, alpha_star, k) {
+  prob_pass_k(x, alpha, alpha_star, k) * benefits(x)
+}
+```
+
+```{r main plotting functions}
+plot_eb <- function(alpha,
+                    leg_x = 0.85, leg_y = 0.75, 
+                    pdf_cex = 0.7, html_cex = 1,
+                    pdf_label_cex = 0.8, html_label_cex = 1) {
+  linetypes <- list(pi = "dashed",
+                    B = "dotted",
+                    EB = "solid")
+  
+  label_cex <- ifelse(knitr::is_latex_output(),
+                      pdf_label_cex,
+                      html_label_cex)
+  legend_cex <- ifelse(knitr::is_latex_output(),
+                       pdf_cex,
+                       html_cex)
+  
+  # plot frame
+  plot_frame(main = expr(paste(alpha, " = ", !!alpha)),
+             label_cex = label_cex)
+  # plot curves (pi, B, EB)
+  plot_curves(pi_fn = prob_pass, b_fn = benefits, eb_fn = eb_pass, 
+              linetypes = linetypes, alpha = alpha)
+  # plot linetype legend
+  plot_legend(x = leg_x, y = leg_y, linetypes = linetypes,
+              # control legend size depending on output format
+              cex = legend_cex)
+  # plot max EB
+  plot_max_eb(eb_pass, alpha = alpha, label_cex = label_cex)
+}
+
+plot_eb_k <- function(alpha, alpha_star, k,
+                      leg_x = 0.8, leg_y = 0.75, 
+                      pdf_cex = 0.7, html_cex = 1,
+                      pdf_label_cex = 0.8, html_label_cex = 1) {
+  linetypes <- list(pi = "dashed",
+                    B = "dotted",
+                    EB_K = "solid")
+  
+  label_cex <- ifelse(knitr::is_latex_output(),
+                      pdf_label_cex,
+                      html_label_cex)
+  legend_cex <- ifelse(knitr::is_latex_output(),
+                       pdf_cex,
+                       html_cex)
+  
+  # plot frame
+  plot_frame(main = expr(paste(alpha, " = ", !!alpha, ", ",
+                               alpha, "*", " = ", !!alpha_star)),
+             label_cex = label_cex)
+  # plot curves (pi, B, EB_K)
+  plot_curves(pi_fn = prob_pass_k, b_fn = benefits, eb_fn = eb_pass_k, 
+              linetypes = linetypes, alpha = alpha, 
+              k = k, alpha_star = alpha_star)
+  # plot linetype legend
+  plot_legend(x = leg_x, y = leg_y, linetypes = linetypes,
+              # control legend size depending on output format
+              cex = legend_cex)
+  # plot max EB
+  plot_max_eb(eb_pass_k, 
+              alpha = alpha, alpha_star = alpha_star, k = k,
+              label_cex = label_cex)
+}
+```
+
+```{r plot WS vs WS_K}
+#| label: fig-ws-comp
+#| fig-cap: "Proponents' expected benefits without (left) and with (right) a cloture rule"
+#| fig-asp: 1.1
+
+par(mfrow = c(2,2))
+
+plot_eb(0.1)
+plot_eb_k(alpha = 0.1, alpha_star = 0.05, k = 0.60)
+plot_eb(alpha = 0.25)
+plot_eb_k(alpha = 0.25, alpha_star = 0.1, k = 0.60)
+```
+
+### The Benefits for Obstructionists
+
+
+## An Agent-Based Representation
 
 * Rules of the model
 * Justifications for rules
