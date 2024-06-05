@@ -17,6 +17,7 @@ date-format: long
 format: 
   html:
     toc: true
+    lightbox: true
   pdf:
     linestretch: 1.8
     # indent: true
